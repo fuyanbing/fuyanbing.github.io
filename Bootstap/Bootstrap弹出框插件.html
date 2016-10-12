@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+	<title>Bootstrap 表单</title>
+	<!--引入 Bootstarp-->
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+	<script type="text/javascript" src="js/jquery.js" ></script>
+	<script type="text/javascript" src="js/bootstrap.js" ></script>
+		
+	<!--HTML5 Shim 和 Respond.js 用于让IE8支持HTML5元素和媒体查询-->
+	<!--注意，如果通过 file:// 引入 Respond.js 文件，则该文件无法起效果-->
+	<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+	<![endif]-->
+</head>
+<body>
+
+
+<div class="container" style="padding: 150px;">
+	<button type="button" class="btn btn-default" title="Popover title" data-container = "body" data-toggle = "popover" data-placement = "left" data-content = "左侧的 Popover 中的一些内容">
+		左侧的 Popover
+	</button>
+	<button type="button" class="btn btn-primary" title="Popover title" data-container = "body" data-toggle = "popover" data-placement = "top" data-content = "顶部的 Popover 中的一些内容">
+		顶部的 Popover
+	</button>
+	<button type="button" class="btn btn-success" title="Popover title" data-container = "body" data-toggle = "popover" data-placement = "bottom" data-content = "底部的 Popover 中的一些内容">
+		底部的 Popover
+	</button>
+	<button type="button" class="btn btn-danger" title="Popover title" data-container = "body" data-toggle = "popover" data-placement = "right" data-content = "右侧的 Popover 中的一些内容">
+		右侧的 Popover
+	</button>
+</div>
+<script>
+	$(function () {
+		$("[data-toggle='popover']").popover();
+	})
+</script>
+
+<div class="container" style="padding: 150px;">
+	<button type="button" class="btn btn-default popover-show" title="Popover title" data-container = "body"  data-placement = "left" data-content = "左侧的 Popover 中的一些内容 —— show 方法">
+		左侧的 Popover
+	</button>
+	<button type="button" class="btn btn-primary popover-hide" title="Popover title" data-container = "body"  data-placement = "top" data-content = "顶部的 Popover 中的一些内容 ——hide 方法">
+		顶部的 Popover
+	</button>
+	<button type="button" class="btn btn-success popover-destroy" title="Popover title" data-container = "body"  data-placement = "bottom" data-content = "底部的 Popover 中的一些内容 —— destroy 方法">
+		底部的 Popover
+	</button>
+	<button type="button" class="btn btn-danger popover-toggle" title="Popover title" data-container = "body"  data-placement = "right" data-content = "右侧的 Popover 中的一些内容 —— toggle 方法">
+		右侧的 Popover
+	</button><br /><br /><br /><br />
+	<p class="popover-options">
+		<a href="#" type="button" class="btn btn-warning" title="<h2>Title</h2>" data-container= "body" data-content = "<h4>Popover 中的一些内容 —— options方法</h4>">
+		Popover
+		</a>
+	</p>
+</div>
+<script>
+	$(function () {
+		$('.popover-show').popover('show');
+		$('.popover-show').on('shown.bs.popover',function () {
+			alert("当显示时警告消息")
+		})
+		
+		$('.popover-hide').popover('hide');
+		$('.popover-destroy').popover('destroy');
+		$('.popover-toggle').popover('toggle');
+		$('.popover-options a').popover({html:true});
+	})
+</script>
+
+</body>
+</html>
