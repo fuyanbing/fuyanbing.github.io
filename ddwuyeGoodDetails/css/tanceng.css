@@ -1,0 +1,369 @@
+/***************弹层图片***********************/
+.da{
+    min-width: 320px;
+    max-width: 720px; 
+    _width:720px;
+    height: 100%;
+    overflow: hidden;
+    margin: 0 auto;
+}
+.tancengBox{
+    min-width: 320px;
+    max-width: 720px;
+    _width:720px;
+    height: 100%;
+    overflow: hidden;
+    margin: 0 auto;
+    background-image: url(../images/tancengBg.jpg);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+.tancengBoxLayer{
+    background-color: #000000;
+    height: 100%;
+    min-width: 320px;
+    max-width: 720px;
+    _width:720px;
+    opacity: 0.6;
+    filter:alpha(opacity=60);
+    position: fixed;
+    width: 100%;
+}
+.tancengBoxPic{
+    position: absolute;
+    z-index: 10;
+    top: 16%;
+    width: 100%;
+    max-width: 720px;
+}
+.choosePic{
+    width: 100%;
+    max-width: 720px;
+    height: 100%;
+}
+.tancengBoxPic img{
+    width: 100%;
+    min-width: 320px;
+    max-width: 720px;
+    _width:720px;
+}
+.tancengLine{
+    bottom: 0;
+    position: absolute;
+    max-width: 720px;
+    _width:720px;
+    min-width: 320px;
+    width: 100%;
+    z-index: 20;
+}
+.tancengLine01{
+    background-color: #dd2727;
+    height: 5px;
+    width: 25%;
+}
+/***********************弹层规格***************/
+.tcGuige{
+    min-width: 320px;
+    max-width: 720px; 
+    _width:720px;
+    overflow: hidden;
+    margin: 0 auto;
+    background-image: url(../images/bg.jpeg);
+    background-size:100% auto;
+}
+.tcGbg{
+    bottom: 0;
+    padding-bottom: 49px;
+    margin-top: 137px;
+    max-width: 720px;
+    width: 100%;
+    position: absolute;
+}
+.tcGg{
+    min-width: 320px;
+    max-width: 720px;
+    _width:720px;
+    overflow: hidden;
+    margin: 0 auto;
+}
+.tClock01{
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+.tClock01sub01{
+    padding-left: 3%;
+    position: absolute;
+ }
+.tClock01sub01 img{
+    background: #fff none repeat scroll 0 0;
+    border: 1px solid #e4e4e4;
+    border-radius: 5px;
+    padding: 1%;
+    width: 31%;
+}
+.tClock01sub02{
+    background: #fff none repeat scroll 0 0;
+    float: left;
+    margin-top:4%;
+    max-width: 720px;
+    padding-bottom:13%;
+    padding-left: 38%;
+    width: 100%;
+    box-sizing: border-box;
+}
+.tClock01sub02 div{
+    
+}
+.tClock01sub02P{
+    color: #dd2727;
+    font-size:16px;
+    font-weight: bold;
+    padding-top: 8%;
+}
+.tClock01sub02K,.tClock01sub02G{
+    color: #001723;
+    font-size: 15px;
+    padding-top: 1%;
+}
+.tClock01sub03{
+    margin-top: 15%;
+    padding: 2%;
+    position: absolute;
+    text-align: right;
+    width: 94%;
+}
+.tClock01sub03 img{
+    width: 8%;
+}
+.tClock02{
+    background-color: #ffffff;
+}
+.tClock02Tchoose a{
+    background: #f5f5f5 none repeat scroll 0 0;
+    border-radius: 5px;
+    color: #051b28;
+    display: inline-block;
+    font-size: 100%;
+    margin-left: 4%;
+    margin-top: 1%;
+    padding: 2% 5%;
+}
+.tClock02Tchoose01 a{
+    background: #ff6600 none repeat scroll 0 0;
+    border-radius: 5px;
+    color: #ffffff;
+    display: inline-block;
+    font-size: 100%;
+    margin-left: 4%;
+    margin-top: 1%;
+    padding: 2% 5%;
+}
+.tClock02Tchoose02 a{
+    background: #f5f5f5 none repeat scroll 0 0;
+    border-radius: 5px;
+    color: #cccccc;
+    display: inline-block;
+    font-size: 100%;
+    margin-left: 4%;
+    margin-top: 1%;
+    padding: 2% 5%;
+}
+.tClock02Title{
+    font-size: 130%;
+    padding-left: 4%;
+}
+.tClock02Line{
+    border-bottom: 1px solid #e5e5e5;
+    margin: 2% auto 1%;
+    width: 98%;
+}
+.tClock04{
+    background-color: #ffffff;
+    overflow: hidden;
+    padding: 1% 0;
+}
+.tClock04Title{
+    float: left;
+    font-size:130%;
+    padding-left: 4%;
+}
+.tClock04Number{
+    float: right;
+    width: 60%;
+    padding-right: 3%;
+}
+.tClock04Number div{
+    float: right;
+    text-align: center;
+}
+.tClock04Number01{
+}
+.footAdd02 a{
+    background-image: url(../images/tanceng02.png);
+}
+.footAdd01 a{
+    background-image: url(../images/tanceng01.png);
+}
+.tClock04Number01 a{
+    background-color:#e5e5e5;
+    display: block;
+    height: 30px;
+    width: 40px;
+    float: right;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 50%;
+    border-radius: 5px;
+}
+
+.tClock04Number02{
+    font-size: 16px; 
+    margin: 0 4%;
+    color: #4e4e4e;
+}
+.tcFoot{
+    width: 100%;
+    height: 49px;
+    text-align: center;
+    line-height: 49px;
+    font-size: 16px;
+    color: #ffffff;
+    position: fixed;
+    bottom: 0px;
+    display: flex;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -o-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+.tcFoot01{
+    flex:1;
+    -moz-box-flex:1;
+    -webkit-box-flex:1;
+    -o-box-flex:1;
+    -ms-flex:1;
+    text-align: center;
+    background-color: #FF6600;
+}
+.tcFoot02{
+    flex:1;
+    -moz-box-flex:1;
+    -webkit-box-flex:1;
+    -o-box-flex:1;
+    -ms-flex:1;
+    text-align: center;
+    background-color: #dd2727;
+}
+/*屏蔽背景层*/
+#divMsgBack
+{
+    display:none;
+    position:fixed;
+    _position:absolute;
+    top:0px;
+    left:0px;
+    width:100%;
+    height:100%;
+    background-color:#000;
+    opacity:0.5;
+    filter:Alpha(opacity=50);
+    _display:block;
+    _left:-10000px;
+    z-index:9999;
+}
+/*弹出层*/
+#divMsg
+{
+    display:none;
+    position:fixed;
+    bottom:0;
+    min-width: 360px;
+    width: 100%;
+    height:300px;
+    z-index:10000;
+}
+/*关闭按钮*/
+/*设置显示*/
+#msgBody #divMsgBack{
+    display:block;
+    _left:0px;
+}
+#msgBody #divMsg{
+    display:block;
+    _left:50%;
+}
+#msgBody{
+    _overflow:hidden;
+}
+/*弹出层*/
+#divMsg01
+{
+    display:none;
+    position:fixed;
+    bottom:0;
+    min-width: 360px;
+    height:300px;
+    z-index:10000;
+}
+/*关闭按钮*/
+/*设置显示*/
+#msgBody01 #divMsgBack01{
+    display:block;
+    _left:0px;
+}
+#msgBody01 #divMsg01{
+    display:block;
+    _left:50%;
+}
+#msgBody01{
+    _overflow:hidden;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
