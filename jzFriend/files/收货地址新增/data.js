@@ -1,6 +1,6 @@
 ﻿$axure.loadCurrentPage({
   "url":"收货地址新增.html",
-  "generationDate":new Date(1476943453106.4),
+  "generationDate":new Date(1476953264810.59),
   "isCanvasEnabled":false,
   "variables":["zjBianliang"],
   "page":{
@@ -116,7 +116,7 @@
                       "adaptiveStyles":{
 }}],
                   "images":{
-                    "normal~":"images/申请退款/u1.png"}},
+                    "normal~":"images/订单中心/u1.png"}},
 {
                   "id":"10c3a2e27e6e44dea2d0152ff80c2322",
                   "label":"",

@@ -1,6 +1,6 @@
 ﻿$axure.loadCurrentPage({
   "url":"书城目录.html",
-  "generationDate":new Date(1476943435211.37),
+  "generationDate":new Date(1476953256562.12),
   "isCanvasEnabled":false,
   "variables":["zjBianliang"],
   "page":{

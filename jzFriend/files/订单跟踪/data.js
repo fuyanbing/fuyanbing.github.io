@@ -1,6 +1,6 @@
 ﻿$axure.loadCurrentPage({
   "url":"订单跟踪.html",
-  "generationDate":new Date(1476943448140.11),
+  "generationDate":new Date(1476953261513.41),
   "isCanvasEnabled":false,
   "variables":["zjBianliang"],
   "page":{
@@ -481,7 +481,7 @@
               "adaptiveStyles":{
 }}],
           "images":{
-            "normal~":"images/订单中心/u47.png"}},
+            "normal~":"images/订单中心/u84.png"}},
 {
           "id":"fdf853f529784764a50ba9f78c675ff0",
           "label":"订单跟踪A",

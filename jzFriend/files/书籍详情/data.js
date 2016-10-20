@@ -1,6 +1,6 @@
 ﻿$axure.loadCurrentPage({
   "url":"书籍详情.html",
-  "generationDate":new Date(1476943450070.22),
+  "generationDate":new Date(1476953262703.47),
   "isCanvasEnabled":false,
   "variables":["zjBianliang"],
   "page":{
@@ -2186,7 +2186,7 @@
                                       "adaptiveStyles":{
 }}],
                                   "images":{
-                                    "normal~":"images/订单中心/u127.jpg"}}],
+                                    "normal~":"images/订单中心/u164.jpg"}}],
                               "style":{
                                 "fill":{
                                   "fillType":"solid",
@@ -2233,7 +2233,7 @@
                                       "adaptiveStyles":{
 }}],
                                   "images":{
-                                    "normal~":"images/订单中心/u149.jpg"}}],
+                                    "normal~":"images/订单中心/u186.jpg"}}],
                               "style":{
                                 "fill":{
                                   "fillType":"solid",
@@ -2280,7 +2280,7 @@
                                       "adaptiveStyles":{
 }}],
                                   "images":{
-                                    "normal~":"images/订单中心/u57.jpg"}}],
+                                    "normal~":"images/订单中心/u94.jpg"}}],
                               "style":{
                                 "fill":{
                                   "fillType":"solid",

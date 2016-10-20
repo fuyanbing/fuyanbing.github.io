@@ -1,6 +1,6 @@
 ﻿$axure.loadCurrentPage({
   "url":"退款详情.html",
-  "generationDate":new Date(1476943448602.14),
+  "generationDate":new Date(1476953261919.43),
   "isCanvasEnabled":false,
   "variables":["zjBianliang"],
   "page":{
@@ -481,7 +481,7 @@
               "adaptiveStyles":{
 }}],
           "images":{
-            "normal~":"images/订单中心/u47.png"}},
+            "normal~":"images/订单中心/u84.png"}},
 {
           "id":"1316fd72671540ec84437c5c16f329b5",
           "label":"我的消息",

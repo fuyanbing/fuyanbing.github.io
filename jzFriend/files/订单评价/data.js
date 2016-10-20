@@ -1,6 +1,6 @@
 ﻿$axure.loadCurrentPage({
   "url":"订单评价.html",
-  "generationDate":new Date(1476943447536.08),
+  "generationDate":new Date(1476953261260.39),
   "isCanvasEnabled":false,
   "variables":["zjBianliang"],
   "page":{
@@ -481,7 +481,7 @@
               "adaptiveStyles":{
 }}],
           "images":{
-            "normal~":"images/订单中心/u47.png"}},
+            "normal~":"images/订单中心/u84.png"}},
 {
           "id":"3c503bf604ae4e8fba717722e7adf73b",
           "label":"",

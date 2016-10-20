@@ -1,6 +1,6 @@
 ﻿$axure.loadCurrentPage({
   "url":"评价列表.html",
-  "generationDate":new Date(1476943450839.27),
+  "generationDate":new Date(1476953263137.5),
   "isCanvasEnabled":false,
   "variables":["zjBianliang"],
   "page":{

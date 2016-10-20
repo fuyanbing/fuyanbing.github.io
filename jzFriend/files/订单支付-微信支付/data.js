@@ -1,6 +1,6 @@
 ﻿$axure.loadCurrentPage({
   "url":"订单支付-微信支付.html",
-  "generationDate":new Date(1476943451698.32),
+  "generationDate":new Date(1476953263810.54),
   "isCanvasEnabled":false,
   "variables":["zjBianliang"],
   "page":{

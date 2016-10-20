@@ -1,6 +1,6 @@
 ﻿$axure.loadCurrentPage({
   "url":"订单支付-支付宝支付.html",
-  "generationDate":new Date(1476943452253.35),
+  "generationDate":new Date(1476953264067.55),
   "isCanvasEnabled":false,
   "variables":["zjBianliang"],
   "page":{
@@ -481,7 +481,7 @@
               "adaptiveStyles":{
 }}],
           "images":{
-            "normal~":"images/订单中心/u47.png"}},
+            "normal~":"images/订单中心/u84.png"}},
 {
           "id":"234f112cfe374a9a9e4ebf1b652c54ab",
           "label":"我的消息",

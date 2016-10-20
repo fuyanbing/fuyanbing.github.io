@@ -1,6 +1,6 @@
 ﻿$axure.loadCurrentPage({
   "url":"引导页.html",
-  "generationDate":new Date(1476943433943.3),
+  "generationDate":new Date(1476953256076.1),
   "isCanvasEnabled":false,
   "variables":["zjBianliang"],
   "page":{

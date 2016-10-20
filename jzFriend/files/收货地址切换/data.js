@@ -1,6 +1,6 @@
 ﻿$axure.loadCurrentPage({
   "url":"收货地址切换.html",
-  "generationDate":new Date(1476943452474.36),
+  "generationDate":new Date(1476953264263.56),
   "isCanvasEnabled":false,
   "variables":["zjBianliang"],
   "page":{

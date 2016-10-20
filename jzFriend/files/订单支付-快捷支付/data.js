@@ -1,6 +1,6 @@
 ﻿$axure.loadCurrentPage({
   "url":"订单支付-快捷支付.html",
-  "generationDate":new Date(1476943451476.3),
+  "generationDate":new Date(1476953263658.53),
   "isCanvasEnabled":false,
   "variables":["zjBianliang"],
   "page":{

@@ -1,6 +1,6 @@
 ﻿$axure.loadCurrentPage({
   "url":"收货地址管理.html",
-  "generationDate":new Date(1476943452632.37),
+  "generationDate":new Date(1476953264423.57),
   "isCanvasEnabled":false,
   "variables":["zjBianliang"],
   "page":{

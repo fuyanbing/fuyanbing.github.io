@@ -1,6 +1,6 @@
 ﻿$axure.loadCurrentPage({
   "url":"订单详情.html",
-  "generationDate":new Date(1476943447354.07),
+  "generationDate":new Date(1476953261070.38),
   "isCanvasEnabled":false,
   "variables":["zjBianliang"],
   "page":{
@@ -481,7 +481,7 @@
               "adaptiveStyles":{
 }}],
           "images":{
-            "normal~":"images/订单中心/u47.png"}},
+            "normal~":"images/订单中心/u84.png"}},
 {
           "id":"1316fd72671540ec84437c5c16f329b5",
           "label":"我的消息",
@@ -1499,7 +1499,7 @@
                               "adaptiveStyles":{
 }}],
                           "images":{
-                            "normal~":"images/订单中心/u57.jpg"}},
+                            "normal~":"images/订单中心/u94.jpg"}},
 {
                           "id":"6ed9b926a8e740eaab6fe4161ca56bf4",
                           "label":"",
@@ -1750,7 +1750,7 @@
                               "adaptiveStyles":{
 }}],
                           "images":{
-                            "normal~":"images/订单中心/u57.jpg"}},
+                            "normal~":"images/订单中心/u94.jpg"}},
 {
                           "id":"b4e68b5d876947ab97eb7a5e38664986",
                           "label":"",
@@ -1950,7 +1950,7 @@
                               "adaptiveStyles":{
 }}],
                           "images":{
-                            "normal~":"images/订单中心/u149.jpg"}},
+                            "normal~":"images/订单中心/u186.jpg"}},
 {
                           "id":"51483e87f4244684af9d323b3c8f2bf2",
                           "label":"",
@@ -2150,7 +2150,7 @@
                               "adaptiveStyles":{
 }}],
                           "images":{
-                            "normal~":"images/订单中心/u127.jpg"}},
+                            "normal~":"images/订单中心/u164.jpg"}},
 {
                           "id":"b4b7499def694ec28d27b70467e81db1",
                           "label":"",
@@ -2702,7 +2702,7 @@
                       "linkType":"current"}]}]}},
           "tabbable":true,
           "images":{
-            "normal~":"images/订单详情/u133.png"}},
+            "normal~":"images/订单中心/u237.png"}},
 {
           "id":"e09ca49917194e21a369f50dd0bede62",
           "label":"",

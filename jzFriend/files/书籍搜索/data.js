@@ -1,6 +1,6 @@
 ﻿$axure.loadCurrentPage({
   "url":"书籍搜索.html",
-  "generationDate":new Date(1476943440220.66),
+  "generationDate":new Date(1476953257656.19),
   "isCanvasEnabled":false,
   "variables":["zjBianliang"],
   "page":{

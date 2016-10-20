@@ -1,6 +1,6 @@
 ﻿$axure.loadCurrentPage({
   "url":"支付失败.html",
-  "generationDate":new Date(1476943453692.43),
+  "generationDate":new Date(1476953265219.62),
   "isCanvasEnabled":false,
   "variables":["zjBianliang"],
   "page":{
@@ -481,7 +481,7 @@
               "adaptiveStyles":{
 }}],
           "images":{
-            "normal~":"images/订单中心/u47.png"}},
+            "normal~":"images/订单中心/u84.png"}},
 {
           "id":"234f112cfe374a9a9e4ebf1b652c54ab",
           "label":"我的消息",
@@ -2811,7 +2811,7 @@
                       "adaptiveStyles":{
 }}],
                   "images":{
-                    "normal~":"images/申请退款/u1.png"}},
+                    "normal~":"images/订单中心/u1.png"}},
 {
                   "id":"ee5c35c8f8d347069e04dc50467cd821",
                   "label":"",

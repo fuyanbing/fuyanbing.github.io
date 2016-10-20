@@ -1,6 +1,6 @@
 ﻿$axure.loadCurrentPage({
   "url":"申请退款.html",
-  "generationDate":new Date(1476943448412.13),
+  "generationDate":new Date(1476953261739.42),
   "isCanvasEnabled":false,
   "variables":["zjBianliang"],
   "page":{
@@ -116,7 +116,7 @@
                       "adaptiveStyles":{
 }}],
                   "images":{
-                    "normal~":"images/申请退款/u1.png"}},
+                    "normal~":"images/订单中心/u1.png"}},
 {
                   "id":"ee5c35c8f8d347069e04dc50467cd821",
                   "label":"",
@@ -325,7 +325,7 @@
                   "images":{
                     "start~":"resources/images/transparent.gif",
                     "end~":"resources/images/transparent.gif",
-                    "line~":"images/申请退款/u9_line.png"}},
+                    "line~":"images/订单中心/u14_line.png"}},
 {
                   "id":"32179e64d079468e8857b9e73dade4aa",
                   "label":"退选2",
@@ -370,8 +370,8 @@
                       "adaptiveStyles":{
 }}],
                   "images":{
-                    "normal~":"images/申请退款/退选2_u10.png",
-                    "selected~":"images/申请退款/退选2_u10_selected.png"}},
+                    "normal~":"images/订单中心/1_u10.png",
+                    "selected~":"images/订单中心/1_u10_selected.png"}},
 {
                   "id":"2392fb684fd049e2b7b08bbb54a63fa4",
                   "label":"退选1",
@@ -417,8 +417,8 @@
                       "adaptiveStyles":{
 }}],
                   "images":{
-                    "normal~":"images/申请退款/退选2_u10.png",
-                    "selected~":"images/申请退款/退选2_u10_selected.png"}},
+                    "normal~":"images/订单中心/1_u10.png",
+                    "selected~":"images/订单中心/1_u10_selected.png"}},
 {
                   "id":"c0b1689a4fc74cb7a9b308bc14f454c7",
                   "label":"",
@@ -995,7 +995,7 @@
               "adaptiveStyles":{
 }}],
           "images":{
-            "normal~":"images/订单中心/u47.png"}},
+            "normal~":"images/订单中心/u84.png"}},
 {
           "id":"87997fddfc1047cebb46330b24dd6588",
           "label":"",
