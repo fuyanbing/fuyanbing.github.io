@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+<title>Mobile Cookbook</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<style>
+#someElm {
+	width: 100px;
+	height: 100px;
+	background:#ccc;
+	position:absolute;
+}
+</style>
+</head>
+<body>
+<div id="someElm"></div>
+<script src="jquery-1.5.2.min.js"></script>
+<script src="jquery.mobile-1.0a4.1.min.js"></script>
+<script type="text/javascript">
+	//绑定事件
+	$("#someElm").bind('touchstart',function (i) {
+		//阻止浏览器默认动作
+		i.preventDefault();
+		//获取触摸时触摸点的相对位置，其值为固定值，不会根据touchmove事件的移动而变化
+		//.originalEvent   .targetTouches[0]
+		var touchStart = i.originalEvent.targetTouches[0];
+		var touch_x = touchStart.pageX;
+		var touch_y = touchStart.pageY;
+		//获取触摸时容器的相对位置，其值为固定值，不会根据touchmove事件的移动而变化
+		var elm = $(this).offset();
+		$('#someElm').bind('touchmove',function(e){
+			//阻止浏览器的默认动作
+			e.preventDefault();
+			//获取焦点
+			var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
+			//分别定义事件发生后触摸位置
+			var x = touch.pageX - (touch_x - elm.left);
+			var y = touch.pageY - (touch_y - elm.top);
+			//改变容器的坐标
+			$(this).css('left', x+'px');
+			$(this).css('top', y+'px');
+		});
+	});
+</script>
+</body>
+</html>
+	
+
+
+ 
