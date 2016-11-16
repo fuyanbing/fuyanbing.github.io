@@ -1,0 +1,43 @@
+package com.vince.jdbc;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class JdbcQueryDemo {
+	//数据库连接地址
+	public final static String URL = "jdbc:mysql://localhost:3306/test";
+	public final static String USERNAME = "root";
+	public final static String PASSWORD = "root";
+	public final static String DRIVER = "com.mysql.jdbc.Driver";
+	
+	public static void query() {
+		try {
+			Class.forName(DRIVER);
+			Connection conn = DriverManager.getConnection(URL,USERNAME,PASSWORD);
+			String sql = "select id,name,age,description from person01";
+			Statement state = conn.createStatement();
+			ResultSet rs = state.executeQuery(sql);
+			while(rs.next()){
+				int id = rs.getInt(1);
+				String name = rs.getString(2);
+				int age = rs.getInt(3);
+				String description = rs.getString(4);
+				System.out.println("id="+id+",name"+name+",age"+age+",description"+description);
+			}
+			rs.close();
+			state.cancel();
+			conn.close();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	public static void main(String[] args) {
+		query();
+		System.out.println("seccess");
+	}
+}
