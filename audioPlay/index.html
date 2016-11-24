@@ -1,0 +1,116 @@
+<!doctype html>
+<html>
+  <head>
+	<title>Mobile Cookbook</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="js/jquery-1.4.2.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		$(function () {
+			$(".tu").click(function () {
+				$(".tu").removeClass("zanting");
+				var audios = $(this).children(".audio")[0];
+					if(audios.paused){
+						$(".audio").each(function(){
+						  this.pause();
+						 });
+						$(this).addClass("zanting");
+						audios.play();
+					}else{
+						audios.pause();
+					}
+			})
+		})
+	</script>
+  </head>
+  	<style type="text/css">
+	  	.bigBox{
+	  		 max-width: 720px; 
+	  		 overflow: hidden; 
+	  		 margin: 0 auto;
+	  	}
+	  	.bigBox table{
+	  		width: 100%;
+	  	}
+	  	.diyi{
+	  		width: 20%;
+	  	}
+	  	.er{
+	  		width: 30%;
+	  	}
+	  	.audio{
+	  		display: none;
+	  	}
+  		.tupian a,.tu a{
+  			/*width: 100%;*/
+  			height: 40px;
+  			display: block;
+  			background-size: 50% 100%;
+  			background-repeat: no-repeat;
+  			background-position: center center;
+  			outline: none;
+  		}
+  		.tu a{
+  			background-image: url(resources/shiting.png);
+  		}
+  		.zanting a{
+  			background-image: url(resources/zanting.png) !important;
+  		}
+  		.tupian a{
+  			background-image: url(resources/download.png);
+  		}
+  	</style>
+  <body>
+	
+	</body>
+	<div class="bigBox">
+	<table border="1"cellpadding="5"cellspacing="0">
+		<tr>
+			<th class="diyi">歌名</th>
+			<th class="diyi">作者</th>
+			<th class="er">试听</th>
+			<th class="er">下载</th>
+		</tr>
+		<tr>
+			<td>独角戏</td>
+			<td>许茹芸</td>
+			<td class="tu">
+				<a href="javascript:void(0);"></a>
+				<audio class="audio">
+				    <source src="http://ogd8du8tr.bkt.clouddn.com/%E8%AE%B8%E8%8C%B9%E8%8A%B8%20-%20%E7%8B%AC%E8%A7%92%E6%88%8F.mp3"></source>
+				</audio>
+			</td>
+			<td class="tupian">
+				<a href="http://ogd8du8tr.bkt.clouddn.com/%E8%AE%B8%E8%8C%B9%E8%8A%B8%20-%20%E7%8B%AC%E8%A7%92%E6%88%8F.mp3?attname="></a>
+			</td>
+		</tr>
+		<tr>
+			<td>全是爱</td>
+			<td>凤凰传奇</td>
+			<td class="tu">
+				<a href="javascript:void(0);"></a>
+				<audio class="audio">
+				    <source src="http://ogd8du8tr.bkt.clouddn.com/%E5%87%A4%E5%87%B0%E4%BC%A0%E5%A5%87%20-%20%E5%85%A8%E6%98%AF%E7%88%B1.mp3"></source>
+				</audio>
+			</td>
+			<td class="tupian">
+				<a href="http://ogd8du8tr.bkt.clouddn.com/%E5%87%A4%E5%87%B0%E4%BC%A0%E5%A5%87%20-%20%E5%85%A8%E6%98%AF%E7%88%B1.mp3?attname="></a>
+			</td>
+		</tr>
+		<tr>
+			<td>小苹果</td>
+			<td>筷子兄弟</td>
+			<td class="tu">
+				<a href="javascript:void(0);"></a>
+				<audio class="audio">
+				    <source src="http://ogd8du8tr.bkt.clouddn.com/%E5%B0%8F%E8%8B%B9%E6%9E%9C.mp3"></source>
+				</audio>
+			</td>
+			<td class="tupian">
+				<a href="http://ogd8du8tr.bkt.clouddn.com/%E5%B0%8F%E8%8B%B9%E6%9E%9C.mp3?attname="></a>
+			</td>
+		</tr>
+	</table>
+	
+	</div>
+</html>
