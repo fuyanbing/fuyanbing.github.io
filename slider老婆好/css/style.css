@@ -1,0 +1,98 @@
+*{
+	padding: 0;
+	margin: 0;
+}
+body{
+	background: #eee;
+}
+/*容器样式*/
+.photo_album{
+	position: relative;
+	width: 450px;
+	background-color: #FFFFFF;
+	border:1px solid #666;
+	margin: 20px auto;
+	padding: 20px;
+	border-radius: 3px;
+}
+/*相册显示样式*/
+#gallery{
+	background-color: #888888;
+	padding-bottom: 15px;
+	overflow: hidden;
+	position: relative;
+	border-radius: 10px;
+}
+#sets{
+	display: table;
+	list-style: none outside none;
+	margin: 10px auto;
+	overflow: hidden;
+}
+#sets li{
+	float: left;
+	margin-left: 10px;
+}
+#sets li a{
+	background-color:#000;
+    color:#fff;
+    cursor:pointer;
+    display:block;
+    font-size:14px;
+    font-weight:normal;
+    height:26px;
+    line-height:26px;
+    padding:10px 20px;
+    text-decoration:none;
+    border-radius:5px;
+    background: linear-gradient(#363636, #010101);
+}
+#sets li a:hover{
+	background-color:#ff6a11;
+	background: linear-gradient(#ff9317, #ff6a11);
+}
+#loading {
+    text-align:center;
+}
+#slider {
+    display:block;
+    margin:10px auto;
+}
+#thumbs {
+    list-style:none outside none;
+    margin:0 auto;
+    opacity:0.5;
+    overflow:hidden;
+    width:95%;
+    transition: bottom 0.5s ease-in-out;
+}
+#thumbs:hover {
+    opacity:1;
+    bottom:10px;
+}
+#thumbs li {
+    border:1px solid #888;
+    cursor:pointer;
+    float:left;
+    height:38px;
+    width:58px;
+}
+#thumbs li:hover {
+    border:1px solid #fff;
+}
+#thumbs li img {
+    width:100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
