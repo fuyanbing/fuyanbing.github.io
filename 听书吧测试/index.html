@@ -196,17 +196,17 @@
 //		$(".titleL").height(contentH);
 //		
 //		//点击事件
-//		var lis=$(".titleL li");
-//		var titleL=$(".titleL");
-//		var showHide=$(".showHide");
-//		var contentR=$("#contentR");
-//		lis.click(function () {
-//			lis.removeClass();
-//			$(this).addClass("titleLCfouse");
-//			showHide.eq(lis.index(this)).show().siblings().hide();
-//			contentR.scrollTop(0);
-//		});
-//		$(".titleL li:first").click();
+		var lis=$(".titleL li");
+		var titleL=$(".titleL");
+		var showHide=$(".showHide");
+		var contentR=$("#contentR");
+		lis.click(function () {
+			lis.removeClass();
+			$(this).addClass("titleLCfouse");
+			showHide.eq(lis.index(this)).show().siblings().hide();
+			contentR.scrollTop(0);
+		});
+		$(".titleL li:first").click();
 	})
 </script>
 	</body>
