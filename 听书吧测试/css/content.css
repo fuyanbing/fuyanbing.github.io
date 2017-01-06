@@ -59,7 +59,7 @@
     position: relative;
 }
 .showHide{
-	/*display: none;*/
+	display: none;
 	padding:0 3%;
 	/*position: absolute;*/
 }
