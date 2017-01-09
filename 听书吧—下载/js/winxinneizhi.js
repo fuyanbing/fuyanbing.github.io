@@ -33,12 +33,32 @@ $( ".tDownload a" ).click(function() {
 			$( "#dialog01" ).dialog( "open" );
 			//window.location.href="WCFriend://";
 //			window.open('WCFriend://', '_blank');
-			setTimeout(function() {
-				$( "#dialog01" ).dialog( "close" );
-			},15000);
+// 			setTimeout(function() {
+// 				$( "#dialog01" ).dialog( "close" );
+// 			},15000);
+			
+			var ifr = document.createElement('iframe');
+
+			ifr.src = 'WCFriend://';
+
+			ifr.style.display = 'none';
+
+			document.body.appendChild(ifr);
+
+			window.setTimeout(function(){
+
+			document.body.removeChild(ifr);
+			
 		}
 		//return false;
 	}
+	
+	
+	
+
+	
+	
+	
 });	
 	
 
