@@ -50,7 +50,7 @@ $( ".tDownload a" ).click(function() {
 			document.body.removeChild(ifr);
 			
 		}
-		//return false;
+		return false;
 	}
 	
 	
