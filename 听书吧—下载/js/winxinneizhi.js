@@ -15,7 +15,7 @@ $( "#dialog,#dialog01" ).dialog({
 	
 var ua = navigator.userAgent.toLowerCase();	
 if(/iphone|ipad|ipod/.test(ua)) {
-	$( ".tDownload a" ).attr("href","WCFriend://")
+	$( ".tDownload a" ).attr("href","https://itunes.apple.com/cn/app/id995642623")
 }
 
 	
@@ -30,27 +30,27 @@ $( ".tDownload a" ).click(function() {
 			$( "#dialog" ).dialog( "open" );
 		} else{
 			//第二步判断若不是苹果微信内置浏览器，则可直接打开APP，或者去下载
-			$( "#dialog01" ).dialog( "open" );
+			//$( "#dialog01" ).dialog( "open" );
 			//window.location.href="WCFriend://";
 //			window.open('WCFriend://', '_blank');
 // 			setTimeout(function() {
 // 				$( "#dialog01" ).dialog( "close" );
 // 			},15000);
+			window.location.href="WCFriend://";
+// 			var ifr = document.createElement('iframe');
+
+// 			ifr.src = 'WCFriend://';
+
+// 			ifr.style.display = 'none';
+
+// 			document.body.appendChild(ifr);
+
+// 			window.setTimeout(function(){
+
+// 			document.body.removeChild(ifr);
 			
-			var ifr = document.createElement('iframe');
-
-			ifr.src = 'WCFriend://';
-
-			ifr.style.display = 'none';
-
-			document.body.appendChild(ifr);
-
-			window.setTimeout(function(){
-
-			document.body.removeChild(ifr);
-			
-		}
-		return false;
+		}		
+//return false;
 	}
 	
 	
