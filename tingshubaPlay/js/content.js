@@ -14,20 +14,22 @@ $(function () {
 	$(".titleL li:first").click();
 	///////////////////////////////////////////////
 	
-	
-	//微信弹出层
-	$( "#dialog,#dialog01" ).dialog({
-		autoOpen: false,
-		modal: true,
-		show: {
-			effect: "blind",
-			duration: 500
-		},
-		hide: {
-			effect: "blind",
-			duration: 500
-		}
-	});	
+	var ua = navigator.userAgent.toLowerCase();	
+	if(/iphone|ipad|ipod/.test(ua)) {
+		//微信弹出层
+		$( "#dialog,#dialog01" ).dialog({
+			autoOpen: false,
+			modal: true,
+			show: {
+				effect: "blind",
+				duration: 500
+			},
+			hide: {
+				effect: "blind",
+				duration: 500
+			}
+		});
+	}
 	$( ".tDownload a" ).click(function() {
 		//第一步判断是否是苹果手机
 		var ua = navigator.userAgent.toLowerCase();	

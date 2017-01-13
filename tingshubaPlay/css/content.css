@@ -288,7 +288,11 @@ body {
 #dialog p {
 	word-break: break-all;
 }
+/*微信苹果弹出样式结束*/
 
+.dialog {
+	display: none;
+}
 #dialog span {
 	color: red;
 }
@@ -307,8 +311,3 @@ body {
 }
 
 
-/*微信苹果弹出样式结束*/
-
-.dialog {
-	display: none;
-}
