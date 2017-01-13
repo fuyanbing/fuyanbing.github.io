@@ -1,0 +1,167 @@
+.content {
+	float: left;
+	width: 85%; 
+}
+.content a, .navigation a {
+	text-decoration: none;
+	color: #777;
+}
+.content a:focus, .content a:hover, .content a:active {
+	text-decoration: underline;
+}
+.controls {
+    height: 30px;
+    line-height: 30px;
+    background: #eee;
+}
+.controls a {
+	padding: 5px;
+}
+.ss-controls {
+	float: left;
+}
+.nav-controls {
+	float: right;
+}
+.slideshow-container {
+	position: relative;
+	clear: both;
+}
+.loader {
+	background-image: url('loader.gif');
+	background-repeat: no-repeat;
+	background-position: center;
+	width: 100%;
+    height: 357px; /* This should be set to be at least the height of the largest image in the slideshow */
+}
+.slideshow {
+
+}
+.slideshow span.image-wrapper {
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+.slideshow a.advance-link {
+	display: block;
+}
+.slideshow a.advance-link:hover, .slideshow a.advance-link:active, .slideshow a.advance-link:visited {
+	text-decoration: none;
+}
+.slideshow img {
+	vertical-align: middle;
+	width: 100%;
+}
+.download {
+	float: right;
+}
+.caption-bg{
+	background-color: #000000;
+	height: 100px;
+	opacity: 0.6;
+}
+.caption-container {
+	position: relative;
+	clear: left;
+	width: 100%;
+	overflow: hidden;
+}
+span.image-caption {
+	display: block;
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+.caption {
+	padding: 12px;
+	color: #FFFFFF;
+}
+.caption a{
+    color: #27D;
+    text-decoration: none;
+}
+.image-title {
+	font-weight: bold;
+	font-size: 1.4em;
+}
+.image-desc {
+	line-height: 1.3em;
+	padding-top: 12px;
+}
+.navigation {
+	float: left;
+    margin-right: 0.5%;
+    width: 14%;
+}
+ul.thumbs {
+	clear: both;
+	margin: 0;
+	padding: 0;
+}
+ul.thumbs li {
+	float: left;
+	padding: 0;
+	margin-bottom: 5px;
+	list-style: none;
+}
+a.thumb {
+	padding: 2px;
+	display: block;
+	border: 1px solid #ccc;
+}
+ul.thumbs li.selected a.thumb {
+	background: #27D;
+}
+a.thumb:focus {
+	outline: none;
+}
+ul.thumbs img {
+	border: none;
+	display: block;
+	width: 100%;
+}
+.pagination {
+	clear: both;
+}
+.navigation .top {
+	margin-bottom: 12px;
+	height: 11px;
+}
+.navigation .bottom {
+	margin-top: 12px;
+}
+.pagination a, .pagination span.current, .pagination span.ellipsis {
+	display: block;
+	float: left;
+	margin-right: 2px;
+	padding: 4px 7px 2px 7px;
+	border: 1px solid #ccc;
+}
+.pagination a:hover {
+	background-color: #eee;
+	text-decoration: none;
+}
+.pagination span.current {
+	font-weight: bold;
+	background-color: #000;
+	border-color: #000;
+	color: #fff;
+}
+.pagination span.ellipsis {
+	border: none;
+	padding: 5px 0 3px 2px;
+}
+.addDel{
+	clear: left;
+    float: left;
+    text-align: center;
+    width: 85%;
+    padding-left: 15%;
+}
+.addDel a{
+	background-color: goldenrod;
+	padding:5px 10px;
+	color: #000000;
+	border-radius:3px ;
+}

@@ -1,0 +1,175 @@
+#container {
+	overflow: hidden;
+}
+.content {
+	clear: both;
+}
+
+.content a, .navigation a {
+	text-decoration: none;
+}
+.content a:hover, .content a:active {
+	text-decoration: underline;
+}
+
+.navigation a.pageLink {
+	height: 77px;
+	line-height: 77px;
+}
+
+.controls {
+	background: #eee none repeat scroll 0 0;
+    height: 30px;
+    line-height: 30px;
+}
+.controls a {
+	padding: 5px;
+}
+.ss-controls {
+	float: left;
+}
+.nav-controls {
+	float: right;
+}
+
+.slideshow-container{
+	width: 75%;
+}
+.slideshow-container {
+	clear: both;
+	float: left;
+	overflow: hidden;
+    position: relative;
+}
+.slideshow{
+}
+.loader {
+	height: 405px;
+    width: 100%;
+	background-image: url('loader.gif');
+	background-repeat: no-repeat;
+	background-position: center;
+}
+.imgLoading{
+	clear: both;
+	position: relative;
+}
+.slideshow span.image-wrapper {
+	display: block;
+	left: 0;
+    position: absolute;
+    top: 0;
+}
+.slideshow a.advance-link {
+	display: block;
+	line-height: 502px; /* This should be set to be at least the height of the largest image in the slideshow with padding */
+	text-align: center;
+}
+
+.slideshow a.advance-link:hover,
+.slideshow a.advance-link:active,
+.slideshow a.advance-link:visited {
+	text-decoration: none;
+}
+.slideshow a.advance-link:focus {
+	outline: none;
+}
+
+.slideshow img {
+	width: 100%;
+}
+.caption-container {
+	float: right;
+	width: 25%;
+	position: relative;
+	margin-top: 30px;
+}
+span.image-caption {
+	display: block;
+    position: absolute;
+    left: 0;
+    top: 20px;
+}
+.caption {
+	padding: 0 12px;
+}
+
+.image-title {
+	font-weight: bold;
+	font-size: 1.4em;
+}
+.image-desc {
+	line-height: 1.3em;
+	padding-top: 12px;
+}
+.download {
+	margin-top: 8px;
+}
+.photo-index {
+	padding: 0 12px;
+	overflow: hidden;
+}
+.navigation a.pageLink {
+	display: block;
+	position: relative;
+	float: left;
+	margin: 2px;
+	width: 16px;
+	background-position:center center;
+	background-repeat:no-repeat;
+}
+.navigation a.pageLink:focus {
+	outline: none;
+}
+
+ul.thumbs {
+	position: relative;
+	float: left;
+	margin: 0;
+	padding: 0;
+	padding-top: 10px;
+}
+ul.thumbs li {
+	float: left;
+	padding: 0;
+	margin: 2px;
+	list-style: none;
+}
+a.thumb {
+	padding: 1px;
+	display: block;
+}
+a.thumb:focus {
+	outline: none;
+}
+ul.thumbs img {
+	border: none;
+	display: block;
+	width: 90px;
+}
+.pagination {
+	display: none;
+}
+.pagination a, .pagination span.current, .pagination span.ellipsis {
+	position: relative;
+	display: block;
+	float: left;
+	margin-right: 2px;
+	padding: 4px 7px 2px 7px;
+	border: 1px solid #ccc;
+}
+.pagination a:hover {
+	text-decoration: none;
+}
+.pagination span.current {
+	font-weight: bold;
+}
+.pagination span.ellipsis {
+	border: none;
+	padding: 5px 0 3px 2px;
+}
+
+.gallery-gutter {
+	clear: both;
+	padding-bottom: 20px;
+}

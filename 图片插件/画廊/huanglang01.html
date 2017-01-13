@@ -1,0 +1,71 @@
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+		<title>画廊</title>
+		<link rel="stylesheet" href="css/basic.css" type="text/css" />
+		<link rel="stylesheet" href="css/galleriffic-1.css" type="text/css" />
+		<script type="text/javascript" src="js/jquery-1.3.2.js"></script>
+		<script type="text/javascript" src="js/jquery.galleriffic.js"></script>
+		<script type="text/javascript">
+			$(function () {
+				$('div.navigation').css({'width':'15%','float':'left'});
+				$('div.content').css('display','block');
+				$('#thumbs').galleriffic({
+					imageContainerSel:'#slideshow',
+					controlsContainerSel:'#controls',
+					numThumbs:12
+				})
+			})
+		</script>
+	</head>
+	<body>
+		<div id="page">
+			<div id="container">
+				<h1>Galleriffic 画廊01</h1>
+				
+				<!--目录-->
+				<div id="thumbs" class="navigation">
+					<ul class="thumbs noscript">
+						<li><a href="img/qinting01.jpg" class="thumb" title="Title #01">Title #01</a></li>
+						<li><a href="img/qinting02.jpg" class="thumb" title="Title #02">Title #02</a></li>
+						<li><a href="img/qinting03.jpg" class="thumb" title="Title #03">Title #03</a></li>
+						<li><a href="img/qinting04.jpg" class="thumb" title="Title #04">Title #04</a></li>
+						<li><a href="img/qinting05.jpg" class="thumb" title="Title #05">Title #05</a></li>
+						<li><a href="img/qinting06.jpg" class="thumb" title="Title #06">Title #06</a></li>
+						<li><a href="img/qinting07.jpg" class="thumb" title="Title #07">Title #07</a></li>
+						<li><a href="img/qinting08.jpg" class="thumb" title="Title #08">Title #08</a></li>
+						<li><a href="img/qinting09.jpg" class="thumb" title="Title #09">Title #09</a></li>
+						<li><a href="img/qinting10.jpg" class="thumb" title="Title #10">Title #10</a></li>
+						<li><a href="img/qinting11.jpg" class="thumb" title="Title #11">Title #11</a></li>
+						<li><a href="img/qinting12.jpg" class="thumb" title="Title #12">Title #12</a></li>
+						<li><a href="img/qinting13.jpg" class="thumb" title="Title #13">Title #13</a></li>
+						<li><a href="img/xinxilan01.jpg" class="thumb" title="Title #14">Title #14</a></li>
+						<li><a href="img/xinxilan02.jpg" class="thumb" title="Title #15">Title #15</a></li>
+						<li><a href="img/xinxilan03.jpg" class="thumb" title="Title #16">Title #16</a></li>
+						<li><a href="img/xinxilan04.jpg" class="thumb" title="Title #17">Title #17</a></li>
+						<li><a href="img/xinxilan05.jpg" class="thumb" title="Title #18">Title #18</a></li>
+						<li><a href="img/xinxilan06.jpg" class="thumb" title="Title #19">Title #19</a></li>
+						<li><a href="img/xinxilan07.jpg" class="thumb" title="Title #20">Title #20</a></li>
+						<li><a href="img/xinxilan08.jpg" class="thumb" title="Title #21">Title #21</a></li>
+						<li><a href="img/xinxilan09.jpg" class="thumb" title="Title #22">Title #22</a></li>
+						<li><a href="img/xinxilan10.jpg" class="thumb" title="Title #23">Title #23</a></li>
+					</ul>
+				</div>
+				
+				<!--相册显示容器区域-->
+				<div id="gallery" class="content">
+					<!--相册显示容器区域-->
+					<div id="controls" class="controls"></div>
+					<!--幻灯播放的容器-->
+					<div class="slideshow-container">
+						<!--进度显示DIV-->
+						<div id="loading" class="loader"></div>
+						<!--幻灯播放区域-->
+						<div id="slideshow" class="slideshow"></div>
+					</div>
+				</div>
+				<div style="clear: both;"></div>
+			</div>
+		</div>
+	</body>
+</html>
