@@ -14,8 +14,19 @@ $(function () {
 	$(".titleL li:first").click();
 	///////////////////////////////////////////////
 	
-	var ua = navigator.userAgent.toLowerCase();	
+
+	//声明标识确认微信还是苹果
+	var ua = navigator.userAgent.toLowerCase();
+	var pingguo = false;
+	var weixin = false;
 	if(/iphone|ipad|ipod/.test(ua)) {
+		pingguo = true;
+	}
+	if(ua.match(/MicroMessenger/i)=="micromessenger") {
+		weixin = true;
+	}
+	
+	if(pingguo) {
 		//微信弹出层
 		$( "#dialog,#dialog01" ).dialog({
 			autoOpen: false,
@@ -30,22 +41,33 @@ $(function () {
 			}
 		});
 	}
+	
+	
+	//下载按钮触发的事件
 	$( ".tDownload a" ).click(function() {
-		//第一步判断是否是苹果手机
-		var ua = navigator.userAgent.toLowerCase();	
-		if(/iphone|ipad|ipod/.test(ua)) {
-			//第二步判断是否是苹果版微信，若是则只能长按复制
-			if (ua.match(/MicroMessenger/i)=="micromessenger") {
-				$( "#dialog" ).dialog( "open" );
-			} else{
-				//第二步判断若不是苹果微信内置浏览器，则可直接打开APP，或者去下载
-				$( "#dialog01" ).dialog( "open" );
-				window.location.href="WCFriend://";
-				setTimeout(function() {
-					$( "#dialog01" ).dialog( "close" );
-				},15000);
-			}
+		//如果是苹果版微信，弹出红色复制
+		if (weixin && pingguo) {
+			$( "#dialog" ).dialog( "open" );
+			
 			return false;
+		//如果是苹果手机，掌中校园等弹出去苹果商店
+		} else if(pingguo){
+			$( "#dialog01" ).dialog( "open" );
+			window.open("WCFriend://","_self");
+			setTimeout(function() {
+				$( "#dialog01" ).dialog( "close" );
+			},15000);
+			
+			return false;
+		//如果是微信打开此网页弹出遮罩层
+		} else if(weixin){
+			$(".wenxinLayer").show();
+			
 		}
 	});
+	
+	//关闭微信遮罩层
+	$(".wenxinLayer").click(function () {
+		$(this).hide();
+	})
 })
