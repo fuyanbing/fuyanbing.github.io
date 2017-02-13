@@ -1,0 +1,289 @@
+/**
+ * 样式格式化
+ * */
+body, html, div, blockquote, img, label, p, h1, h2, h3, h4, h5, h6, pre, ul, ol,
+li, dl, dt, dd, a, fieldset{
+    margin: 0; 
+    padding: 0; 
+    border: 0; 
+}
+body, html{
+    font-family: "微软雅黑",arial;
+}
+//格式化样式开始
+//bigBox
+.bigBox(@xw:740px){
+    padding: .652rem;
+    max-width:@xw;
+    min-width: 320px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+//bigTitle
+.titleBox(@fs:1rem,@tc:#000,@nt:#8c8c8c){
+    width: 100%;
+    overflow: hidden;
+    .titleBig{
+        font-size:1.5*@fs;
+        color: @tc;
+    }
+    .titleNotes{
+        color:@nt;
+        padding-bottom:2*@fs;
+        padding-top:@fs;
+    }
+}
+/**
+ * 内容格式01    
+ * 适合类型，标题前面有border，图标
+ * */
+.content01(@fs:1rem,@c:#666,@bc:#78ABEA){
+    width: 100%;
+    overflow: hidden;
+    line-height: 1.5;
+    font-size: @fs;
+    color: @c;
+    padding-bottom:@fs/4;
+    margin-bottom: @fs;
+    border-left: 1px solid @bc;
+    .cTitle01{
+        font-weight: bold;
+        border-left: @fs/4 solid @bc;
+        padding-left:@fs/4 ;
+    }
+    .cContent01{
+        padding-left:@fs/2;
+        padding-top: @fs/2;
+    }
+}
+/**
+ * 内容格式02   
+ * 适合类型，标题(标题粗体可变色)内容
+ * */
+.content02(@fs:1rem,@tc:#666,@cc:#666){
+    width: 100%;
+    overflow: hidden;
+    line-height: 1.5;
+    font-size: @fs;
+    margin-bottom: @fs;
+    padding-bottom:@fs/4;
+    .cTitle02{
+        font-weight: bold;
+        color: @tc;
+    }
+    .cContent02{
+        padding-top: @fs/4;
+        color: @cc;
+    }
+    p{
+        margin-bottom:@fs/4;
+        white-space: pre-wrap;
+        &:last-child{
+            margin-bottom:0;
+        }
+    }
+}
+/*
+ *图片处理
+ * */
+.activityPic(@w:100%){
+    img{
+        width: @w;
+        margin-bottom:1rem/2;
+    }
+}
+/*
+ *粗体标题
+ * */
+.boldTitle(@fs:1rem,@fc:#666){
+    font-size: @fs;
+    color: @fc;
+    margin-bottom: @fs/2;
+    line-height: 1.5;
+    font-weight: bold;
+}
+/*
+ *单纯内容文字
+ * */
+.onlyFont(@fs:1rem,@fc:#666){
+    font-size: @fs;
+    color: @fc;
+    margin-bottom: @fs/2;
+    line-height: 1.5;
+}
+.fontColor(@c:red,@bd:bold){
+    color: @c;
+    font-weight: @bd;
+}
+/*
+ * 底部表格
+ * */
+.footFormBig{
+    margin: 3%;
+    background-color: #EFEFEF;
+    h3{
+        background-color: #2e88b6;
+        color: #FFFFFF;
+        text-align: center;
+        font-family: "微软雅黑";
+        padding: .5rem;
+        margin-bottom: .5rem;
+    }
+    .activity_form{
+        padding: 2% 0;
+        padding-bottom: 3%;
+        font-size: 1rem;
+        line-height: 1.5;
+    }
+    .form_block{
+        clear: both;
+        overflow: hidden;
+        padding-bottom: 0.75rem;
+        padding-left: 7%;
+        padding-right: 7%;
+    }
+    .block_input{
+        display: block;
+        padding-left: 10px;
+        width: 100%;
+        padding: .5rem .5rem;
+        font-size: 1rem;
+        line-height: 1.25;
+        color: #55595c;
+        background-color: #fff;
+        background-image: none;
+        -webkit-background-clip: padding-box;
+        background-clip: padding-box;
+        border: 1px solid #E6E6E6;
+        border-radius: .25rem;
+        box-sizing: border-box;
+    }
+    .Point01{
+        color: #999;
+        display: block;
+        margin-left: .275rem;
+        font-size: .875rem;
+    }
+    .Point02{
+        color: #a94442;
+        display: none;
+        margin-left: .275rem;
+        font-size: .875rem;
+    }
+    label {
+        display: inline-block;
+        font-size: 1rem;
+        line-height: 1.5;
+        font-size: 16px;
+        color: #373a3c;
+    }
+}
+.radioExpert{
+    display: inline;
+    div {
+        width: 30%;
+        float: left;
+    }
+}
+.btnDefault {
+    clear: both;
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+    display: inline-block;
+    padding: .375rem 1rem;
+    margin-bottom: 0;
+    font-size: .875rem;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+.btnChoose {
+    color: #fff;
+    background-color: #5bc0de;
+    border-color: #46b8da;
+}
+.activity_submit {
+    width: 94%;
+    margin: 0 3%;
+    -moz-user-select: none;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.25rem;
+    padding: 0.5rem 1rem;
+    vertical-align: middle;
+    white-space: nowrap;
+    background-color: #36a5de;
+    color: #FFFFFF;
+    text-align: center;
+    font-family: "微软雅黑";
+}
+/*
+ *个性样式_知心姐姐_logo,标题,序号,标题,小图片
+ * */
+.zxjj_gexing{
+    width: 100%;
+    overflow: hidden;
+    text-align: center;
+    .span1{
+        .boldTitle(@fc:#219C6C);
+    }
+    .span2{
+        .boldTitle(@fc:#555);
+        margin-top: 0.5rem;
+    }
+}
+
+/*
+ *知心姐姐 
+ * */
+.zxjj_Box{
+    .bigBox();
+    padding-top: 1rem;
+}
+.zxjj_Title_box{
+   .titleBox();
+}
+.zxjj_content1{
+   .content01(@c:#555,@bc:#FFD52F);
+}
+.zxjj_content2{
+    .content02(@tc:#FFA900,@cc:#555);
+}
+.zxjj_Pic{
+    .activityPic()
+}
+.zxjj_titleSub01{
+    .boldTitle(@fc:#219C6C)
+}
+.zxjj_titleSub02{
+    .boldTitle(@fc:#555)
+}
+.zxjj_titleSub03{
+    .onlyFont(@fc:#555)
+}
+.hddianliang{
+    .zxjj_gexing();
+}
+.cRed{
+    .fontColor(@c:#7b0c00);
+}
+.activityBox{
+    .footFormBig();
+}

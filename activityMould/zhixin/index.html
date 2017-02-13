@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<link rel="stylesheet" href="css/resetActivity.css" />
+	<script src="js/jquery-1.4.2.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+	$(function () {
+	//////////////////////////验证////////////////////////////////
+		var flag1 = false;
+		var flag2 = false;
+		//姓名验证
+		$(".activityName").blur(function (e) {
+			e.preventDefault;
+			var tN=$(this).val();
+			if(!(/^[\u4e00-\u9fa5]{2,4}$/.test(tN))){ 
+				$(this).siblings(".Point01").css("display","none");
+				$(this).siblings(".Point02").css("display","block");
+				flag1 = false;
+				return false;
+			}else{
+				$(this).siblings(".Point01").css("display","block");
+				$(this).siblings(".Point02").css("display","none");
+				flag1 = true;
+				return false;
+			}
+		});
+		////年龄选择
+		$(".btnDefault").click(function () {
+			$(this).addClass("btnChoose").siblings().removeClass("btnChoose");
+			var index = $(".btnDefault").index(this);
+			$(".form_radio input").eq(index).attr({"checked":"checked"}).siblings().removeAttr("checked");
+		});
+		//手机号码验证
+		$(".activityTel").blur(function (e) {
+			e.preventDefault;
+			var cT=$(this).val();
+			if(!(/^1[34578]\d{9}$/.test(cT))){ 
+				$(this).siblings(".Point01").css("display","none");
+				$(this).siblings(".Point02").css("display","block");
+				flag2 = false;
+				return false;
+			}else{
+				$(this).siblings(".Point01").css("display","block");
+				$(this).siblings(".Point02").css("display","none");
+				flag2 = true;
+				return false;
+			}
+		});
+
+		//////////////////////////弹出层////////////////////////////////	
+		//弹出
+		$("#activitySubmit").click(function(){
+			if(!flag1){
+				$(".activityName").siblings(".Point01").css("display","none");
+				$(".activityName").siblings(".Point02").css("display","block");
+				return false;
+			}else if(!flag2){
+				$(".activityTel").siblings(".Point01").css("display","none");
+				$(".activityTel").siblings(".Point02").css("display","block");
+				return false;
+			}else{
+				return true;
+			}
+		});	
+	});
+</script>
+<title>知心姐姐</title>
+</head>
+<body>
+<!--
+	作者：1204689638@qq.com
+	时间：2016-07-19
+	描述：主题右侧
+	类型：标题型
+-->
+<div class="zxjj_Box">
+	<div class="zxjj_Title_box">
+		<div class="titleBig"><span>【仅剩5个名额】“未来精英”中外联合培养计划 — 2017 年美国冬季班，报名情况18/23</span></div>
+		<div class="titleNotes">知心姐姐团队&nbsp;&nbsp;&nbsp;2016-11-04</div>
+	</div>
+	<div class="zxjj_content1">
+		<div class="cTitle01">时间：</div>
+		<div class="cContent01">2017 年 1 月 18 日 - 2 月 11 日（25 天）</div>
+	</div>
+	<div class="zxjj_content1">
+		<div class="cTitle01">活动关键词：</div>
+		<div class="cContent01">
+			美国私校+全真课堂<br />
+			小记者行动+国际志愿服务
+		</div>
+	</div>
+	<div class="zxjj_content1">
+		<div class="cTitle01">活动地点：</div>
+		<div class="cContent01">
+			美国西部旧金山、洛杉矶、圣地亚哥等地<br />
+			主办单位：中国国际旅行社总社有限公司<br />
+			教育培训：中国少年儿童新闻出版总社知心姐姐教育服务中心
+		</div>
+	</div>
+	<div class="zxjj_content2">
+		<div class="cTitle02">活动地点：</div>
+		<div class="cContent02">
+			<p>1、如何在中国基础教育背景下和世界教育接轨，培养一个世界人才、未来精英？</p>
+			<p>2、如何在应试教育体系中提高认识自我、团队合作、独立生存的能力？</p>
+			<p>3、如何深入了解发达国家少年儿童的成长环境和教育的核心理念？</p>
+			<p>4、华人遍布世界各地，想不想跟他们一起过一个意义非凡的中国年，守岁的同时在异国他乡传播中国文化？</p>
+		</div>
+	</div>
+	<div class="zxjj_Pic">
+		<img src="img/aty_zxjj_001.webp" />
+	</div>
+	<div class="zxjj_titleSub01">
+		2017年寒假，“知心姐姐”邀请你加入“未来精英”中外联合培养计划（2017年美国冬季班），还有最后5个名额，报名情况18/23。
+	</div>
+	<div class="zxjj_titleSub02">活动发起人 —— 知心姐姐曼云老师</div>
+	<div class="zxjj_Pic">
+		<img src="img/aty_zxjj_002.webp" />
+	</div>
+	<div class="zxjj_titleSub03">
+		她是一位妈妈、她做了十年“知心热线”主持人、她是国家首批二级心理咨询师、她做了十几年少年儿童教育培训工作、她有许多关于中国少年儿童心灵健康成长的创意设想并在不断实现。她认为：今天你把目光投向世界，明天世界把目光投向你！
+	</div>
+	<div class="zxjj_titleSub02">知心导师 —— 赵晓颖老师</div>
+	<div class="zxjj_Pic">
+		<img src="img/aty_zxjj_003.webp" />
+	</div>
+	<div class="zxjj_titleSub03">
+		她是一位老师，一位心理专家，一名资深志愿者。她喜欢微笑，也愿意把笑声给你；她乐于陪伴，帮助有困扰的孩子走出泥泞；她关注家庭，引领家长认识自我。 她认为：行走中体验，体验中学习，学习中成长。
+	</div>
+	<div class="hddianliang">
+		<img src="img/aty_zxjj_logo.webp" /><br />
+		<img src="img/aty_zxjj_heart.png" />
+		<div class="lvColor">
+			<div class="span1">活动亮点</div>
+			①<br />
+			<div class="span2">
+				\ 为期三周的美国本土课堂学习<br />
+				浸润纯正美语语境 /
+			</div>
+		</div><br />
+		<div class="" style="clear: both;">
+			
+		</div>
+	</div>
+	<div class="zxjj_Pic">
+		<img src="img/aty_zxjj_004.webp" />
+	</div>
+	<div class="zxjj_titleSub03">
+		你将在“知心姐姐”的带领下，入住美国中产家庭中独立生活、携手美国同龄伙伴、像一名美国本土学生一样走进学校课堂，认真学习、预热未来的美国学习生活
+	</div>
+	<div class="hddianliang">
+		<div class="lvColor">
+			②<br />
+			<div class="span2">
+				\ 践行国际志愿服务活动 /
+			</div>
+		</div>
+		<img src="img/aty_zxjj_heart.png"/>
+	</div>
+	<div class="zxjj_Pic">
+		<img src="img/aty_zxjj_005.webp" />
+	</div>
+	<div class="zxjj_titleSub03">
+		你将作为“‘知心姐姐’小志愿者”走进美国青少年校外实践基地，参与国际志愿服务活动。
+	</div>
+	<div class="hddianliang">
+		<div class="lvColor">
+			③<br />
+			<div class="span2">
+				\ 当“知心姐姐”小留学生<br />
+				走进斯坦福大学、南加州大学 /
+			</div>
+		</div>
+		<img src="img/aty_zxjj_heart.png"/>
+	</div>
+	<div class="zxjj_Pic">
+		<img src="img/aty_zxjj_006.webp" />
+	</div>
+	<div class="zxjj_titleSub03">
+		你将作为“‘知心姐姐’小留学生”走进斯坦福大学、南加州大学，与面试官面对面、和留学生座谈，正确自我定位、了解美国高校招生、预热美国留学。
+	</div>
+	<div class="hddianliang">
+		<div class="lvColor">
+			④<br />
+			<div class="span2">
+				\ “知心姐姐”小记者行动<br />
+				影视媒体、电台电视台、美国西部农场 /
+			</div>
+		</div>
+		<img src="img/aty_zxjj_heart.png"/>
+	</div>
+	<div class="zxjj_Pic">
+		<img src="img/aty_zxjj_007.webp" />
+	</div>
+	<div class="zxjj_titleSub03">
+		你将作为“‘知心姐姐’小记者”走进美国最权威的影视媒体、电台电视台、美国西部农场等地采访传媒、农业、科技等相关人物，了解美国媒体发展及农业科技等知识，向中少社国家级刊物投稿！
+	</div>
+	<div class="hddianliang">
+		<div class="lvColor">
+			⑤<br />
+			<div class="span2">
+				\ “知心姐姐”文化小使者<br />
+				举办“中国年”，推广中华传统文化 /
+			</div>
+		</div>
+		<img src="img/aty_zxjj_heart.png"/>
+	</div>
+	<div class="zxjj_Pic">
+		<img src="img/aty_zxjj_008.webp" />
+	</div>
+	<div class="zxjj_Pic">
+		<img src="img/aty_zxjj_009.webp" />
+	</div>
+	<div class="zxjj_titleSub03">
+		你将作为“‘知心姐姐’文化小使者”在大年三十向美国老师同学介绍中国文化，和当地华人华侨一起度过一次意义深远的中国年！
+	</div>
+	<div class="hddianliang">
+		<div class="lvColor">
+			⑥<br />
+			<div class="span2">
+				\ “知心姐姐”参观活动<br />
+				畅游迪士尼乐园   学会规划 /
+			</div>
+		</div>
+		<img src="img/aty_zxjj_heart.png"/>
+	</div>
+	<div class="zxjj_Pic">
+		<img src="img/aty_zxjj_010.webp" />
+	</div>
+	<div class="zxjj_titleSub03">
+		前往全球享誉盛名的第一家迪士尼乐园，迪士尼乐园堪称——全世界最快乐的地方。这里可有八个园区，你将和小伙伴一起规划游玩计划。
+	</div>
+	<div class="hddianliang">
+		<div class="lvColor">
+			⑦<br />
+			<div class="span2">
+				\ “知心姐姐”参观活动<br />
+				游览名胜建筑   感受生活艺术 /
+			</div>
+		</div>
+		<img src="img/aty_zxjj_heart.png"/>
+	</div>
+	<div class="zxjj_Pic">
+		<img src="img/aty_zxjj_011.webp" />
+	</div>
+	<div class="zxjj_titleSub03">
+		【小记者行动】踏上金门大桥，与外国友人侃侃中国——桥之都的辉煌历史，树立民族自豪感。
+<br /><br />
+在渔人码头感受美国人民日常生活的氛围，前往39号码头观看海豹。
+	</div>
+	<div class="hddianliang">
+		<div class="lvColor">
+			⑧<br />
+			<div class="span2">
+				\ “知心姐姐”参观活动<br />
+				游览名胜建筑   感受生活艺术 /
+			</div>
+		</div>
+		<img src="img/aty_zxjj_heart.png"/>
+	</div>
+	<div class="zxjj_Pic">
+		<img src="img/aty_zxjj_012.webp" />
+	</div>
+	<div class="zxjj_titleSub03">
+		【小记者行动】万国博览会遗址旧金山艺术宫，饱览世界科技、传统工艺，感受1939年万国汇聚旧金山的盛况，对比2010上海世博会，了解世界经济、科技、文化的繁荣发展，培养国际视野。
+	</div>
+	<div class="hddianliang">
+		<div class="lvColor">
+			⑨<br />
+			<div class="span2">
+				\ “知心姐姐”参观活动<br />
+				身临科罗拉多大峡谷 /
+			</div>
+		</div>
+		<img src="img/aty_zxjj_heart.png"/>
+	</div>
+	<div class="zxjj_Pic">
+		<img src="img/aty_zxjj_013.webp" />
+	</div>
+	<div class="zxjj_titleSub03">
+		科罗拉多大峡谷——世界七大自然奇景之一，体验“不识庐山真面目，只缘身在此山中”蕴含的道理，剥开大自然的鬼斧神工背后的地质科学坚果。
+	</div>
+	<div class="hddianliang">
+		<div class="lvColor">
+			⑩<br />
+			<div class="span2">
+				\ “知心姐姐”参观活动<br />
+				环球影城历险 检验团队力量  /
+			</div>
+		</div>
+		<img src="img/aty_zxjj_heart.png"/>
+	</div>
+	<div class="zxjj_Pic">
+		<img src="img/aty_zxjj_014.webp" />
+	</div>
+	<div class="zxjj_titleSub03">
+		美国环球影城，是世界上最大的电影、电视制片厂及以电影题材为主的主题公园。大金刚King Kong、大地震Earthquake、大白鲨The Jaws......这里影视与科技完美合体将刺痛你神经。
+	</div>
+	<div class="hddianliang">
+		<div class="lvColor">
+			⑪<br />
+			<div class="span2">
+				\“知心姐姐”参观活动<br />
+				探寻南美文化   感受军事历史 /
+			</div>
+		</div>
+		<img src="img/aty_zxjj_heart.png"/>
+	</div>
+	<div class="zxjj_Pic">
+		<img src="img/aty_zxjj_015.webp" />
+	</div>
+	<div class="hddianliang">
+		<img src="img/aty_zxjj_gz.webp" width="10%"/>
+		<div class="span1">知心关注</div>
+	</div>
+	<div class="zxjj_titleSub03">
+		独自一人前往陌生国度陌生学校陌生家庭，你有担心吗？“知心姐姐”用“四项保障”帮你顺利完成美国班学习！<br /><br />
+
+1、由专业老师提前模拟美国学校课程内容，提供学习资料，更顺利的适应美国学校的学习。<br /><br />
+
+2、帮你了解相关美国生活、文化、风俗、法律，更顺利的适应美国家庭，体验美国生活。<br /><br />
+
+3、美国私校全真课堂开始前，先由“知心姐姐”带领参观游览，以适应美国生活及饮食习惯；五天的课业结束后，周末“知心姐姐”将带你去畅游畅玩、分享一周的成长和问题，知心陪伴、快乐成长。<br /><br />
+
+4、上学期间“知心姐姐”老师全程在学校办公，你可以在需要的时候随时得到老师的帮助。<br /><br />
+	</div>
+	<div class="hddianliang">
+		<div class="span1">报名需知</div>
+	</div>
+	<div class="zxjj_titleSub03">
+		<span class="cRed">Ø 报名时间：</span>即日起报名，满额截至（只有5个名额，18/23）<br /><br />
+		<span class="cRed">Ø 签证：</span>将作为知心姐姐小记者受邀参与活动，活动美方邀请函，助力签证顺利通过。<br /><br />
+		<span class="cRed">Ø 营员要求：</span>希望感受纯正美国教育的6—18岁少年儿童。<br /><br />
+	</div>
+	<div class="activityBox">
+		<h3>
+			名额预约
+		</h3>
+		<form class="activity_form" action="" method="get">
+			<div class="form_block">
+				<!--<label>孩子姓名：</label>-->
+				<input class="block_input activityName" type="text" maxlength="4"placeholder="孩子姓名"/>
+				<span class="Point01">2-4位中文汉字</span>
+				<span class="Point02">姓名输入有误，请重新输入</span>
+			</div>
+			<div class="form_block">
+				<label style="float: left;">孩子性别：</label>
+				<div class="radioExpert">
+					<div>
+						<input type="radio" value="1" id="radio-1" name="expert" checked="checked"><label for="radio-1" class="">男</label>
+					</div>
+					<div>
+						<input type="radio" value="2" id="radio-2" name="expert"><label for="radio-2" class="">女</label>								
+					</div>
+				</div>
+			</div>
+			<div class="form_block">
+				<input class="btnDefault btnChoose" type="button" value="6-10岁" />
+				<input class="btnDefault" type="button"  value="11-14岁" />
+				<input class="btnDefault" type="button" value="15-18岁" />
+			</div>
+			<div class="activityFormBlock form_radio" style="display: none;">
+				<input type="radio" id="age1" name="age" value="1" checked="checked" /><label for="age1">6-10岁</label>
+				<input type="radio" id="age2" name="age" value="2"/><label for="age2">11-14岁</label>
+				<input type="radio" id="age3" name="age" value="3"/><label for="age3">15-18岁</label>
+			</div>
+			<div class="form_block">
+				<input class="block_input activityTel" type="tel"maxlength="11"placeholder="家长手机号"/>
+				<span class="Point01">手机号以1开头11位数字</span>
+				<span class="Point02">手机号输入有误，请重新输入</span>
+			</div>
+			<button id="activitySubmit" type="submit" class="activity_submit">报名咨询</button>
+		</form>
+	</div>
+</div>
+</body>
+</html>
