@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<!--datepicker插件的CSS链接-->
+		<link rel="stylesheet" type="text/css" href="css/jquery-ui-1.10.3.custom.css">
+		<!--jQuery库的引用-->
+		<script type="text/javascript" src="js/jquery-1.9.1.js"></script>
+		<!--jQuery UI自定义下载库的引用-->
+		<script type="text/javascript" src="js/jquery-ui-1.10.3.custom.js"></script>
+		<!--添加简体中文的日历-->
+		<script type="text/javascript" src="js/jquery.ui.datepicker-zh-CN.js"></script>
+		
+		<script type="text/javascript">
+			$(function () {
+				//调用datepicker插件在鼠标点击时显示日期选择框
+				$("#idDate").datepicker();
+				
+				//设置文本框的日期选择效果
+				$("#idDateIcon").datepicker({
+					//显示文本按钮
+					showOn:"button",
+					//文本按钮图标
+					buttonImage:"img/calendar.gif",
+					//仅显示图标，而不用在按钮上显示图标
+					buttonImageOnly:true,
+					//指定日期格式
+					dateFormat:"yy-mm-dd"
+				});
+				
+				//同时显示多个月份
+				$("#idMultiMonths").datepicker({
+					//同时显示3个月份的日期选择器
+					numberOfMonths:3,
+					//在日期底部显示按钮面板
+					showButtonPanel:true
+				});
+				
+				//日期限制
+				$("#idDateRange").datepicker({
+					//同时显示3个月份的日期选择器
+					numberOfMonths:3,
+					//在日期底部显示按钮面板
+					showButtonPanel:true,
+					//指定起始限制日期
+					minDate:new Date(2016,0,23),
+					maxDate:"+2M",
+				})
+				
+			})
+		</script>
+		
+		<style type="text/css">
+		   body,input{
+			   font-size:9pt;
+		   }
+		</style>
+	</head>
+	<body>
+		<label for="idDate">选择一个日期：</label>
+		<input type="text" name="idDate" id="idDate">
+		
+		
+		<div style="margin-top:50px">
+			<label for="idDate">使用图标选择，并更改日期格式：</label>
+			<input type="text" name="idDateIcon" id="idDateIcon">
+		</div>
+		
+		<div style="margin-top:50px">
+			<label for="idMultiMonths">同时显示多个月份：</label>
+			<input type="text" name="idMultiMonths" id="idMultiMonths">
+		</div>
+		
+		<div style="margin-top:50px">
+			<label for="idDateRange">设置日期限制：</label>
+			<input type="text" name="idDateRange" id="idDateRange">
+		</div>
+	</body>
+</html>
