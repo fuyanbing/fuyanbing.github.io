@@ -86,6 +86,12 @@
 				color: #090;
 				cursor: pointer
 			}
+			#showimg img{
+				width: 500px;
+			}
+			.top_title{
+				text-align: center;
+			}
 		</style>
 		<script type="text/javascript" src="js/jquery-1.7.2.js"></script>
 		<script type="text/javascript" src="js/jquery.form.js"></script>
@@ -134,7 +140,7 @@
 						},
 						success:function (data) {
 							files.html("<b>"+data.name+"("+data.size+"k)</b><span class='delimg' rel='"+data.pic+"'>删除</span>");
-							var img = "http://demo.helloweba.com/upload/files/"+ data.pic;
+							var img = "http://localhost/jqueryPlug-inStudy/html/07jQueryPhpUp/files/"+ data.pic;
 							showimg.html("<img src='"+img+"' />");
 							btn.html("添加附件");
 						},
