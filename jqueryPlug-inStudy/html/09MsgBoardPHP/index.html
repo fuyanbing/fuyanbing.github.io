@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>留言板</title>
+<link rel="stylesheet" type="text/css" href="lib/jquery.fancybox-1.3.4.css" />
+<link rel="stylesheet" type="text/css" href="css/bookstyle.css" />
+<!--JQ-->
+<script src="lib/jquery-1.4.3.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="lib/jquery.mousewheel-3.0.4.pack.js" type="text/javascript" charset="utf-8"></script>
+<script src="lib/jquery.fancybox-1.3.4.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery.form.js" type="text/javascript" charset="utf-8"></script>
+<style type="text/css">
+	#list li {
+		list-style: none;
+		font-size: 14px;
+		padding-top: 10px;
+	}
+	.tB {
+		background-color: #ff8a00;
+		border-color: #ea7f00;
+		box-sizing: border-box;
+		color: #ffffff;
+		font-size: 14px;
+		padding: 5px 10px;
+		text-decoration: none;
+		display: inline-block;
+		margin-top: 15px;
+		margin-left: 20px;
+		border-radius: 5px;
+		cursor: pointer;
+	}
+	.tA {
+		float: left;
+		display: inline-block;
+		font: normal 175% 'century gothic', arial, sans-serif;
+		color: #43423F;
+		margin: 0 0 15px 0;
+		padding: 15px 0 5px 0;
+	}
+</style>
+<script type="text/javascript">
+	var curPage = 1; //保存当前页码的全局变量
+	var total, pageSize, totalPage; //保存总记录数，页大小和总页数的全局变量
+	//使用jQuery的$.ajax函数，异步获取数据
+	function getData(page) {
+		$.ajax({
+			type: 'POST', //提交类型为post
+			url: 'list.php', //请求地址为list.php
+			data: { 'pageNum': page - 1 }, //页码数为传入的页码数
+			dataType: 'json', //请求类型为json
+			beforeSend: function() {
+				$("#list ul").append("<li id='loading'>加载中...</li>");
+			},
+			//成功获取到服务器端的响应后，将向页面的ul中添加元素
+			success: function(json) {
+				$("#list ul").empty(); //清空ul元素
+				total = json.total; //总记录数
+				pageSize = json.pageSize; //每页显示的条数
+				curPage = page; //当前页
+				totalPage = json.totalPage; //总页数
+				var li = "";
+				var list = json.list; //得到留言记录列表
+				$.each(list, function(index, array) { //遍历json数据列
+					//每一条留言构建一个li，在每一个li内部构建一个表格显示留言的详细信息
+					li += '<li><table width="100%" border="0" cellpadding="0" cellspacing="0">';
+					li += '<tr>'
+					li += '<th style="color: #338af9;" width="260" height="30" align="left"><span>标题:' + array['title'] + '</span></th>';
+					li += '<th width="435" align="left"><span style="color: #333;">留言人:' + array['name'] + '</span> <span style="color: #999;"> 时间: ' + array['time'] + '</span></th>';
+					li += '</tr>'
+					li += '<tr>'
+					li += '<td style="color: #000000; padding-bottom:15px" colspan="2" align="left" valign="top"> ' + array['content'] + '</td>';
+					li += '</tr>'
+					li += '</table> <hr/></li>';
+				});
+				//将构建的li追加到ul元素中
+				$("#list ul").append(li);
+			},
+			//在成功的完成请求后，更新页面底部的分页条
+			complete: function() {
+				getPageBar();
+			},
+			//在出现请求错误时提示数据加载失败
+			error: function() {
+				alert("数据加载失败");
+			}
+		});
+	}
+	//获取分页条
+	function getPageBar() {
+		//页码大于最大页数
+		if(curPage > totalPage) {
+			curPage = totalPage;
+		};
+		if(curPage < 1) {
+			curPage = 1;
+		};
+		pageStr = "<span> 共 " + total + "条</span><span>" + curPage + "/" + totalPage + "</span>";
+		//如果是第一页
+		if(curPage == 1) {
+			pageStr += "<span>首页</span><span>上一页</span>";
+		} else {
+			//为链接添加rel属性已记录分页位置
+			pageStr += "<span><a href='javascript:void(0)' rel='1'>首页</a></span><span><a href='javascript:void(0)' rel='" + (curPage - 1) + "'>上一页</a></span>";
+		}
+		//如果是最后页
+		if(curPage >= totalPage) {
+			pageStr += "<span>下一页</span><span>尾页</span>";
+		} else {
+			pageStr += "<span><a href='javascript:void(0)' rel='" + (parseInt(curPage) + 1) + "'>下一页</a></span><span><a href='javascript:void(0)' rel='" + totalPage + "'>尾页</a></span>";
+		}
+		//将HTML字符串插入到显示分页的容器div中
+		$("#pagecount").html(pageStr);
+	}
+	//分页点击事件
+	$(function() {
+		getData(curPage); //在页面加载时，获取当前页的数据
+		//为分页导航关联单击事件处理代码
+		$("#pagecount span a").live('click', function() {
+			//判断其是否存在rel属性
+			var rel = $(this).attr("rel");
+			if(rel) {
+				getData(rel); //如果存在，在单击时则调用getDate(rel) 异步的获取分页数据
+			}
+		});
+	});
+	//新添加留言事件
+	$(function() {
+		//显示一个插入新留言的表单提示框
+		$("#addnewmessage").fancybox({
+			'titlePosition': 'inside',
+			'transitionIn': 'none',
+			'transitionOut': 'none'
+		});
+		//设置表单提交按钮事件
+		var options = {
+			beforeSubmit: showRequest, //提交之前的回调函数
+			success: showResponse, //提交之后的回调函数
+			error: showerror,
+			//其他的可用的选项
+			url: 'add.php', //覆盖了form的action属性
+			type: 'post', //'get' 或者是"post",覆盖form的method属性
+			dataType: 'josn', //xml script json (依靠服务器返回类型进行设置)
+			clearForm: true, //在成功提交后清除所有的表单域内容
+			resetForm: true, //在成功提交后重置所有的表单域内容
+			timeout: 3000
+		};
+		//为表单关联AJAX提交方法
+		$("#guestform").ajaxForm(options);
+		//表单提交之前触发的事件
+		function showRequest(formData, jqForm, options) {
+			var queryString = $.param(formData);
+			//在这里可以进行表单验证，在此省略
+			return true;
+		}
+		//表单提交之后触发的事件
+		function showResponse(responseText, statusText, xhr, $form) {
+			//关闭fancybox窗口
+			$.fancybox.close();
+			//responseText包含了服务器端传回的json数据，在这里重新刷新留言列表数据
+			if(responseText['totalPage']) {
+				var pagetotal = responseText['totalPage'];
+				getData(pagetotal); //重新获取最后一页留言列表数据
+				curPage = pagetotal; //将当前页设置为最后一页
+			} else {
+				getData(1); //如果不存在totalPage元素，则返回第一页
+			}
+		}
+		//如果提交错误，则显示留言错误的消息
+		function showerror() {
+			alert('留言错误');
+		}
+	});
+</script>
+</head>
+<body>
+<div id="main">
+	<div id="header">
+		<div id="logo">
+			<div id="logo_text">
+				<h1>
+					<a href="">留言板 jq PHP MySQL</a>
+				</h1>
+				<h2>jQuery.form无刷新表单应用示例</h2>
+			</div>
+		</div>
+	</div>
+	<div id="site_content">
+		<div id="content">
+			<h1 class="tA">留言列表</h1>
+			<a class="tB" href="#inline1" id="addnewmessage">添加新留言</a>
+			<!--显示留言列表-->
+			<div id="list">
+				<!--显示留言列表的ul容器-->
+				<ul></ul>
+			</div>
+			<!--显示分页信息的容器-->
+			<div id="pagecount"></div>
+		</div>
+	</div>
+</div>
+<!--隐藏一个div，用来设置弹出式表单-->
+<div style="display: none;">
+	<div id="inline1" style="width: 500px; height: 300px; overflow: auto;">
+		<!--留言表单-->
+		<form action="add.php" id="guestform" method="post">
+			<div class="form_settings">
+				<p>
+					<span>标题：</span>
+					<input type="text" class="contact" name="ipt_title" value="" /> </p>
+				<p>
+					<span>留言着：</span>
+					<input type="text" class="contact" name="ipt_name" value="" /> </p>
+				<p>
+					<span>留言内容：</span>
+					<textarea name="ipt_content" rows="8" cols="50"></textarea>
+				</p>
+				<p style="padding-top: 15px;">
+					<input class="submit" name="contact_submitted" type="submit" value="提交留言" /> </p>
+			</div>
+		</form>
+	</div>
+</div>
+</body>
+</html>
