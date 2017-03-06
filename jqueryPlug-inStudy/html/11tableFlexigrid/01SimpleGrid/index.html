@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<!--Flexigrid表格所需要的CSS引用-->
+<link rel="stylesheet" type="text/css" href="css/flexigrid.css" />
+<!--页面的样式文件-->
+<link rel="stylesheet" type="text/css" href="css/bookstyle.css" />
+<!--页面所需要使用的jQuery库-->
+<script src="js/jquery-1.9.0.js" type="text/javascript" charset="utf-8"></script>
+<!--Flexigrid插件的引用-->
+<script src="js/flexigrid.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	$(function() {
+		var grid = $("#flex1").flexigrid({
+//			width: 760,
+			height: 280,
+			url: 'php/list.php',
+			dataType: 'json',
+			//定义留言显示的列
+			colModel: [{
+				display: '编号',
+				name: 'id',
+				width: 50,
+				sortable: true,
+				align: 'center',
+				hide: false,
+				toggle: false
+			}, {
+				display: '标题',
+				name: 'title',
+				width: 150,
+				sortable: false,
+				toggle: false
+			}, {
+				display: '内容',
+				width: 300,
+				name: 'content',
+				sortable: true,
+			}, {
+				display: '日期',
+				width: 200,
+				name: 'time',
+				sortable: true,
+				align: 'center',
+			}, {
+				display: '留言者',
+				width: 100,
+				name: 'name',
+				sortable: true,
+				align: 'center',
+			}],
+			//定义Flexigrid的工具栏按钮
+			buttons: [
+				{
+					name: '新增',
+					displayname: ' 新增',
+					bclass: 'add',
+					onpress: toolbarItem
+				}, { separator: true },
+				{
+					name: '编辑',
+					displayname: ' 编辑',
+					bclass: 'edit',
+					onpress: toolbarItem
+				}, { separator: true },
+				{
+					name: '删除',
+					displayname: ' 删除',
+					bclass: 'delete',
+					onpress: toolbarItem
+				}
+			],
+			//定义搜索栏
+			searchitems:[
+				{
+					display:'编号',
+					name:'id',
+					isdefault:true
+				},{
+					display:'标题',
+					name:'title',
+					isdefault:true
+				},{
+					display:'内容',
+					name:'content',
+					isdefault:true
+				},{
+					display:'留言者',
+					name:'name',
+					isdefault:true
+				},
+			],
+			errormsg:'发生异常',		//错误消息
+			sortname:"id",			//搜索字段
+			sortorder:"desc",		//排列顺序
+			usepager:true,			//使用分页
+			title:'留言系统',			//表格标题
+			findtext:'搜索',			//搜索文本
+			//分页记录
+			pagestat:'显示记录从{from}到{to},总数{total}条',
+			useRp:true,				//显示结果
+			rp:10,					//显示每页记录条数
+			//记录条数的选项
+			rpOptions:[10,15,20,30,40,100],		//页的行数信息
+			nomsg:'没有符合条件的记录存在',			//没检索到信息时候的信息
+			minColToggle:1,						//允许显示的最小列数
+			showTableToggleBtn:true,			//显示【显示隐藏Grid】的按钮
+			autoload:true,						//允许页面加载时自动加载
+			resizable:false,					//允许调整大小
+			procmsg:'加载中，请稍等...',			//读取页信息时候的信息
+			hideOnSubmit:true,					//显示遮罩
+			blockOpacity:0.5,					//透明度
+			showcheckbox:true,					//显示复选框
+			gridClass:"bbit-grid",				////样式
+			rowhandler:false,
+			rowbinddata:true,
+			onrowchecked:callme					//复选框选中时调用的事件
+			
+		});
+	});
+
+	function callme() {
+		alert("选中了");
+	}
+
+	function toolbarItem(com, grid) {
+		if(com == '删除') {
+			deleteMe();
+		} else if(com == '新增') {
+			openDialogAdd();
+		} else if(com == '编辑') {
+			openDialogModify();
+		}
+	}
+
+	function openDialogAdd() {
+		alert("新增");
+	}
+
+	function openDialogModify() {
+		alert("编辑");
+	}
+
+	function deleteMe() {
+		alert("删除");
+	}
+</script>
+<title>Flexigrid使用示例</title>
+</head>
+<body>
+<div id="main">
+	<div id="header">
+		<div id="logo">
+			<div id="logo_text">
+				<h1>
+					<a href="#">Flexigrid使用示例
+						<span class="logo_colour"></span>
+					</a>
+				</h1>
+				<h2>Flexigrid表格应用</h2>
+			</div>
+		</div>
+	</div>
+	<div id="site_content">
+		<div id="content">
+			<!--显示HTML表格-->
+			<table id="flex1" style="display: none;"></table>
+		</div>
+	</div>
+</div>
+</body>
+</html>

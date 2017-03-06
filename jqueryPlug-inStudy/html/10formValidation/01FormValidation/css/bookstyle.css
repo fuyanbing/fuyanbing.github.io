@@ -1,0 +1,294 @@
+/* CSS Document */
+
+html {
+	height: 100%;
+}
+* {
+	margin: 0;
+	padding: 0;
+}
+body {
+	font: normal 9pt Verdana, Geneva, sans-serif;
+	background: #F4F4EE;
+	color: #5D5D5D;
+}
+p {
+	padding: 0 0 20px 0;
+	line-height: 1.7em;
+}
+img {
+	border: 0;
+}
+h1, h2, h3, h4, h5, h6 {
+	font: normal 175% 'century gothic', arial, sans-serif;
+	color: #43423F;
+	margin: 0 0 15px 0;
+	padding: 15px 0 5px 0;
+}
+h2 {
+	font: normal 175% 'century gothic', arial, sans-serif;
+	color: #B60000;
+}
+h3 {
+	font: normal 165% 'century gothic', arial, sans-serif;
+}
+h4, h5, h6 {
+	margin: 0;
+	padding: 0 0 5px 0;
+	font: normal 120% arial, sans-serif;
+	color: #B60000;
+}
+h5, h6 {
+	font: italic 95% arial, sans-serif;
+	color: #888;
+}
+h6 {
+	color: #362C20;
+}
+a, a:hover {
+	outline: none;
+	text-decoration: underline;
+	color: #A4AA04;
+}
+a:hover {
+	text-decoration: none;
+	color: #5D5D5D;
+}
+#main, #logo, #menubar, #content_header, #site_content, #content_footer, #footer {
+	margin-left: auto;
+	margin-right: auto;
+}
+#main
+/*内部底边距为20px*/
+
+{
+	padding-bottom: 20px;
+}
+#header {
+	/*设置标题部分的背景和标题部分的高度*/
+	background: #3A332D;
+	height: 140px;
+	margin-bottom: 0px;
+}
+#logo {
+	/*Logo样式设置*/
+	width: 878px;
+	position: relative;
+	height: 134px;
+}
+#logo #logo_text {
+	position: absolute;
+	top: 10px;
+	left: 0;
+	width: 381px;
+}
+#logo h1, #logo h2 {
+	font: normal 300% 'century gothic', arial, sans-serif;
+	border-bottom: 0;
+	text-transform: none;
+	margin: 0 0 0 9px;
+}
+#logo_text h1, #logo_text h1 a, #logo_text h1 a:hover {
+	padding: 22px 0 0 0;
+	color: #FFF;
+	letter-spacing: 0.1em;
+	text-decoration: none;
+}
+#logo_text h1 a .logo_colour {
+	color: #ECEF01;
+}
+#logo_text h2 {
+	font-size: 120%;
+	padding: 4px 0 0 0;
+	color: #A8AA94;
+}
+
+/*主要容器区域的样式指定*/
+
+#site_content {
+	width: 878px;
+	overflow: hidden;
+	margin: 0 auto 0 auto;
+	padding: 0 20px 20px 10px;
+	background: #FFF;
+	border-left: 1px solid #ECECE0;
+	border-right: 1px solid #ECECE0;
+}
+
+/*图书详细信息左边栏的样式，居左浮动*/
+
+.sidebar {
+	float: left;
+	width: 280px;
+	height: 400px;
+	padding: 0 15px 20px 15px;
+	background-color: #FCFCDC;
+}
+
+/*图书评价表单的样式指定，居右浮动*/
+
+#content {
+	text-align: left;
+	width: auto;
+	padding: 0;
+	float: none;
+}
+.form_settings {
+	margin: 15px 0 0 0;
+}
+.form_settings p {
+	padding: 0 0 4px 0;
+}
+.form_settings span {
+	float: left;
+	width: 100px;
+	text-align: left;
+}
+.form_settings input, .form_settings textarea {
+	padding: 5px;
+	width: 350px;
+	font: 100% arial;
+	border: 1px solid #E5E5DB;
+	background: #FFF;
+	color: #47433F;
+}
+.form_settings .submit {
+	font: 100% arial;
+	border: 1px solid;
+	width: 99px;
+	margin: 0 0 0 212px;
+	height: 33px;
+	padding: 2px 0 3px 0;
+	cursor: pointer;
+	background: #3B3B3B;
+	color: #FFF;
+}
+.form_settings textarea, .form_settings select {
+	font: 100% arial;
+	width: 350px;
+}
+.form_settings select {
+	width: 310px;
+}
+.form_settings .checkbox {
+	margin: 4px 0;
+	padding: 0;
+	width: 14px;
+	border: 0;
+	background: none;
+}
+#list {
+	width: 680px;
+	height: 530px;
+	margin: 50px auto 2px auto;
+	position: relative
+}
+#list ul li p {
+	line-height: 22px
+}
+#pagecount {
+	width: 500px;
+	margin: 10px auto 2px auto;
+	padding-bottom: 20px;
+	text-align: center
+}
+#pagecount span {
+	margin: 4px;
+	font-size: 9pt
+}
+#list ul li#loading {
+	width: 120px;
+	height: 32px;
+	line-height: 32px;
+	border: 1px solid #d3d3d3;
+	position: absolute;
+	top: 35%;
+	left: 42%;
+	text-align: center;
+	-moz-box-shadow: 1px 1px 2px rgba(0, 0, 0, .2);
+	-webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .2);
+	box-shadow: 1px 1px 2px rgba(0, 0, 0, .2);
+}
+hr {
+	height: 1px;
+	border: none;
+	border-top: 1px dashed #0066CC;
+}
+
+/*表单的样式*/
+
+#register-form fieldset {
+	border: none;
+}
+
+/*每一个输入框的样式*/
+
+#register-form label {
+	display: block;
+	height: 26px;
+	overflow: hidden;
+}
+
+/*输入框的文本提示样式*/
+
+#register-form span {
+	float: left;
+	width: 120px;
+}
+
+/*表单的文本输入框样式*/
+
+#register-form input {
+	float: left;
+	border: 1px solid #a4a4a4;
+	width: 210px;
+	padding: 1px 5px 1px 5px;
+	height: 19px;
+	font-size: 9pt;
+}
+
+/*表单的分段标题样式*/
+
+#register-form h4 {
+	margin: 15px 0;
+	border-top: #cccccc 1px solid;
+	border-bottom: #cccccc 1px solid;
+	padding-bottom: 10px;
+	padding-top: 10px;
+	font-weight: bold;
+}
+
+/*提交按钮的样式*/
+
+#register-form .button {
+	float: left;
+	margin-left: 120px;
+	margin-top: 14px;
+	font-size: 9pt;
+	height: 28px;
+}
+
+/*换行样式*/
+
+.wrapper_2 {
+	display: block;
+	width: 100%;
+	/*宽度100%*/
+	overflow: hidden;
+	/*溢出部分隐藏显示*/
+	*/
+}
+
+/*每一个文本框输入域的错误消息样式*/
+
+label.error {
+	display: block;
+	color: red;
+	font-weight: normal;
+}
+
+/*显示总的错误个数的样式*/
+
+div.error {
+	color: red;
+}

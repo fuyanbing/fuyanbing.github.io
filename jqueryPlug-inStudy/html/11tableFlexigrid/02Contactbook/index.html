@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>联系人管理</title>
+<link rel="stylesheet" type="text/css" href="css/bookstyle.css" />
+<link rel="stylesheet" type="text/css" href="css/flexigrid.css" />
+<script src="js/jquery-1.9.0.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/flexigrid.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery.form.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	$(function() {
+		$('#signin_close').click(function() {
+			$('#addform').stop().slideUp(); //以滑动方式隐藏所有的元素
+		});
+		//为flex1空白表格关联flexigrid函数以定义Flexigrid表格
+		var grid = $("#flex1").flexigrid({
+//			width: 760, //定义宽度
+			height: 280, //定义高度
+			url: 'php/contactbooklist.php', //定义Ajax要请求的服务器端的url
+			dataType: 'json', //指定数据的格式为json
+			//定义留言显示的列
+			colModel: [
+			{ display: '编号', name: 'id', width: 30, sortable: true, align: 'center', hide: false, toggle: false }, 
+			{ display: '姓名', name: 'name', width: 60, sortable: false, align: 'center' }, 
+			{ display: '公司名', name: 'company', width: 100, sortable: true, align: 'center' }, 
+			{ display: '职位', name: 'job', width: 75, sortable: true, align: 'center' }, 
+			{ display: '手机', name: 'mobile', width: 100, sortable: true, align: 'center' }, 
+			{ display: '公司电话', name: 'office_phone', width: 100, sortable: true, align: 'center' }, 
+			{ display: 'MSN号', name: 'msn', width: 70, sortable: true, align: 'center' }, 
+			{ display: 'Email', name: 'email', width: 140, sortable: true, align: 'center' }, 
+			{ display: '生日', name: 'birthday', width: 100, sortable: true, align: 'center' }, 
+			{ display: '地址', name: 'address', width: 80, sortable: true, align: 'center' }, 
+			{ display: '备注', name: 'memo', width: 50, sortable: true, align: 'center' }, ],
+			//定义Flexigrid的工具栏按钮
+			buttons: [
+			{ name: '新增', displayname: '新增', bclass: 'add', onpress: toolbarItem }, { separator: true }, 
+			{ name: '删除', displayname: '删除', bclass: 'delete', onpress: toolbarItem }
+			],
+			//定义搜索的栏
+			searchitems: [
+			{ display: '编号', name: 'id', isdefault: true }, 
+			{ display: '姓名', name: 'name' },
+			{ display: '公司名', name: 'company' }, 
+			{ display: '地址', name: 'address' }],
+			errormsg: '发生异常', //错误消息
+			sortname: "id", //搜索字段
+			sortorder: "asc", //排序顺序asc  desc
+			usepager: true, //使用分页
+			title: '联系人列表', //表格标题
+			findtext: '搜索', //搜索文本
+			//分页记录
+			pagestat: '显示记录从{from}到{to}，总数{total}条',
+			useRp: true, //显示结果
+			rp: 10, //显示每页记录条数
+			//记录条数的选项
+			rpOptions: [10, 15, 20, 30, 40, 100],
+			nomsg: '没有符合条件的记录存在',
+			minColToggle: 1, //允许显示的最小列数
+			showTableToggleBtn: true, //显示【显示隐藏Grid】的按钮
+			autoload: true, //允许页面加载时自动加载
+			resizable: false, //允许调整大小
+			procmsg: '加载中, 请稍等 ...',
+			hideOnSubmit: true, //显示遮照
+			blockOpacity: 0.5, //透明度
+			showcheckbox: true, //显示复选框
+			gridClass: "bbit-grid",
+			rowhandler: false,
+			rowbinddata: true,
+			onrowchecked: callme //复选框选中时调用的事件
+		});
+	});
+
+	function callme() {
+		alert("选中了");
+	}
+
+	function toolbarItem(com, grid) {
+		if(com == '删除') {
+			deleteMe(grid);
+		} else if(com == '新增') {
+			openDialogAdd();
+		}
+	}
+
+	function openDialogAdd() {
+		$('#addform').slideDown();
+	}
+
+	function deleteMe(grid) {
+		if($('.trSelected', grid).length > 0) {
+			if(confirm('你确定要删除' + $('.trSelected', grid).length + '行?')) {
+				var items = $('.trSelected', grid);
+				var itemlist = '';
+				for(i = 0; i < items.length; i++) {
+					if(itemlist == '') {
+						itemlist += items[i].id.substr(3);
+					} else {
+						itemlist += "," + items[i].id.substr(3);
+					}
+				}
+				$.ajax({
+					type: "POST",
+					dataType: "text",
+					url: "php/deletecontact.php",
+					data: "id=" + itemlist,
+					success: function(data) {
+						alert(data);
+						$("#flex1").flexReload();
+					}
+				});
+			}
+		} else {
+			return false;
+		}
+	}
+	$(function(e) {
+		//设置表单提交按钮事件  
+		var options = {
+			success: showResponse, //提交之后的回调函数
+			error: showerror,
+			//error: showResponse,
+			//其他的可用的选项
+			url: 'php/addcontact.php', //覆盖了form的action属性
+			type: 'post', //'get'或者是'post',覆盖form的method属性
+			dataType: 'text', //'xml','script'或'json'(依据服务器返回类型进行设置) 
+			clearForm: true, //在成功提交后清除所有的表单域内容
+			resetForm: true, //在成功提交后重置所有的表单域内容        
+			timeout: 3000
+		};
+		//为表单关联Ajax提交方法
+		$('#contactform').ajaxForm(options);
+		//表单提交之后触发的事件
+		function showResponse(responseText, statusText, xhr, $form) {
+			//关闭表单窗口
+			$('#addform').stop().slideUp();
+			$("#flex1").flexReload();
+			//
+		}
+		//如果提交错误，则显示留言错误消息
+		function showerror() {
+			alert('留言错误');
+		}
+	});
+</script>
+</head>
+<body>
+<div id="main">
+	<div id="header">
+		<div id="logo">
+			<div id="logo_text">
+				<h1>
+					<a href="#">我的联系人
+						<span class="logo_colour"></span>
+					</a>
+				</h1>
+				<h2>Flexigrid表格应用</h2>
+			</div>
+		</div>
+	</div>
+	<div id="site_content">
+		<div id="content">
+			<!--显示HTML表格-->
+			<table id="flex1" style="display:none"></table>
+		</div>
+	</div>
+</div>
+<!--一个隐藏的div，用来设置弹出式表单-->
+<div id="addform" style="display: none;" class="popup_wrap">
+	<!--留言表单-->
+	<form id="contactform" action="contactbook.php" method="post">
+		<div class="form_settings">
+			<p>
+				<span>姓名:</span>
+				<input class="contact" type="text" name="name" value="" /> </p>
+			<p>
+				<span>公司名:</span>
+				<input class="contact" type="text" name="company" value="" /> </p>
+			<p>
+				<span>职位:</span>
+				<input class="contact" type="text" name="job" value="" /> </p>
+			<p>
+				<span>手机:</span>
+				<input class="contact" type="text" name="mobile" value="" /> </p>
+			<p>
+				<span>公司电话:</span>
+				<input class="contact" type="text" name="office_phone" value="" /> </p>
+			<p>
+				<span>MSN号:</span>
+				<input class="contact" type="text" name="msn" value="" /> </p>
+			<p>
+				<span>Email:</span>
+				<input class="contact" type="text" name="email" value="" /> </p>
+			<p>
+				<span>生日:</span>
+				<input class="contact" type="text" name="birthday" value="" /> </p>
+			<p>
+				<span>地址:</span>
+				<textarea class="contact textarea" rows="2" cols="50" name="address"></textarea>
+				<p>
+					<span>备注:</span>
+					<textarea class="contact textarea" rows="3" cols="50" name="memo"></textarea>
+					<p style="padding-top: 15px">
+						<span>
+							<input class="submit" type="submit" name="contact_submitted" value="提交" />&nbsp;</span>
+					</p>
+		</div>
+	</form>
+	<a class="close" id="signin_close" href="javascript:void(0);" title="关闭窗口"></a>
+</div>
+</body>
+</html>
