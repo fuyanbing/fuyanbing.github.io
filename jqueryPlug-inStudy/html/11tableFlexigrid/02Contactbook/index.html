@@ -15,34 +15,21 @@
 		});
 		//为flex1空白表格关联flexigrid函数以定义Flexigrid表格
 		var grid = $("#flex1").flexigrid({
-//			width: 760, //定义宽度
-			height: 280, //定义高度
+			height: 'auto', //定义高度
 			url: 'php/contactbooklist.php', //定义Ajax要请求的服务器端的url
 			dataType: 'json', //指定数据的格式为json
 			//定义留言显示的列
-			colModel: [
-			{ display: '编号', name: 'id', width: 30, sortable: true, align: 'center', hide: false, toggle: false }, 
-			{ display: '姓名', name: 'name', width: 60, sortable: false, align: 'center' }, 
-			{ display: '公司名', name: 'company', width: 100, sortable: true, align: 'center' }, 
-			{ display: '职位', name: 'job', width: 75, sortable: true, align: 'center' }, 
-			{ display: '手机', name: 'mobile', width: 100, sortable: true, align: 'center' }, 
-			{ display: '公司电话', name: 'office_phone', width: 100, sortable: true, align: 'center' }, 
-			{ display: 'MSN号', name: 'msn', width: 70, sortable: true, align: 'center' }, 
-			{ display: 'Email', name: 'email', width: 140, sortable: true, align: 'center' }, 
-			{ display: '生日', name: 'birthday', width: 100, sortable: true, align: 'center' }, 
-			{ display: '地址', name: 'address', width: 80, sortable: true, align: 'center' }, 
-			{ display: '备注', name: 'memo', width: 50, sortable: true, align: 'center' }, ],
+			colModel: [{ display: '编号', name: 'id', width: 30, sortable: true, align: 'center', hide: false, toggle: false }, { display: '姓名', name: 'name', width: 60, sortable: false, align: 'center' }, { display: '公司名', name: 'company', width: 100, sortable: true, align: 'center' }, { display: '职位', name: 'job', width: 75, sortable: true, align: 'center' }, { display: '手机', name: 'mobile', width: 100, sortable: true, align: 'center' }, { display: '公司电话', name: 'office_phone', width: 100, sortable: true, align: 'center' }, { display: 'MSN号', name: 'msn', width: 70, sortable: true, align: 'center' }, { display: 'Email', name: 'email', width: 140, sortable: true, align: 'center' }, { display: '生日', name: 'birthday', width: 100, sortable: true, align: 'center' }, { display: '地址', name: 'address', width: 80, sortable: true, align: 'center' }, { display: '备注', name: 'memo', width: 50, sortable: true, align: 'center' }, ],
 			//定义Flexigrid的工具栏按钮
 			buttons: [
-			{ name: '新增', displayname: '新增', bclass: 'add', onpress: toolbarItem }, { separator: true }, 
-			{ name: '删除', displayname: '删除', bclass: 'delete', onpress: toolbarItem }
+				{ name: '新增', displayname: '新增', bclass: 'add', onpress: toolbarItem }, 
+				{ separator: true }, 
+				{ name: '删除', displayname: '删除', bclass: 'delete', onpress: toolbarItem }, 
+				{ separator: true }, 
+				{ name: '编辑', displayname: '编辑', bclass: 'edit', onpress: toolbarItem }
 			],
 			//定义搜索的栏
-			searchitems: [
-			{ display: '编号', name: 'id', isdefault: true }, 
-			{ display: '姓名', name: 'name' },
-			{ display: '公司名', name: 'company' }, 
-			{ display: '地址', name: 'address' }],
+			searchitems: [{ display: '编号', name: 'id', isdefault: true }, { display: '姓名', name: 'name' }, { display: '公司名', name: 'company' }, { display: '地址', name: 'address' }],
 			errormsg: '发生异常', //错误消息
 			sortname: "id", //搜索字段
 			sortorder: "asc", //排序顺序asc  desc
@@ -80,13 +67,40 @@
 			deleteMe(grid);
 		} else if(com == '新增') {
 			openDialogAdd();
-		}
+		} 
+		//编辑功能暂时没有实现 可参考example4.php文件
+		/*else if(com == '编辑') {
+			var conf = confirm('Edit ' + $('.trSelected', grid).length + ' items?')
+			if(conf) {
+				$.each($('.trSelected', grid), function(key, value) {
+					// collect the data
+					var OrgEmpID = value.children[0].innerText; // in case we're changing the key
+					var EmpID = prompt("Please enter the New Employee ID", value.children[0].innerText);
+					var Name = prompt("Please enter the Employee Name", value.children[1].innerText);
+					var PrimaryLanguage = prompt("Please enter the Employee's Primary Language", value.children[2].innerText);
+					var FavoriteColor = prompt("Please enter the Employee's Favorite Color", value.children[3].innerText);
+					var FavoriteAnimal = prompt("Please enter the Employee's Favorite Animal", value.children[4].innerText);
+					// call the ajax to save the data to the session
+					$.get('php/addcontact.php', {
+						Edit: true,
+						OrgEmpID: OrgEmpID,
+						EmpID: EmpID,
+						Name: Name,
+						PrimaryLanguage: PrimaryLanguage,
+						FavoriteColor: FavoriteColor,
+						FavoritePet: FavoriteAnimal
+					}, function() {
+						$("#flex1").flexReload();
+					});
+				});
+			}
+		}*/
 	}
 
 	function openDialogAdd() {
 		$('#addform').slideDown();
 	}
-
+	//删除记录条数
 	function deleteMe(grid) {
 		if($('.trSelected', grid).length > 0) {
 			if(confirm('你确定要删除' + $('.trSelected', grid).length + '行?')) {
@@ -146,7 +160,7 @@
 </head>
 <body>
 <div id="main">
-	<div id="header">
+	<!--<div id="header">
 		<div id="logo">
 			<div id="logo_text">
 				<h1>
@@ -157,7 +171,7 @@
 				<h2>Flexigrid表格应用</h2>
 			</div>
 		</div>
-	</div>
+	</div>-->
 	<div id="site_content">
 		<div id="content">
 			<!--显示HTML表格-->
@@ -172,38 +186,40 @@
 		<div class="form_settings">
 			<p>
 				<span>姓名:</span>
-				<input class="contact" type="text" name="name" value="" /> </p>
+				<input class="contact" type="text" required="required" name="name" value="" /> </p>
 			<p>
 				<span>公司名:</span>
-				<input class="contact" type="text" name="company" value="" /> </p>
+				<input class="contact" type="text" required="required" name="company" value="" /> </p>
 			<p>
 				<span>职位:</span>
-				<input class="contact" type="text" name="job" value="" /> </p>
+				<input class="contact" type="text" required="required" name="job" value="" /> </p>
 			<p>
 				<span>手机:</span>
-				<input class="contact" type="text" name="mobile" value="" /> </p>
+				<input class="contact" type="text" required="required" name="mobile" value="" /> </p>
 			<p>
 				<span>公司电话:</span>
-				<input class="contact" type="text" name="office_phone" value="" /> </p>
+				<input class="contact" type="text" required="required" name="office_phone" value="" /> </p>
 			<p>
 				<span>MSN号:</span>
-				<input class="contact" type="text" name="msn" value="" /> </p>
+				<input class="contact" type="text" required="required" name="msn" value="" /> </p>
 			<p>
 				<span>Email:</span>
-				<input class="contact" type="text" name="email" value="" /> </p>
+				<input class="contact" type="text" required="required" name="email" value="" /> </p>
 			<p>
 				<span>生日:</span>
-				<input class="contact" type="text" name="birthday" value="" /> </p>
+				<input class="contact" type="text" required="required" name="birthday" value="" /> </p>
 			<p>
 				<span>地址:</span>
-				<textarea class="contact textarea" rows="2" cols="50" name="address"></textarea>
-				<p>
-					<span>备注:</span>
-					<textarea class="contact textarea" rows="3" cols="50" name="memo"></textarea>
-					<p style="padding-top: 15px">
-						<span>
-							<input class="submit" type="submit" name="contact_submitted" value="提交" />&nbsp;</span>
-					</p>
+				<textarea class="contact textarea" required="required" rows="2" cols="50" name="address"></textarea>
+			</p>
+			<p>
+				<span>备注:</span>
+				<textarea class="contact textarea" rows="3" required="required" cols="50" name="memo"></textarea>
+			</p>
+			<p style="padding-top: 15px">
+				<span>
+					<input class="submit" type="submit" name="contact_submitted" value="提交" />&nbsp;</span>
+			</p>
 		</div>
 	</form>
 	<a class="close" id="signin_close" href="javascript:void(0);" title="关闭窗口"></a>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>NiceValidator</title>
+<link rel="stylesheet" type="text/css" href="css/demo.css" />
+<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery.validator.min.js?local=zh-CN" type="text/javascript" charset="utf-8"></script>
+<style type="text/css">
+	.form{
+		background: #eeeeee;
+		padding: 50px;
+		margin: 0 auto;
+		width: 400px;
+	}
+</style>
+</head>
+<body>
+<form class="form" data-validator-option="{timely:2,focusCleanup:true,theme:'simple_right',}">
+	<!--timely{Number|Boolean}
+		默认:1
+		是否启用实时验证，可用值
+		0||false:关闭实时验证，将只在提交表单的时候进行验证
+		1||true:启用实时验证，在字段失去焦点后验证该字段
+		2:启用实时验证，在输入的同时验证该字段
+		
+		focusCleanup{Boolean}
+		默认:false
+		是否在输入框获得焦点的时候清除消息，默认不清除-->
+	<div class="form-item">
+		<label class="label" for="username">用户名:</label>
+		<input type="text" id="username" name="username" data-rule="required;username" data-rule-username="[/[\w\d]{4,30}/,'请输入3 - 12位数字,字母,下划线']" data-tip="您可以使用字母、数字和时间" /> </div>
+	<div class="form-item">
+		<label class="label" for="pwd">密码:</label>
+		<input type="password" id="pwd" name="pwd" data-rule="required; length(8~16)" data-tip="请填写至少8个字符" /> </div>
+	<div class="form-item">
+		<label class="label" for="pwdAgain">重复密码:</label>
+		<input type="password" id="pwdAgain" name="pwdAgain" data-rule="required; match(pwd)" /> </div>
+	<div class="form-item">
+		<label class="label" for="">性别:</label>
+		<select name="sex" data-rule="required">
+			<option value="">请选择</option>
+			<option value="1">女性</option>
+			<option value="2">男性</option>
+			<option value="3">其他</option>
+		</select>
+	</div>
+	<div class="form-item">
+		<label class="label" for="email">Email:</label>
+		<input type="password" id="email" name="email" data-rule="required;email" /> </div>
+	<div class="form-item">
+		<label class="label" for="pwdAgain">兴趣:</label>
+		<label>
+			<input type="checkbox" name="interest" data-rule="checked" />运动</label>
+		<label>
+			<input type="checkbox" name="interest" />电影</label>
+		<label>
+			<input type="checkbox" name="interest" />游戏</label>
+	</div>
+	<div class="form-item">
+		<label class="label">Note</label>
+		<textarea data-rule="required"></textarea>
+	</div>
+	<div class="form-item">
+		<label>
+			<input type="checkbox" id="agree_arguments" data-rule="checked" />我同意服务协议。</label>
+	</div>
+	<div class="form-item">
+		<button type="submit">提交</button>
+	</div>
+</form>
+</body>
+</html>

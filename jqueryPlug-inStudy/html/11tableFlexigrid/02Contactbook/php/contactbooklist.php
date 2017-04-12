@@ -39,8 +39,17 @@ $start = (($page-1) * $rp);
 $limit = "LIMIT $start, $rp";
 //构建SELECT语句查询字符串
 $sql = "SELECT id,name,company,job,mobile,phone,office_phone,qq,msn,email,birthday,address,memo FROM contactbook $where $sort $limit";
+
+//构建$total
+$total = "select count(*) from contactbook";
 //调用getList查询数据库并返回查询数组
 $mlist = $db->getList($sql);
+$all = $db->getList($total);
+
+foreach ($all[0] as $value)  
+{  
+    $value = $value;  
+}
 //输出json头
 header("Content-type:application/json");
 //构建一个Flexigrid显示的数组
@@ -64,7 +73,9 @@ foreach($mlist AS  $row){
 	);
 	$jsonData['rows'][] = $entry;
 }
-$jsonData['total'] = count($mlist);
+
+$jsonData['total'] = $value;
+
 //向客户端输出一个json数组
 echo json_encode($jsonData);
 
