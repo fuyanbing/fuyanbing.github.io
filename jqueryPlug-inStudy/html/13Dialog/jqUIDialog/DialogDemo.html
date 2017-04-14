@@ -1,0 +1,27 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta charset="utf-8" />
+<title>jQuery UI Dialog最简单的示例</title>
+<!--对jQuery UI主题样式的引用-->
+<link rel="stylesheet" type="text/css" href="jquery-ui.css"/>
+<!--引入jQuery插件库-->
+<script src="jquery-1.9.1.js" type="text/javascript" charset="utf-8"></script>
+<!--引入jQuery UI 库-->
+<script src="jquery-ui.js" type="text/javascript" charset="utf-8"></script>
+<script>
+<!--启动页面时显示对话框-->
+$(function() {
+  $( "#dialog" ).dialog({
+  	modal: true
+  });
+});
+</script>
+</head>
+<body>
+<!--对话框内容div-->
+<div id="dialog" title="基本的对话框示例" style="display:none">
+	<p>这是一个使用jQuery UI的对话框示例显示的对话框，还不错吧！</p>
+</div>
+</body>
+</html>

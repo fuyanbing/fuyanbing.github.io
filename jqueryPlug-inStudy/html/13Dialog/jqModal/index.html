@@ -1,0 +1,24 @@
+<html>
+<head>
+<title>simple jqModal example</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<link type="text/css" rel="stylesheet" media="all" href="jqModal.css" />
+<script src="jquery-1.11.0.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="jqModal.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	$(function() {
+		$('#dialog').jqm();
+	});
+</script>
+</head>
+<body>
+<div style="max-width:600px;margin: 2em auto;">
+	<a href="#" class="jqModal">点击触发Mode</a>
+	<br/> 笔者使用过很多jquery弹窗插件,jqModal是我认为最强大方便的一个，在此做个笔记，以备以后使用时查看。
+	<br /> </div>
+<div class="jqmWindow" id="dialog">
+	<a href="#" class="jqmClose">关闭</a>
+	<hr> 最近经常需要做js弹框效果，用了几个插件发现效果不是很理想，找到了jqModal发现效果很棒，没有多余的东西。 页面要先加载jqModal.css、jquery-1.6.min.js、jqModal.js文件 弹出框div 默认需要在class加上标红的部分jqmWindow弹出框默认隐藏 jqmClose 关闭文本框 </div>
+</body>
+</html>

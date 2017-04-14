@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>JavaScript Load Image</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Jcrop is not required by JavaScript Load Image, but included for the demo -->
+<link rel="stylesheet" href="css/vendor/jquery.Jcrop.css">
+<link rel="stylesheet" href="css/demo.css">
+</head>
+<body>
+<h1>JavaScript Load Image Demo</h1>
+<h2>选择一个图像文件</h2>
+<p><input type="file" id="file-input"></p>
+<p>或拖放一个图像文件到这个网页上。</p>
+<br>
+<h2>Result</h2>
+<p id="actions" style="display:none;">
+	<button type="button" id="edit">编辑</button>
+	<button type="button" id="crop">修剪</button>
+</p>
+<div id="result" class="result">
+    <p></p>
+</div>
+<br>
+<script src="js/load-image.js"></script>
+<script src="js/load-image-scale.js"></script>
+<script src="js/vendor/jquery.js"></script>
+<script src="js/vendor/jquery.Jcrop.js"></script>
+<script src="js/demo/demo.js"></script>
+</body>
+</html>

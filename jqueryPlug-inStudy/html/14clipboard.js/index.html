@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<script src="js/jquery-1.9.1.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	$(function() {
+		var clipboard = new Clipboard('.btn');
+		//优雅降级:safari 版本号>=10,提示复制成功;否则提示需在文字选中后，手动选择“拷贝”进行复制
+		clipboard.on('success', function(e) {
+			var tip = e.trigger.textContent;
+			alert(tip+'成功!');
+			e.clearSelection();
+		});
+		clipboard.on('error', function(e) {
+			var tip = e.trigger.textContent;
+			alert('请选择长按进行'+tip+'!')
+		});
+	})
+</script>
+<title></title>
+</head>
+<body>
+<textarea id="bar" name="bar" rows="" cols="">你甚至不需要另一个元素来复制它的内容</textarea>
+<br />
+<button class="btn" data-clipboard-action="copy" data-clipboard-target="#bar">复制</button>
+<button class="btn" data-clipboard-action="cut" data-clipboard-target="#bar">剪切</button
+</body>
+</html>
