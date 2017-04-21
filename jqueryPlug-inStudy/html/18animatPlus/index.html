@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<script src="source/jquery-1.9.0.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="source/jquery.opacityrollover.js" type="text/javascript" charset="utf-8"></script>
+<title>AnimatPlus动画插件</title>
+<style type="text/css">
+	.box {
+		width: 100%;
+		overflow: hidden;
+		text-align: center;
+		min-width: 800px;
+	}
+	ul {
+		width: 100%;
+		overflow: hidden;
+	}
+	li {
+		list-style: none;
+		float: left;
+		margin-left: 3%;
+		width: 15%;
+	}
+	h2 {
+		background-color: #DDDDDD;
+		padding: 10px;
+	}
+	h2 span {
+		font-size: 20px;
+		color: green;
+	}
+	.mkBox a {
+		display: block;
+		height: 100px;
+		border-radius: 10px;
+		background: #999999 linear-gradient(to bottom, #FF9722 0%, #E15603 100%);
+		box-shadow: 1px 1px 2px #666;
+		margin-bottom: 10px;
+	}
+	.mkUl li {
+		height: 160px;
+	}
+	.li01 a {
+		background-image: url(source/01.jpg);
+	}
+	.li02 a {
+		background-image: url(source/02.jpg);
+	}
+	.li03 a {
+		background-image: url(source/04.jpg);
+	}
+	.li04 a {
+		background-image: url(source/03.jpg);
+	}
+	.li05 a {
+		background-image: url(source/05.jpg);
+	}
+	.li06 a {
+		background-image: url(source/06.jpg);
+	}
+	.mkUl a {
+		background-size: 100% 100%;
+		background-repeat: no-repeat;
+	}
+	.mkUl span {
+		font-size: 14px;
+	}
+	.introduce {
+		width: 90%;
+		border-radius: 5px;
+		min-height: 50px;
+		margin: 0 auto;
+		background-color: #DDDDDD;
+		text-align: left;
+		padding: 10px;
+		box-sizing: border-box;
+		color: #666666;
+	}
+	.introduce span{
+		color: #095AA6;;
+		font-weight: bold;
+	}
+</style>
+</head>
+<body>
+<div class="box">
+	<div class="mkBox">
+		<h2>AnimatPlus动画插件
+			<span>&nbsp;&nbsp;Motio&nbsp;&nbsp;&nbsp;jAni</span>
+		</h2>
+		<div class="introduce">
+			<span>Motio是一款基于jQuery框架的动画插件</span>它看似简单但功能十分强大，能够创建类精灵化的炫目动画。Motio插件获取一个元素并改变其背景的位置，然后通过Javascript代码来创建动画效果。从本质上来说，Motio插件没有依赖性，但有一个Motio jQuery Plugin版本可供选择使用。 </div>
+		<ul class="mkUl">
+			<li class="li01">
+				<a href="jQueryMotio/cloudsSelf.html"></a>
+				<span>自己移动的背景云层</span>
+			</li>
+			<li class="li02">
+				<a href="jQueryMotio/cloudsHover.html"></a>
+				<span>鼠标经过云层跟着鼠标方向移动</span>
+			</li>
+			<li class="li03">
+				<a href="jQueryMotio/360view.html"></a>
+				<span>360度全景图片</span>
+			</li>
+			<li class="li04">
+				<a href="jQueryMotio/Sprite.html"></a>
+				<span>Sprite小精灵</span>
+			</li>
+			<li class="li05">
+				<a href="jQueryMotio/miniGame.html"></a>
+				<span>迷你小游戏</span>
+			</li>
+		</ul>
+		<div class="introduce">
+			<span>jAni是jQuery的一个简单的插件</span>，可以让你动画背景图片。该插件基本上是动画GIF的替代，但具有几个好处。首先，使用动画GIF始终更好，因为所有浏览器都支持这种格式，没有任何JavaScript代码或附加标记，但“黑暗面”则是动画GIF只允许256种颜色，您无法控制动画任何方式.jAni加载一个长度的垂直图像，并以您设置的速度更改其背景位置，从而更好地控制动画。完全轻量级的js代码库。 可以轻松整合到网页应用中。 支持完全用户自定义的CSS样式设定。 支持全部主流浏览器。 </div>
+		<ul class="mkUl">
+			<li class="li06">
+				<a href="jAniDemo/index.html"></a>
+				<span>jAni动画Demo</span>
+			</li>
+		</ul>
+	</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Kwicks Nested Example</title>
+<link rel='stylesheet' type='text/css' href='css/jquery.kwicks-2.2.1.css' />
+<script src='js/jquery-1.8.1.min.js' type='text/javascript'></script>
+<script src='js/jquery.kwicks-2.2.1.js' type='text/javascript'></script>
+<script type='text/javascript'>
+	$(function() {
+		$('.kwicks-vertical').kwicks({
+			maxSize: 295,
+			isVertical: true,
+			behavior: 'menu',
+			selectOnClick: false
+		});
+		$('.kwicks-horizontal').kwicks({
+			maxSize: 295,
+			behavior: 'menu',
+			selectOnClick: false
+		});
+	});
+</script>
+<style type='text/css'>
+	.kwicks-vertical {
+		width: 550px;
+		height: 445px;
+	}
+	.kwicks-vertical>li {
+		height: 145px;
+		margin-top: 5px;
+	}
+	.kwicks-horizontal {
+		width: 550px;
+		height: 100%;
+	}
+	.kwicks-horizontal>li {
+		height: 100%;
+		float: left;
+		margin-left: 5px;
+	}
+	.kwicks-horizontal>li img{
+		height: 100%;
+		width: 100%;
+	}
+</style>
+</head>
+<body>
+<ul class='kwicks kwicks-vertical'>
+	<li>
+		<ul class='kwicks kwicks-horizontal'>
+			<li><img src="img/xinxilan01.jpg"/></li>
+			<li><img src="img/xinxilan02.jpg"/></li>
+			<li><img src="img/xinxilan03.jpg"/></li>
+		</ul>
+	</li>
+	<li>
+		<ul class='kwicks kwicks-horizontal'>
+			<li><img src="img/xinxilan04.jpg"/></li>
+			<li><img src="img/xinxilan05.jpg"/></li>
+			<li><img src="img/xinxilan06.jpg"/></li>
+		</ul>
+	</li>
+	<li>
+		<ul class='kwicks kwicks-horizontal'>
+			<li><img src="img/xinxilan07.jpg"/></li>
+			<li><img src="img/xinxilan08.jpg"/></li>
+			<li><img src="img/xinxilan09.jpg"/></li>
+		</ul>
+	</li>
+</ul>
+</body>
+</html>

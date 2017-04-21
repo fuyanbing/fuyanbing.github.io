@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1" />
+		<meta name="author" content="www.frebsite.nl" />
+		<!--<meta content="width=600px user-scalable=yes" name="viewport" />-->
+		<meta name="robots" content="noindex, nofollow" />
+
+		<title>jQuery.mmenu &raquo; slick app look-alike sliding menus for your mobile website</title>
+
+		<style type="text/css" media="all">
+			html,
+			body
+			{
+				padding: 0;
+				margin: 0;
+			}
+			div, p
+			{
+				font-family: Arial, Helvetica, Verdana;
+				font-size: 16px;
+				line-height: 22px;
+				color: #fff;
+				-webkit-text-size-adjust: none;
+			}
+			body
+			{
+				background-color: #999;
+			}
+			a,
+			a:hover
+			{
+				color: #fff;
+				text-decoration: underline;
+			}
+			#phone > div
+			{
+				background: center center no-repeat transparent;
+				background-image:url(bg.png);
+				width: 455px;
+				height: 780px;
+				margin: 0 auto;
+				margin-top: 50px;
+			}
+			#phone iframe
+			{
+				border: 1px solid #EEEEEE;
+				box-sizing: border-box;
+				background: #eee;
+				width: 320px;
+				height: 480px;
+				margin: 120px 0 0 70px;
+			}
+			
+			#page
+			{
+				height: 100%;
+				width: 100%;
+				position: relative;
+			}
+			
+			#page > div
+			{
+				width: 400px;
+				padding: 10px 0 0 0;
+				margin-top: -200px;
+				position: relative;
+				top: 50%;
+				left: 50%;
+			}
+
+			h1
+			{
+				background: 0 0 no-repeat transparent;
+				text-indent: -1000px;
+				width: 400px;
+				height: 150px;
+				overflow: hidden;
+				margin: 0;
+			}
+			@media screen and ( min-width: 950px ) {
+				.smallscreen
+				{
+					display: none;
+				}
+			}
+			@media screen and ( max-width: 949px ) {
+				#page > div
+				{
+					margin-left: -200px;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div id="phone">
+			<div>
+				<iframe name="phone" src="demo/index.html" frameborder="0" width="320" height="480"></iframe>
+			</div>
+		</div>
+	</body>
+</html>

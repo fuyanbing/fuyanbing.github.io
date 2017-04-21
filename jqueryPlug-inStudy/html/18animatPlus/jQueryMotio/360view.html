@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/plugins.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/motio.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	$(function() {
+		// 360 view
+		var $example = $('.example');
+		var exampleLeft = $example.offset().left;
+		var exampleWidth = $example.width();
+		var frame = $example.find('.frame')[0];
+		var motio = new Motio(frame, {
+			frames: 18
+		});
+		// Update example left offset on window resize
+		$(window).on('resize', function() {
+			exampleLeft = $example.offset().left;
+		});
+		// Activate frame based on the cursor position
+		$example.on('mousemove', function(event) {
+			motio.to(Math.floor(motio.frames / exampleWidth * (event.pageX - exampleLeft)), true);
+		});
+	})
+</script>
+<title>360度全景图片</title>
+<style type="text/css">
+	.example {
+		height: 300px;
+		margin-bottom: 25px;
+		background: #363840;
+		box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .2);
+	}
+	.circview {
+		position: relative;
+		left: 50%;
+		top: 50px;
+		margin-left: -120px;
+		width: 240px;
+		height: 200px;
+		background-image: url('img/car.gif');
+	}
+</style>
+</head>
+<body>
+<div class="example">
+	<div class="frame circview"></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+		<meta name="author" content="www.frebsite.nl" />
+		<meta name="viewport" content="width=device-width initial-scale=1.0 maximum-scale=1.0 user-scalable=yes" />
+
+		<title>jQuery.mmenu - Documentation</title>
+
+		<link type="text/css" rel="stylesheet" href="demo.css" />
+		<link type="text/css" rel="stylesheet" href="../src/css/jquery.mmenu.css" />
+		<link type="text/css" rel="stylesheet" href="../src/css/extensions/jquery.mmenu.widescreen.css" media="all and (min-width: 900px)" />
+		<link type="text/css" rel="stylesheet" href="../src/css/extensions/jquery.mmenu.themes.css" media="all and (min-width: 900px)" />
+
+		<style type="text/css">
+			@media all and (min-width: 900px) {
+				html, body {
+					height: 100%;
+				}
+				#menu {
+					background: #eee;
+				}
+				#page {
+					border-left: 1px solid #ccc;
+					min-height: 100%;
+				}
+				/* hide open-button */
+				a[href="#menu"]
+				{
+					display: none !important;
+				}
+			}
+		</style>
+
+		<script type="text/javascript" src="../src/js/jquery.min.js"></script>
+		<script type="text/javascript" src="../src/js/jquery.mmenu.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				$('nav#menu').mmenu({
+					classes: 'mm-light'
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<div id="page">
+			<div id="header">
+				<a href="#menu"></a>
+				文档说明
+			</div>
+			<div id="content">
+				<p>如果你正在读这篇文章，你可能刚刚下载的jQuery.mmenu插件，并渴望更多地了解它。<br/>如果是这样，这些演示页面不能更有所帮助。它们包括的例子，色彩主题，并就如何使用jQuery Mobile实现它的演示。</p>
+				<p>此页面有mmenu-widescreen.css文件包括在内。为此，如果你的屏幕大于900px宽，菜单会一直打开。<br/>如果不是，请在标题中的菜单按钮打开菜单。</p>
+				<br />
+			</div>
+			<nav id="menu">
+				<ul>
+					<li class="Selected"><a href="index.html">Introduction</a></li>
+					<li><a href="horizontal-submenus.html">Horizontal submenus example</a></li>
+					<li><a href="vertical-submenus.html">Vertical submenus example</a></li>
+					<li><a href="photos.html">Photos in sliding panels</a></li>
+					<li><a href="positions.html">Positioning the menu</a></li>
+					<li><a href="colors.html">Coloring the menu</a></li>
+					<li><a href="advanced.html">Advanced example</a></li>
+					<li><a href="onepage.html">One page scrolling example</a></li>
+					<li><a href="jqmobile/index.html">jQuery Mobile example</a></li>
+				</ul>
+			</nav>
+		</div>
+	</body>
+</html>

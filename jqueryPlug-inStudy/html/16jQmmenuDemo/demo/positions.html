@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="author" content="www.frebsite.nl" />
+		<meta name="viewport" content="width=device-width initial-scale=1.0 maximum-scale=1.0 user-scalable=yes" />
+
+		<title>jQuery.mmenu - Examples</title>
+
+		<link type="text/css" rel="stylesheet" href="demo.css" />
+		<link type="text/css" rel="stylesheet" href="../src/css/jquery.mmenu.css" />
+		<link type="text/css" rel="stylesheet" href="../src/css/extensions/jquery.mmenu.positioning.css" />
+		
+		<script type="text/javascript" src="../src/js/jquery.min.js"></script>
+		<script type="text/javascript" src="../src/js/jquery.mmenu.js"></script>
+		<script type="text/javascript">
+			$(function() {
+
+				var pos 	= 'mm-top mm-right mm-bottom',
+					zpos	= 'mm-front mm-next';
+
+				var $html 	= $('html'),
+					$menu	= $('nav#menu'),
+					$both	= $html.add( $menu );
+
+				$menu.mmenu();
+
+				//	Add the position-classnames onChange
+				$('input[name="pos"]').change(function() {
+					$both.removeClass( pos ).addClass( 'mm-' + this.value );
+				});
+				$('input[name="zpos"]').change(function() {
+					$both.removeClass( zpos ).addClass( 'mm-' + this.value );
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<div id="page">
+			<div id="header">
+				<a href="#menu"></a>
+				Examples
+			</div>
+			<div id="content">
+				<p>This is the <strong>positions example</strong> demo page.</p>
+				<p>这个页面有jquery.mmenu.positioning。css文件包括在内。因此,这个页面的菜单也可以打开的<br />
+					Check it out:</p>
+				
+				<div style="overflow: hidden; width: 100%;">
+					<p style="width: 50%; float: left;"><strong>Position:</strong><br />
+						<input id="pos1" name="pos" value="top" type="radio" />
+						<label for="pos1">top</label><br />
+						
+						<input id="pos2" name="pos" value="right" type="radio" />
+						<label for="pos2">right</label><br />
+						
+						<input id="pos3" name="pos" value="bottom" type="radio" />
+						<label for="pos3">bottom</label><br />
+						
+						<input id="pos4" name="pos" value="left" type="radio" checked="checked" /> 
+						<label for="pos4">left (default)</label>
+					</p>
+					<p style="width: 50%; float: left;"><strong>z-Position:</strong><br />
+						<input id="zpos1" name="zpos" value="back" type="radio" checked="checked" />
+						<label for="zpos1">back (default)</label><br />
+						
+						<input id="zpos2" name="zpos" value="front" type="radio" />
+						<label for="zpos2">front</label><br />
+						
+						<input id="zpos3" name="zpos" value="next" type="radio" />
+						<label for="zpos3">next</label>
+					</p>
+				</div>
+				<br />
+				<p><a href="#menu">Open the menu &raquo;</a></p>
+			</div>
+			<nav id="menu">
+				<ul>
+					<li><a href="index.html">介绍</a></li>
+					<li><a href="horizontal-submenus.html">水平子菜单的例子</a></li>
+					<li><a href="vertical-submenus.html">垂直子菜单的例子</a></li>
+					<li><a href="photos.html">照片在滑动面板</a></li>
+					<li class="Selected"><a href="positions.html">定位菜单</a></li>
+					<li><a href="colors.html">着色的菜单</a></li>
+					<li><a href="advanced.html">先进的例子</a></li>
+					<li><a href="onepage.html">一个页面滚动的例子</a></li>
+					<li><a href="jqmobile/index.html">jQuery移动的例子</a></li>
+				</ul>
+			</nav>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="author" content="www.frebsite.nl" />
+		<meta name="viewport" content="width=device-width initial-scale=1.0 maximum-scale=1.0 user-scalable=yes" />
+
+		<title>jQuery.mmenu - Examples</title>
+
+		<link type="text/css" rel="stylesheet" href="demo.css" />
+		<link type="text/css" rel="stylesheet" href="../src/css/jquery.mmenu.all.css" />
+		<style type="text/css">
+			.Header,
+			.Prev,
+			.Next
+			{
+				display: none;
+			}
+
+			#page #photos
+			{
+				display: none;
+			}
+			h4
+			{
+				margin: 0 0 10px 0;
+			}
+			.thumb
+			{
+				display: block;
+				width: 23%;
+				margin: 0 2% 2% 0;
+				float: left;
+			}
+			.thumb img
+			{
+				float: left;
+				width: 100%;
+				height: auto;
+			}
+			.thumb-xs
+			{
+				vertical-align: middle;
+				display: inline-block;
+				margin: -5px 10px -5px 0;
+			}
+			.clear
+			{
+				clear: both;
+				display: block;
+				padding: 5px 0;
+				margin-bottom: 20px;
+			}
+			.large
+			{
+				width: 100%;
+				height: auto;
+			}
+		</style>
+
+		<script type="text/javascript" src="../src/js/jquery.min.js"></script>
+		<script type="text/javascript" src="../src/js/jquery.mmenu.min.all.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				$('nav#menu').mmenu();
+
+				$('div#photos').mmenu({
+					classes		: 'mm-fullscreen mm-light',//主题class, mm-light || mm-white || mm-black
+					position	: 'right',//菜单位置，默认左侧 left || top || right || bottom
+					zposition	: 'front',//zposition菜单层次，默认上层，front || next
+					header		: true
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<div id="page">
+			<div id="header">
+				<a href="#menu"></a>
+				Examples
+			</div>
+			<div id="content">
+				<p>This is the <strong>照片 滑动面板</strong> demo page.<br />
+					它演示了如何使用jquery.mmenu插件内容以外的一个典型的菜单。</p>
+				<p><strong><a href="#photos">Click here</a> to go to the photos.</strong></p>
+			</div>
+			<nav id="menu">
+				<ul>
+					<li><a href="index.html">介绍</a></li>
+					<li><a href="horizontal-submenus.html">水平子菜单的例子</a></li>
+					<li><a href="vertical-submenus.html">垂直子菜单的例子</a></li>
+					<li class="Selected"><a href="photos.html">照片在滑动面板</a></li>
+					<li><a href="positions.html">定位菜单</a></li>
+					<li><a href="colors.html">着色的菜单</a></li>
+					<li><a href="advanced.html">先进的例子</a></li>
+					<li><a href="onepage.html">一个页面滚动的例子</a></li>
+					<li><a href="jqmobile/index.html">jQuery移动的例子</a></li>
+				</ul>
+			</nav>
+
+			<div id="photos">
+
+				<!-- Overview panel -->
+				<div id="panel-overview">
+					<ul class="List">
+						<li>
+							<span>
+								<img class="thumb-xs" src="http://lorempixel.com/40/40/nature/1/" />
+								Nature photos
+							</span>
+							<em class="Counter">5</em>
+							<div id="panel-nature">
+								<a href="#panel-nature-1" class="thumb"><img src="http://lorempixel.com/100/100/nature/1/" /></a>
+								<a href="#panel-nature-2" class="thumb"><img src="http://lorempixel.com/100/100/nature/2/" /></a>
+								<a href="#panel-nature-3" class="thumb"><img src="http://lorempixel.com/100/100/nature/3/" /></a>
+								<a href="#panel-nature-1" class="thumb"><img src="http://lorempixel.com/100/100/nature/1/" /></a>
+								<a href="#panel-nature-2" class="thumb"><img src="http://lorempixel.com/100/100/nature/2/" /></a>
+								<span class="clear">Click a thumbnail to enlarge it.</span>
+								
+								<!-- header info -->
+								<h3 class="Header">Nature photos</h3>
+								<a href="#panel-overview" class="Prev"></a>
+							</div>
+						</li>
+
+						<li>
+							<span>
+								<img class="thumb-xs" src="http://lorempixel.com/40/40/animals/1/" />
+								Animals photos
+							</span>
+							<em class="Counter">7</em>
+							<div id="panel-animals">
+								<a href="#panel-animals-1" class="thumb"><img src="http://lorempixel.com/100/100/animals/1/" /></a>
+								<a href="#panel-animals-2" class="thumb"><img src="http://lorempixel.com/100/100/animals/2/" /></a>
+								<a href="#panel-animals-3" class="thumb"><img src="http://lorempixel.com/100/100/animals/3/" /></a>
+								<a href="#panel-animals-1" class="thumb"><img src="http://lorempixel.com/100/100/animals/1/" /></a>
+								<a href="#panel-animals-2" class="thumb"><img src="http://lorempixel.com/100/100/animals/2/" /></a>
+								<a href="#panel-animals-3" class="thumb"><img src="http://lorempixel.com/100/100/animals/3/" /></a>
+								<a href="#panel-animals-1" class="thumb"><img src="http://lorempixel.com/100/100/animals/1/" /></a>
+								<span class="clear">Click a thumbnail to enlarge it.</span>
+								
+								<!-- header info -->
+								<h3 class="Header">Animals photos</h3>
+								<a href="#panel-overview" class="Prev"></a>
+							</div>
+						</li>
+
+						<li>
+							<span>
+								<img class="thumb-xs" src="http://lorempixel.com/40/40/sports/1/" />
+								Sports photos
+							</span>
+							<em class="Counter">6</em>
+							<div id="panel-sports">
+								<a href="#panel-sports-1" class="thumb"><img src="http://lorempixel.com/100/100/sports/1/" /></a>
+								<a href="#panel-sports-2" class="thumb"><img src="http://lorempixel.com/100/100/sports/2/" /></a>
+								<a href="#panel-sports-3" class="thumb"><img src="http://lorempixel.com/100/100/sports/3/" /></a>
+								<a href="#panel-sports-1" class="thumb"><img src="http://lorempixel.com/100/100/sports/1/" /></a>
+								<a href="#panel-sports-2" class="thumb"><img src="http://lorempixel.com/100/100/sports/2/" /></a>
+								<a href="#panel-sports-3" class="thumb"><img src="http://lorempixel.com/100/100/sports/3/" /></a>
+								<span class="clear">Click a thumbnail to enlarge it.</span>
+								
+								<!-- header info -->
+								<h3 class="Header">Sports photos</h3>
+								<a href="#panel-overview" class="Prev"></a>
+							</div>
+						</li>
+					</ul>
+
+					<!-- header info -->
+					<h3 class="Header">照片</h3>
+					<a href="#page" class="Prev"></a>
+				</div>
+
+				<!-- Nature photos panels -->
+				<div id="panel-nature-1">
+					<h3 class="Header">Ants on a leaf</h3>
+					<a href="#panel-nature" class="Prev"></a>
+					<img class="large" src="http://lorempixel.com/400/400/nature/1/" />
+				</div>
+				
+				<div id="panel-nature-2">
+					<h3 class="Header">Beautiful sunset</h3>
+					<a href="#panel-nature" class="Prev"></a>
+					<img class="large" src="http://lorempixel.com/400/400/nature/2/" />
+				</div>
+				
+				<div id="panel-nature-3">
+					<h3 class="Header">Shoreline</h3>
+					<a href="#panel-nature" class="Prev"></a>
+					<img class="large" src="http://lorempixel.com/400/400/nature/3/" />
+				</div>
+				
+				<!-- Animals photos panels -->
+				<div id="panel-animals-1">
+					<h3 class="Header">Two rhinos</h3>
+					<a href="#panel-animals" class="Prev"></a>
+					<img class="large" src="http://lorempixel.com/400/400/animals/1/" />
+				</div>
+				
+				<div id="panel-animals-2">
+					<h3 class="Header">Gorilla</h3>
+					<a href="#panel-animals" class="Prev"></a>
+					<img class="large" src="http://lorempixel.com/400/400/animals/2/" />
+				</div>
+				
+				<div id="panel-animals-3">
+					<h3 class="Header">Sleeping tiger</h3>
+					<a href="#panel-animals" class="Prev"></a>
+					<img class="large" src="http://lorempixel.com/400/400/animals/3/" />
+				</div>
+				
+				<!-- Sports photos panels -->
+				<div id="panel-sports-1">
+					<h3 class="Header">Cricket</h3>
+					<a href="#panel-sports" class="Prev"></a>
+					<img class="large" src="http://lorempixel.com/400/400/sports/1/" />
+				</div>
+				
+				<div id="panel-sports-2">
+					<h3 class="Header">Surfer 1</h3>
+					<a href="#panel-sports" class="Prev"></a>
+					<img class="large" src="http://lorempixel.com/400/400/sports/2/" />
+				</div>
+				
+				<div id="panel-sports-3">
+					<h3 class="Header">Cycle racing</h3>
+					<a href="#panel-sports" class="Prev"></a>
+					<img class="large" src="http://lorempixel.com/400/400/sports/3/" />
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

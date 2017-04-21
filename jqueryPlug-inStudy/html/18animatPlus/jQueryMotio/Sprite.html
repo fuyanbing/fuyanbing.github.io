@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/plugins.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/motio.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	$(function() {
+		// Sprite
+		var $example = $('.example');
+		var frame = $example.find('.frame')[0];
+		var motio = new Motio(frame, {
+			fps: 15,
+			frames: 14
+		});
+		// Play when mouse enters the frame, and pause when it leaves
+		$example.on('mouseenter mouseleave', function(event) {
+			motio[event.type === 'mouseenter' ? 'play' : 'pause']();
+		});
+	})
+</script>
+<title>Sprite小精灵</title>
+<style type="text/css">
+	.example {
+		height: 300px;
+		margin-bottom: 25px;
+		background: #363840;
+		box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .2);
+	}
+	.sprite {
+		position: relative;
+		left: 50%;
+		top: 25px;
+		margin-left: -125px;
+		width: 250px;
+		height: 250px;
+		background: url('img/ash_crimson_kiss.gif');
+	}
+</style>
+</head>
+<body>
+<div class="example">
+	<div class="frame sprite"></div>
+</div>
+</body>
+</html>

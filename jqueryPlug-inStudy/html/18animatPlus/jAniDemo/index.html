@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>jAni jQuery Plug-in Demo</title>
+
+<link rel="stylesheet" href="css/main.css" />
+
+<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
+<script type="text/javascript" src="js/jani.js"></script>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+        $('#animation-1').jani({ frameWidth: 100, frameHeight: 100, speed: 100, totalFrames: 19 });
+        
+        $('#startAnimation').click(function(){
+	        $('#animation-1').jani.play();	   
+            return false;
+        });
+        
+        $('#pauseAnimation').click(function(){
+	        $('#animation-1').jani.pause();	   
+            return false;
+        });
+        
+        $('#stopAnimation').click(function(){
+	        $('#animation-1').jani.stop();	   
+            return false;
+        });
+	});
+</script>
+<style type="text/css">
+    .animation-1 {
+        background: url(./images/sample-animation.gif) no-repeat left top;
+    }
+</style>
+
+</head>
+<body>
+
+    <div id="page">
+        <h1>jAni jQuery Plugin Demo</h1>
+        <div id="animation-1" class="animation-1"></div>
+        <form>
+            <input type="button" name="startAnimation" id="startAnimation" value="开始动画" />
+            <input type="button" name="pauseAnimation" id="pauseAnimation" value="暂停" />
+            <input type="button" name="stopAnimation" id="stopAnimation" value="停止" />
+        </form>
+    
+</body>
+</html>

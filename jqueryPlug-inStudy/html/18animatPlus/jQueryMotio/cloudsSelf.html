@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/plugins.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/motio.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	$(function () {
+		var windowSpy = new $.Espy(window);
+		var header = $('header')[0];
+		var headerClouds = new Motio(header, {
+			fps: 30,
+			speedX: 60,
+			bgWidth: 1024,
+			bgHeight: 1024
+		});
+
+		// Play only when in the viewport
+		windowSpy.add(header, function (entered) {
+			headerClouds[entered ? 'play' : 'pause']();
+		});
+		
+	})
+</script>
+<title>自己移动的云层</title>
+<style type="text/css">
+	.projecttitle {
+		margin: 0 auto;
+		height: 380px;
+		color: #fff;
+		text-shadow: 1px 1px 0 rgba(0, 0, 0, .3);
+		background: url('img/clouds.jpg') #679eba;
+	}
+</style>
+</head>
+<body>
+<header class="projecttitle" /></header>
+</body>
+</html>

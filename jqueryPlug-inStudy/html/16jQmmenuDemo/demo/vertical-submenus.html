@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="author" content="www.frebsite.nl" />
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width initial-scale=1.0 maximum-scale=1.0 user-scalable=yes" />
+
+		<title>jQuery.mmenu - Examples</title>
+
+		<link type="text/css" rel="stylesheet" href="demo.css" />
+		<link type="text/css" rel="stylesheet" href="../src/css/jquery.mmenu.css" />
+		
+		<script type="text/javascript" src="../src/js/jquery.min.js"></script>
+		<script type="text/javascript" src="../src/js/jquery.mmenu.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				$('nav#menu').mmenu({
+					slidingSubmenus: false//子菜单是否从右边滑出。如果设置为false，子菜单会显示在父菜单的下面。
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<div id="page">
+			<div id="header">
+				<a href="#menu"></a>
+				例子
+			</div>
+			<div id="content">
+				<p>This is the <strong>垂直子菜单的例子</strong> demo page.<br />
+					点击标题栏的菜单按钮打开菜单。</p>
+
+				<p>一个菜单项的子菜单和sub-submenu。下面的所有子菜单将扩大他们的父项。</p>
+			</div>
+			<nav id="menu">
+				<ul>
+					<li><a href="index.html">介绍</a></li>
+					<li><a href="horizontal-submenus.html">水平子菜单的例子</a></li>
+					<li class="Selected">
+						<a href="vertical-submenus.html">垂直子菜单的例子</a>
+						<ul>
+							<li><a href="#">第一个子项目</a></li>
+							<li>
+								<a href="#">第二个子项目</a>
+								<ul>
+									<li><a href="#">第一个sub-sub-item</a></li>
+									<li><a href="#">第二个sub-sub-item</a></li>
+									<li><a href="#">第三个sub-sub-item</a></li>
+								</ul>
+							</li>
+							<li><a href="#">第三个子项目</a></li>
+						</ul>
+					</li>
+					<li><a href="photos.html">照片在滑动面板</a></li>
+					<li><a href="positions.html">定位菜单</a></li>
+					<li><a href="colors.html">着色的菜单</a></li>
+					<li><a href="advanced.html">先进的例子</a></li>
+					<li><a href="onepage.html">一个页面滚动的例子</a></li>
+					<li><a href="jqmobile/index.html">jQuery移动的例子</a></li>
+				</ul>
+			</nav>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/plugins.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/motio.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	$(function() {
+		var $game = $('.frame');
+		var pos = 350;
+		var $char = $game.find('.char').css({
+			left: pos + 'px'
+		});
+		var posMax = $game.innerWidth() - $char.innerWidth();
+		var facing = 'right';
+		var moveSpeed = 300;
+		var moveFps = 30;
+		var pressed = [];
+		var inAction = 0;
+		var isRunning = 0;
+		var mIndex;
+		var listenOn = [37, 39, 32, 66];
+		var $mations = $char.children();
+		var mations = {
+			right: {
+				stand: $mations.filter('.stand').motio({
+					frames: 8,
+					startPaused: 1,
+					fps: 10
+				}),
+				run: $mations.filter('.run').motio({
+					frames: 6,
+					startPaused: 1,
+					fps: 10
+				}),
+				jump: $mations.filter('.jump').motio({
+					frames: 10,
+					startPaused: 1,
+					fps: 15
+				}),
+				kick: $mations.filter('.kick').motio({
+					frames: 9,
+					startPaused: 1,
+					fps: 15
+				})
+			},
+			left: {
+				stand: $mations.filter('.stand_left').motio({
+					frames: 8,
+					startPaused: 1,
+					fps: 10
+				}),
+				run: $mations.filter('.run_left').motio({
+					frames: 6,
+					startPaused: 1,
+					fps: 10
+				}),
+				jump: $mations.filter('.jump_left').motio({
+					frames: 10,
+					startPaused: 1,
+					fps: 15
+				}),
+				kick: $mations.filter('.kick_left').motio({
+					frames: 9,
+					startPaused: 1,
+					fps: 15
+				})
+			}
+		};
+		// Hide everything on start
+		$mations.hide();
+		// Start with standing animation
+		mations[facing].stand.show().motio('play');
+		// Resets the stance back to running or standing after actions like kick
+		function resetStance() {
+			/*jshint validthis:true */
+			inAction = 0;
+			$(this.element).hide();
+			mations[facing][isRunning ? 'run' : 'stand'].show().motio('play');
+		}
+		// Keydown handlers
+		$(document).on('keydown', function(event) {
+			if($.inArray(event.which, listenOn) === -1 || pressed[event.which]) {
+				return;
+			}
+			pressed[event.which] = true;
+			var request;
+			switch(event.which) {
+				// Left arrow
+				case 37:
+					request = 'run';
+					facing = 'left';
+					break;
+					// Right arrow
+				case 39:
+					request = 'run';
+					facing = 'right';
+					break;
+					// Spacebar
+				case 32:
+					request = 'jump';
+					break;
+					// B
+				case 66:
+					request = 'kick';
+					break;
+			}
+			// Show concerned animation
+			$mations.hide().motio('toStart', true);
+			mations[facing][request].show();
+			if(request === 'run') {
+				inAction = 0;
+				mIndex = clearTimeout(mIndex);
+				isRunning = 1;
+				move();
+				mations[facing][request].motio('play');
+			} else {
+				inAction = 1;
+				mations[facing][request].motio('toEnd', resetStance);
+			}
+			return false;
+		});
+		// Keyup handlers
+		$(document).on('keyup', function(event) {
+			if($.inArray(event.which, listenOn) === -1) {
+				return;
+			}
+			pressed[event.which] = false;
+			var released;
+			switch(event.which) {
+				// Left & arrow
+				case 37:
+					released = 'left';
+					break;
+					// Right arrow
+				case 39:
+					released = 'right';
+					break;
+			}
+			if(isRunning && facing === released) {
+				mations[released].run.hide().motio('toStart', true);
+				isRunning = 0;
+				mIndex = clearTimeout(mIndex);
+				if(!inAction) {
+					mations[facing].stand.show().motio('play');
+				}
+			}
+			return false;
+		});
+		// Move function
+		function move() {
+			if(pos === 0 && facing === 'left' || pos === posMax && facing === 'right') {
+				return;
+			}
+			pos += (facing === 'right' ? moveSpeed : -moveSpeed) / moveFps;
+			if(pos < 0) {
+				pos = 0;
+			} else if(pos > posMax) {
+				pos = posMax;
+			}
+			$char[0].style.left = pos + 'px';
+			mIndex = setTimeout(move, 1000 / moveFps);
+		}
+	})
+</script>
+<title>迷你小游戏</title>
+<style type="text/css">
+	.game {
+		position: relative;
+		margin-bottom: 25px;
+		height: 240px;
+		/*background: url('img/gamebg.png') no-repeat center 0;*/
+		background: url('img/gamebg.png');
+		background-repeat:repeat-x ;
+		box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .2);
+	}
+	.game .char {
+		width: 120px;
+		height: 150px;
+		bottom: 0;
+	}
+	.game div {
+		position: absolute;
+	}
+	.game .char div {
+		width: 100%;
+		height: 100%;
+		background: url('img/sailormars.gif') no-repeat left top;
+	}
+	.game .char .stand {
+		background-position: 0 0;
+	}
+	.game .char .stand_left {
+		background-position: 0 -150px;
+	}
+	.game .char .run {
+		background-position: 0 -300px;
+	}
+	.game .char .run_left {
+		background-position: 0 -450px;
+	}
+	.game .char .jump {
+		background-position: 0 -600px;
+	}
+	.game .char .jump_left {
+		background-position: 0 -750px;
+	}
+	.game .char .kick {
+		background-position: 0 -900px;
+	}
+	.game .char .kick_left {
+		background-position: 0 -1050px;
+	}
+	.game .overlay {
+		width: 100%;
+		height: 100%;
+		left: 0;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		z-index: 2;
+		background: url('img/gamebg.png') no-repeat center -240px;
+	}
+	.game .keys {
+		top: 15px;
+		left: 50%;
+		margin-left: -90px;
+		padding: 5px 7px 7px;
+		background: #444;
+		background: rgba(0, 0, 0, .6);
+		border-radius: 3px;
+	}
+	.text-center {
+		text-align: center;
+	}
+	kbd {
+		display: inline-block;
+		margin: 0 0.1em;
+		padding: 0.1em 0.6em;
+		font-size: 14px;
+		line-height: 1.4;
+		font-family: sans-serif;
+		white-space: nowrap;
+		background-color: #fff;
+		border: 1px solid #CCC;
+		border-radius: 2px;
+		-webkit-box-shadow: 0 1px 0px rgba(0, 0, 0, 0.2);
+		box-shadow: 0 1px 0px rgba(0, 0, 0, 0.2);
+	}
+</style>
+</head>
+<body>
+<div class="frame game">
+	<div class="char" style="left: 350px;">
+		<div class="stand"></div>
+		<div class="stand_left"></div>
+		<div class="run"></div>
+		<div class="run_left"></div>
+		<div class="jump"></div>
+		<div class="jump_left"></div>
+		<div class="kick"></div>
+		<div class="kick_left"></div>
+	</div>
+	<div class="overlay"></div>
+	<div class="keys text-center">
+		<kbd>←</kbd>
+		<kbd>→</kbd>
+		<kbd>Space</kbd>
+		<kbd>B</kbd>
+	</div>
+</div>
+</body>
+</html>

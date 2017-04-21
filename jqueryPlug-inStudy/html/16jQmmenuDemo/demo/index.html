@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="author" content="www.frebsite.nl" />
+		<meta name="viewport" content="width=device-width initial-scale=1.0 maximum-scale=1.0 user-scalable=yes" />
+
+		<title>jQuery.mmenu - Documentation</title>
+
+		<link type="text/css" rel="stylesheet" href="demo.css" />
+		<link type="text/css" rel="stylesheet" href="../src/css/jquery.mmenu.css" />
+		<link type="text/css" rel="stylesheet" href="../src/css/extensions/jquery.mmenu.widescreen.css" media="all and (min-width: 900px)" />
+		<link type="text/css" rel="stylesheet" href="../src/css/extensions/jquery.mmenu.themes.css" media="all and (min-width: 900px)" />
+
+		<style type="text/css">
+			@media all and (min-width: 900px) {
+				html, body {
+					height: 100%;
+				}
+				#menu {
+					background: #eee;
+				}
+				#page {
+					border-left: 1px solid #ccc;
+					min-height: 100%;
+				}
+				/* hide open-button */
+				a[href="#menu"]
+				{
+					display: none !important;
+				}
+			}
+		</style>
+
+		<script type="text/javascript" src="../src/js/jquery.min.js"></script>
+		<script type="text/javascript" src="../src/js/jquery.mmenu.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				$('nav#menu').mmenu({
+					classes: 'mm-light'//为id#menu添加类名
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<div id="page">
+			<div id="header">
+				<a href="#menu"></a>
+				文档
+			</div>
+			<div id="content">
+				<p>如果你正在读这篇文章, 你可能只是下载 jQuery.mmenu-plugin渴望了解更多吗.<br />
+					如果是这样的话, 这些演示页面不能更多的帮助. 它们包括例子,颜色主题和一个演示如何实现它与jQuery移动。</p>
+				<p>这个页面有mmenu-widescreen。css文件包括在内。因此,如果你的屏幕比900px宽,菜单会被打开。<br />
+					如果没有,点击菜单按钮的标题打开菜单。</p>
+				<br />
+				<h4>调试</h4>
+				<p>当插件试图解决一个问题与HTML或一个选项,调试信息记录到一个公共方法。显示这些信息,覆盖这个公共方法</p>
+<pre>
+$.fn.mmenu.debug = function( msg ) {
+    alert( msg );
+};
+</pre>
+			</div>
+			<nav id="menu">
+				<ul>
+					<li class="Selected"><a href="index.html">介绍</a></li>
+					<li><a href="horizontal-submenus.html">水平子菜单的例子</a></li>
+					<li><a href="vertical-submenus.html">垂直子菜单的例子</a></li>
+					<li><a href="photos.html">照片在滑动面板</a></li>
+					<li><a href="positions.html">定位菜单</a></li>
+					<li><a href="colors.html">着色的菜单</a></li>
+					<li><a href="advanced.html">先进的例子</a></li>
+					<li><a href="onepage.html">一个页面滚动的例子</a></li>
+					<li><a href="jqmobile/index.html">jQuery移动的例子</a></li>
+				</ul>
+			</nav>
+		</div>
+	</body>
+</html>
