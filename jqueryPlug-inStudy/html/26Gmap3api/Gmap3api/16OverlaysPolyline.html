@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<link href="css/styles.css" rel="stylesheet">
+<script src="http://maps.google.com/maps/api/js"></script>
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gmap3/7.2.0/gmap3.min.js"></script>
+</head>
+<body>
+<!--<h1>InfoWindow也可以关联到一个标记上</h1>-->
+<div class="map"></div>
+<script>
+$('.map').gmap3({
+	zoom: 2,
+	center: [0, -180]
+}).polyline({
+	strokeColor: "#FF0000",
+	strokeOpacity: 1.0,
+	strokeWeight: 2,
+	path: [
+		[37.772323, -122.214897],
+		[21.291982, -157.821856],
+		[-18.142599, 178.431],
+		[-27.46758, 153.027892]
+	]
+});
+</script>
+</body>
+</html>

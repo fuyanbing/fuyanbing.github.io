@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<link href="css/styles.css" rel="stylesheet">
+<script src="http://maps.google.com/maps/api/js"></script>
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gmap3/7.2.0/gmap3.min.js"></script>
+</head>
+<body>
+<h1>注意：默认情况下，InfoWindow不会打开。</h1>
+<div class="map"></div>
+<script>
+var uluru = {
+	lat: -25.363,
+	lng: 131.044
+};
+$('.map').gmap3({
+	zoom: 4,
+	center: uluru
+}).infowindow({
+	position: uluru,
+	content: "Hello from Uluru"
+}).then(function(infowindow) {
+	infowindow.open(this.get(0)); // this.get(0) return the map (see "get" feature)
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+<script src="js/jquery.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/masonry.pkgd.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	$(function() {
+		// external js: masonry.pkgd.js
+		$('.grid').masonry({
+			itemSelector: '.grid-item',//class选择器,默认item
+			columnWidth: 160//一列的宽度
+		});
+	})
+</script>
+<style type="text/css">
+	* {
+		box-sizing: border-box;
+	}
+	body {
+		font-family: sans-serif;
+	}
+	/* ---- grid ---- */
+	
+	.grid {
+		background: #EEE;
+		width: 90%;
+		margin: 0 auto;
+	}
+	/* clearfix */
+	
+	.grid:after {
+		content: '';
+		display: block;
+		clear: both;
+	}
+	/* ---- grid-item ---- */
+	
+	.grid-item {
+		width: 160px;
+		height: 120px;
+		float: left;
+		background: #D26;
+		border: 2px solid #333;
+		border-color: hsla(0, 0%, 0%, 0.5);
+		border-radius: 5px;
+		font-size: 20px;
+		color: #FFFFFF;
+		text-align: center;
+	}
+	.grid-item--width2 {
+		width: 320px;
+	}
+	.grid-item--width3 {
+		width: 480px;
+	}
+	.grid-item--width4 {
+		width: 640px;
+	}
+	.grid-item--height2 {
+		height: 200px;
+	}
+	.grid-item--height3 {
+		height: 260px;
+	}
+	.grid-item--height4 {
+		height: 360px;
+	}
+</style>
+</head>
+<body>
+<h1>Masonry - 自定义尺寸和样式</h1>
+<div class="grid">
+	<div class="grid-item">0</div>
+	<div class="grid-item grid-item--width2 grid-item--height2">1</div>
+	<div class="grid-item grid-item--height3">2</div>
+	<div class="grid-item grid-item--height2">3</div>
+	<div class="grid-item grid-item--width3">4</div>
+	<div class="grid-item">5</div>
+	<div class="grid-item">6</div>
+	<div class="grid-item grid-item--height2">7</div>
+	<div class="grid-item grid-item--width2 grid-item--height3">8</div>
+	<div class="grid-item">9</div>
+	<div class="grid-item grid-item--height2">10</div>
+	<div class="grid-item">11</div>
+	<div class="grid-item grid-item--width2 grid-item--height2">12</div>
+	<div class="grid-item grid-item--width2">13</div>
+	<div class="grid-item">14</div>
+	<div class="grid-item grid-item--height2">15</div>
+	<div class="grid-item">16</div>
+	<div class="grid-item">17</div>
+	<div class="grid-item grid-item--height3">18</div>
+	<div class="grid-item grid-item--height2">19</div>
+	<div class="grid-item">20</div>
+	<div class="grid-item">21</div>
+	<div class="grid-item grid-item--height2">22</div>
+</div>
+</body>
+</html>

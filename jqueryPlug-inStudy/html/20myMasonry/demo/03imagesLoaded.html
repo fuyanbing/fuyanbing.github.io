@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+<script src="js/jquery.js" type="text/javascript" charset="utf-8"></script>
+<!--<script src="js/masonry.pkgd.js" type="text/javascript" charset="utf-8"></script>-->
+<script src="js/masonry-docs.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	$(function() {
+		// external js: masonry.pkgd.js, imagesloaded.pkgd.js
+		// init Isotope
+		var grid = document.querySelector('.grid');
+		var msnry = new Masonry(grid, {
+			itemSelector: '.grid-item',
+			columnWidth: '.grid-sizer',
+			percentPosition: true
+		});
+		imagesLoaded(grid).on('progress', function() {
+			// layout Masonry after each image loads
+			msnry.layout();
+		});
+	})
+</script>
+<style type="text/css">
+	* {
+		box-sizing: border-box;
+	}
+	/* force scrollbar */
+	
+	html {
+		overflow-y: scroll;
+	}
+	body {
+		font-family: sans-serif;
+	}
+	/* ---- grid ---- */
+	
+	.grid {
+		background: #DDD;
+	}
+	/* clear fix */
+	
+	.grid:after {
+		content: '';
+		display: block;
+		clear: both;
+	}
+	/* ---- .grid-item ---- */
+	
+	.grid-sizer, .grid-item {
+		width: 33.333%;
+	}
+	.grid-item {
+		float: left;
+	}
+	.grid-item img {
+		display: block;
+		max-width: 100%;
+	}
+</style>
+</head>
+<body>
+<h1>Masonry - 图片镶嵌  先初始化Masonry，然后layout在每个图像加载后触发。</h1>
+<div class="grid">
+	<div class="grid-sizer"></div>
+	<div class="grid-item">
+		<img src="img/orange-tree.jpg" /> </div>
+	<div class="grid-item">
+		<img src="img/submerged.jpg" /> </div>
+	<div class="grid-item">
+		<img src="img/look-out.jpg" /> </div>
+	<div class="grid-item">
+		<img src="img/one-world-trade.jpg" /> </div>
+	<div class="grid-item">
+		<img src="img/drizzle.jpg" /> </div>
+	<div class="grid-item">
+		<img src="img/cat-nose.jpg" /> </div>
+	<div class="grid-item">
+		<img src="img/contrail.jpg" /> </div>
+	<div class="grid-item">
+		<img src="img/golden-hour.jpg" /> </div>
+	<div class="grid-item">
+		<img src="img/flight-formation.jpg" /> </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>基于gridster.js插件实现动态缩放可拖放布局应用</title>
+<link rel="stylesheet" type="text/css" href="css/jquery.gridster.css">
+<link rel="stylesheet" type="text/css" href="css/demo.css">
+<script type="text/javascript" src="js/jquery.js"></script>
+<script src="js/jquery.gridster.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	function getRandomInt(min, max) {
+		return Math.floor(Math.random() * (max - min + 1)) + min;
+	}
+</script>
+<script type="text/javascript">
+	var gridster;
+	$(function() {
+		gridster = $(".gridster ul").gridster({
+			widget_base_dimensions: [100, 100],
+			widget_margins: [5, 5],
+			helper: 'clone' //对鼠标拖动的对象进行克隆操作
+		}).data('gridster');
+		// resize widgets on hover
+		gridster.$el.on('mouseenter', '> li', function() {
+			gridster.resize_widget($(this), 3, 3);
+		}).on('mouseleave', '> li', function() {
+			gridster.resize_widget($(this), 1, 1);
+		});
+	});
+</script>
+</head>
+<body style="">
+<h1>基于gridster.js插件实现动态缩放可拖放布局页面应用</h1>
+<p>当鼠标经过窗口小部件时,使用gridster.js插件resize_widget方法实现动态缩放.</p>
+<div class="gridster ready">
+	<ul style="height: 330px; position: relative;">
+		<li data-row="1" data-col="1" data-sizex="1" data-sizey="1" class="gs-w">0</li>
+		<li data-row="1" data-col="2" data-sizex="1" data-sizey="1" class="gs-w">1</li>
+		<li data-row="1" data-col="3" data-sizex="1" data-sizey="1" class="gs-w">2</li>
+		<li data-row="1" data-col="4" data-sizex="1" data-sizey="1" class="gs-w">3</li>
+		<li data-row="2" data-col="1" data-sizex="1" data-sizey="1" class="gs-w">4</li>
+		<li data-row="2" data-col="2" data-sizex="1" data-sizey="1" class="gs-w">5</li>
+		<li data-row="2" data-col="3" data-sizex="1" data-sizey="1" class="gs-w">6</li>
+		<li data-row="2" data-col="4" data-sizex="1" data-sizey="1" class="gs-w">7</li>
+		<li data-row="3" data-col="1" data-sizex="1" data-sizey="1" class="gs-w">8</li>
+		<li data-row="3" data-col="2" data-sizex="1" data-sizey="1" class="gs-w">9</li>
+		<li data-row="3" data-col="3" data-sizex="1" data-sizey="1" class="gs-w">10</li>
+		<li data-row="3" data-col="4" data-sizex="1" data-sizey="1" class="gs-w">11</li>
+	</ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<script src="source/jquery-1.9.0.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="source/jquery.opacityrollover.js" type="text/javascript" charset="utf-8"></script>
+<title>动态部件gridster</title>
+<style type="text/css">
+	.box {
+		width: 100%;
+		overflow: hidden;
+		text-align: center;
+		min-width: 800px;
+	}
+	ul {
+		width: 100%;
+		overflow: hidden;
+	}
+	li {
+		list-style: none;
+		float: left;
+		margin-left: 3%;
+		width: 15%;
+	}
+	h2 {
+		background-color: #DDDDDD;
+		padding: 10px;
+	}
+	h2 span {
+		font-size: 20px;
+		color: green;
+	}
+	.mkBox a {
+		display: block;
+		height: 100px;
+		border-radius: 10px;
+		background: #999999 linear-gradient(to bottom, #FF9722 0%, #E15603 100%);
+		box-shadow: 1px 1px 2px #666;
+		margin-bottom: 10px;
+	}
+	.mkUl li {
+		height: 160px;
+	}
+	.li01 a {
+		background-image: url(source/01.jpg);
+	}
+	.li02 a {
+		background-image: url(source/02.jpg);
+	}
+	.li03 a {
+		background-image: url(source/04.jpg);
+	}
+	.li04 a {
+		background-image: url(source/03.jpg);
+	}
+	.li05 a {
+		background-image: url(source/05.jpg);
+	}
+	.li06 a {
+		background-image: url(source/06.jpg);
+	}
+	.mkUl a {
+		background-size: 100% 100%;
+		background-repeat: no-repeat;
+	}
+	.mkUl span {
+		font-size: 14px;
+	}
+	.introduce {
+		width: 90%;
+		border-radius: 5px;
+		min-height: 50px;
+		margin: 0 auto;
+		background-color: #DDDDDD;
+		text-align: left;
+		padding: 10px;
+		box-sizing: border-box;
+		color: #666666;
+	}
+	.introduce span{
+		color: #095AA6;;
+		font-weight: bold;
+		line-height: 1.5;
+	}
+</style>
+</head>
+<body>
+<div class="box">
+	<div class="mkBox">
+		<h2>动态部件gridster
+			<span>&nbsp;&nbsp;gridster&nbsp;&nbsp;&nbsp;</span>
+		</h2>
+		<div class="introduce">
+			<span>gridster.js是一款基于jQuery框架的可拖放布局插件</span>可用来构建直观的可拖放的布局，支持多列布局，该插件还可以动态地添加和删除表格中的元素。gridster.js插件与其他的插件不太一样的地方在于其处理拖放的元素支持不同大小，并且支持多列的网格布局，会自动根据位置进行排序和调整。<br />gridster.js插件非常适合用于开发具有创意的应用，它可以帮助设计人员将任何html元素转换为网格组件。<br />gridster.js插件具有如下主要特性：<br />
+			<span>只依赖jQuery框架开发。 </span><br />
+			<span>支持元素的添加和删除。 </span><br />
+			<span>拥有测试用例，可以查看不同浏览器的测试结果。 </span><br />
+			<span>比较适合开发益智游戏。 </span><br />
+			<span>提供丰富的文档帮助。 </span><br />
+			<span>gridster.js插件的官方网址如下： http://gridster.net/ </span>
+		</div>
+		<ul class="mkUl">
+			<li class="li01">
+				<a href="demo/0.html"></a>
+				<span>demo01</span>
+			</li>
+			<li class="li02">
+				<a href="demo/1.html"></a>
+				<span>demo02</span>
+			</li>
+		</ul>
+	</div>
+</div>
+</body>
+</html>

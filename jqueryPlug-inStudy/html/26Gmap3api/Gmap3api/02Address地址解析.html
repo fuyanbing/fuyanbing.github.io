@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href="css/styles.css" rel="stylesheet">
+<script src="http://maps.google.com/maps/api/js"></script>
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gmap3/7.2.0/gmap3.min.js"></script>
+</head>
+<body>
+<div class="map" style="width: 100%; height: 800px;"></div>
+ <!--key: 'AIzaSyCROUukQ4fjBuBsPo4La2J1ecqHKdciI0I'-->
+<script>
+	$('.map').gmap3({
+		address: "Paris, France",
+		zoom: 4,
+		mapTypeId: google.maps.MapTypeId.ROADMAP
+	}).marker([{
+		position: [48.8620722, 2.352047]
+	}, {
+		address: "86000 Poitiers, France"
+	}, {
+		address: "66000 Perpignan, France",
+		icon: "http://maps.google.com/mapfiles/marker_grey.png"
+	}]);
+</script>
+</body>
+</html>

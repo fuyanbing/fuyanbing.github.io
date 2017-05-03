@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<title>Demo : jPlayer作为一个音频列表播放器</title>
+<link href="skin/blue.monday/css/jplayer.blue.monday.min.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+	body {
+		padding: 0;
+		margin: 0;
+	}
+	div.jp-audio {
+		width: 96% !important;
+		margin: 2%;
+		box-sizing: border-box;
+	}
+	.jp-playlist {
+		border-top: none !important;
+		/*border-bottom: 1px solid #009be3;*/
+		background-color: #EEEEEE !important;
+	}
+	.jp-playlist li {
+		border-bottom: 1px solid #FFFFFF !important;
+	}
+	.jp-interface {
+		position: absolute;
+		height: 100px !important;
+		width: 95%;
+		bottom: 2%;
+		left: 2.5%;
+		padding-top: 10px;
+		background-color: #DDDDDD;
+	}
+	.jp-controls {
+		clear: both;
+		padding: 0 !important;
+		width: 140px !important;
+		margin: 0 auto !important;
+	}
+	.jp-progress {
+		position: relative !important;
+		left: 0 !important;
+		width: 90% !important;
+		margin: 0 auto !important;
+		top: 0 !important;
+	}
+	.jp-time-holder {
+		position: relative !important;
+		left: 0 !important;
+		width: 90% !important;
+		margin: 0 auto !important;
+		top: 0 !important;
+	}
+	.jp-toggles {
+		width: 55px;
+		position: relative !important;
+		left: 0 !important;
+		margin: 0 auto !important;
+		top: 0 !important;
+		margin-bottom: 5px !important;
+	}
+	.jp-playlist {
+		overflow-x: hidden;
+		overflow-y: scroll;
+	}
+</style>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery.jplayer.min.js"></script>
+<script src="js/jplayer.playlist.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		//初始化高度
+		$("div.jp-audio").height($(document).height() - 18);
+		$(".jp-playlist").height($(document).height() - 135);
+		//音乐播放器
+		new jPlayerPlaylist({
+			jPlayer: "#jquery_jplayer_1",
+			cssSelectorAncestor: "#jp_container_1"
+		}, [{
+			title: "巴哈尔古丽 - 请你尝块哈密瓜",
+			mp3: "http://ogd8du8tr.bkt.clouddn.com/mp3/%E5%B7%B4%E5%93%88%E5%B0%94%E5%8F%A4%E4%B8%BD%20-%20%E8%AF%B7%E4%BD%A0%E5%B0%9D%E5%9D%97%E5%93%88%E5%AF%86%E7%93%9C.mp3",
+		}, {
+			title: "布仁巴雅尔 - 努力格日玛",
+			mp3: "http://ogd8du8tr.bkt.clouddn.com/mp3/%E5%B8%83%E4%BB%81%E5%B7%B4%E9%9B%85%E5%B0%94%20-%20%E5%8A%AA%E5%8A%9B%E6%A0%BC%E6%97%A5%E7%8E%9B.mp3",
+		}, {
+			title: "布仁巴雅尔、莫日根 - 历史的声音",
+			mp3: "http://ogd8du8tr.bkt.clouddn.com/mp3/%E5%B8%83%E4%BB%81%E5%B7%B4%E9%9B%85%E5%B0%94%E3%80%81%E8%8E%AB%E6%97%A5%E6%A0%B9%20-%20%E5%8E%86%E5%8F%B2%E7%9A%84%E5%A3%B0%E9%9F%B3.mp3",
+		}, {
+			title: "彩云之南 - 葫芦丝",
+			mp3: "http://ogd8du8tr.bkt.clouddn.com/mp3/%E5%BD%A9%E4%BA%91%E4%B9%8B%E5%8D%97%20-%20%E8%91%AB%E8%8A%A6%E4%B8%9D%20-%20%E6%85%A2%E5%9B%9B%20Dj%20%E5%B0%8F%E8%BE%89%20Remix.mp3",
+		}, {
+			title: "才旦卓玛 - 在北京的金山上",
+			mp3: "http://ogd8du8tr.bkt.clouddn.com/mp3/%E6%89%8D%E6%97%A6%E5%8D%93%E7%8E%9B%20-%20%E5%9C%A8%E5%8C%97%E4%BA%AC%E7%9A%84%E9%87%91%E5%B1%B1%E4%B8%8A.mp3",
+		}, {
+			title: "才旦卓玛 - 格桑拉",
+			//			free:true,
+			mp3: "http://ogd8du8tr.bkt.clouddn.com/mp3/%E6%89%8D%E6%97%A6%E5%8D%93%E7%8E%9B%20-%20%E6%A0%BC%E6%A1%91%E6%8B%89.mp3",
+		}, {
+			title: "才旦卓玛 - 美丽的西藏",
+			mp3: "http://ogd8du8tr.bkt.clouddn.com/mp3/%E6%89%8D%E6%97%A6%E5%8D%93%E7%8E%9B%20-%20%E7%BE%8E%E4%B8%BD%E7%9A%84%E8%A5%BF%E8%97%8F.mp3",
+		}, {
+			title: "敖包相会 杨丽霞 葫芦丝 康定情歌",
+			mp3: "http://ogd8du8tr.bkt.clouddn.com/mp3/%E6%95%96%E5%8C%85%E7%9B%B8%E4%BC%9A%20%E6%9D%A8%E4%B8%BD%E9%9C%9E%20%E8%91%AB%E8%8A%A6%E4%B8%9D%20%E5%BA%B7%E5%AE%9A%E6%83%85%E6%AD%8C.mp3",
+		}, {
+			title: "爱上你是我的错",
+			mp3: "http://ogd8du8tr.bkt.clouddn.com/mp3/%E7%88%B1%E4%B8%8A%E4%BD%A0%E6%98%AF%E6%88%91%E7%9A%84%E9%94%99.mp3",
+		}, {
+			title: "爱你在心口难开",
+			//			free:true,
+			mp3: "http://ogd8du8tr.bkt.clouddn.com/mp3/%E7%88%B1%E4%BD%A0%E5%9C%A8%E5%BF%83%E5%8F%A3%E9%9A%BE%E5%BC%80.mp3",
+		}, {
+			title: "爱如潮水-张信哲",
+			mp3: "http://ogd8du8tr.bkt.clouddn.com/mp3/%E7%88%B1%E5%A6%82%E6%BD%AE%E6%B0%B4-%E5%BC%A0%E4%BF%A1%E5%93%B2.mp3",
+		}, {
+			title: "爱情神马价",
+			//			free: true,
+			mp3: "http://ogd8du8tr.bkt.clouddn.com/mp3/%E7%88%B1%E6%83%85%E7%A5%9E%E9%A9%AC%E4%BB%B7.mp3",
+		}, {
+			title: "布仁巴雅尔 - 努力格日玛",
+			mp3: "http://ogd8du8tr.bkt.clouddn.com/mp3/%E5%B8%83%E4%BB%81%E5%B7%B4%E9%9B%85%E5%B0%94%20-%20%E5%8A%AA%E5%8A%9B%E6%A0%BC%E6%97%A5%E7%8E%9B.mp3",
+		}, {
+			title: "布仁巴雅尔、莫日根 - 历史的声音",
+			mp3: "http://ogd8du8tr.bkt.clouddn.com/mp3/%E5%B8%83%E4%BB%81%E5%B7%B4%E9%9B%85%E5%B0%94%E3%80%81%E8%8E%AB%E6%97%A5%E6%A0%B9%20-%20%E5%8E%86%E5%8F%B2%E7%9A%84%E5%A3%B0%E9%9F%B3.mp3",
+		}, {
+			title: "彩云之南 - 葫芦丝",
+			mp3: "http://ogd8du8tr.bkt.clouddn.com/mp3/%E5%BD%A9%E4%BA%91%E4%B9%8B%E5%8D%97%20-%20%E8%91%AB%E8%8A%A6%E4%B8%9D%20-%20%E6%85%A2%E5%9B%9B%20Dj%20%E5%B0%8F%E8%BE%89%20Remix.mp3",
+		}, {
+			title: "才旦卓玛 - 在北京的金山上",
+			mp3: "http://ogd8du8tr.bkt.clouddn.com/mp3/%E6%89%8D%E6%97%A6%E5%8D%93%E7%8E%9B%20-%20%E5%9C%A8%E5%8C%97%E4%BA%AC%E7%9A%84%E9%87%91%E5%B1%B1%E4%B8%8A.mp3",
+		}, {
+			title: "才旦卓玛 - 格桑拉",
+			//			free:true,
+			mp3: "http://ogd8du8tr.bkt.clouddn.com/mp3/%E6%89%8D%E6%97%A6%E5%8D%93%E7%8E%9B%20-%20%E6%A0%BC%E6%A1%91%E6%8B%89.mp3",
+		}, {
+			title: "才旦卓玛 - 美丽的西藏",
+			mp3: "http://ogd8du8tr.bkt.clouddn.com/mp3/%E6%89%8D%E6%97%A6%E5%8D%93%E7%8E%9B%20-%20%E7%BE%8E%E4%B8%BD%E7%9A%84%E8%A5%BF%E8%97%8F.mp3",
+		}, {
+			title: "敖包相会 杨丽霞 葫芦丝 康定情歌",
+			mp3: "http://ogd8du8tr.bkt.clouddn.com/mp3/%E6%95%96%E5%8C%85%E7%9B%B8%E4%BC%9A%20%E6%9D%A8%E4%B8%BD%E9%9C%9E%20%E8%91%AB%E8%8A%A6%E4%B8%9D%20%E5%BA%B7%E5%AE%9A%E6%83%85%E6%AD%8C.mp3",
+		}, {
+			title: "爱上你是我的错",
+			mp3: "http://ogd8du8tr.bkt.clouddn.com/mp3/%E7%88%B1%E4%B8%8A%E4%BD%A0%E6%98%AF%E6%88%91%E7%9A%84%E9%94%99.mp3",
+		}, {
+			title: "爱你在心口难开",
+			//			free:true,
+			mp3: "http://ogd8du8tr.bkt.clouddn.com/mp3/%E7%88%B1%E4%BD%A0%E5%9C%A8%E5%BF%83%E5%8F%A3%E9%9A%BE%E5%BC%80.mp3",
+		}, {
+			title: "爱如潮水-张信哲",
+			mp3: "http://ogd8du8tr.bkt.clouddn.com/mp3/%E7%88%B1%E5%A6%82%E6%BD%AE%E6%B0%B4-%E5%BC%A0%E4%BF%A1%E5%93%B2.mp3",
+		}, {
+			title: "爱情神马价",
+			//			free: true,
+			mp3: "http://ogd8du8tr.bkt.clouddn.com/mp3/%E7%88%B1%E6%83%85%E7%A5%9E%E9%A9%AC%E4%BB%B7.mp3",
+		}, {
+			title: "爱情诺曼底-黄征",
+			mp3: "http://ogd8du8tr.bkt.clouddn.com/mp3/%E7%88%B1%E6%83%85%E8%AF%BA%E6%9B%BC%E5%BA%95-%E9%BB%84%E5%BE%81.mp3",
+		}], {
+			swfPath: "js/jplayer",
+			supplied: "mp3",
+			wmode: "window",
+			useStateClassSkin: true,
+			autoBlur: false,
+			smoothPlayBar: true,
+			keyEnabled: true
+		});
+	});
+</script>
+</head>
+<body>
+<div id="jquery_jplayer_1" class="jp-jplayer"></div>
+<div id="jp_container_1" class="jp-audio" role="application" aria-label="media player">
+	<div class="jp-type-playlist">
+		<div class="jp-playlist">
+			<ul>
+				<li>&nbsp;</li>
+			</ul>
+		</div>
+		<div class="jp-gui jp-interface">
+			<div class="jp-toggles">
+				<button class="jp-repeat" role="button" tabindex="0">repeat</button>
+				<button class="jp-shuffle" role="button" tabindex="0">shuffle</button>
+			</div>
+			<div class="jp-progress">
+				<div class="jp-seek-bar">
+					<div class="jp-play-bar"></div>
+				</div>
+			</div>
+			<div class="jp-volume-controls">
+				<button class="jp-mute" role="button" tabindex="0">mute</button>
+				<button class="jp-volume-max" role="button" tabindex="0">max volume</button>
+				<div class="jp-volume-bar">
+					<div class="jp-volume-bar-value"></div>
+				</div>
+			</div>
+			<div class="jp-time-holder">
+				<div class="jp-current-time" role="timer" aria-label="time">&nbsp;</div>
+				<div class="jp-duration" role="timer" aria-label="duration">&nbsp;</div>
+			</div>
+			<div class="jp-controls">
+				<button class="jp-previous" role="button" tabindex="0">previous</button>
+				<button class="jp-play" role="button" tabindex="0">play</button>
+				<button class="jp-next" role="button" tabindex="0">next</button>
+				<button class="jp-stop" role="button" tabindex="0">stop</button>
+			</div>
+		</div>
+		<div class="jp-no-solution">
+			<span>Update Required</span> To play the media you will need to either update your browser to a recent version or update your
+			<a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>. </div>
+	</div>
+</div>
+</body>
+</html>
