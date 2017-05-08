@@ -1,0 +1,9 @@
+package personStudy;
+
+public class EmailSpider {
+
+	public static void main(String[] args) {
+		BufferedReader br = new BufferedReader(new FileReader("F:\EclipseWork\web\WebContent\otherStudy\EmailSpider.html"));
+	}
+
+}

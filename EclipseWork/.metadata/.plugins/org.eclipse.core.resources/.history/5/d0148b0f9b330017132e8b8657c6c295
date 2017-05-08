@@ -1,0 +1,29 @@
+package personStudy;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class EmailSpider {
+
+	public static void main(String[] args) {
+		try {
+			BufferedReader br = new BufferedReader(new FileReader("F:\\EclipseWork\\web\\WebContent\\otherStudy\\EmailSpider.html"));
+			String line = "";
+			while((line = br.readLine()) != null){
+				parse(line);
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private static void parse(String line) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

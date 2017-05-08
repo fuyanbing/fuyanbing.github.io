@@ -1,0 +1,16 @@
+package personStudy;
+
+import java.io.File;
+//在整个IO包了，唯一表示与文件本身有关的类就是File类。
+//使用File类可以进行创建或删除文件等常用操作。
+//要想使用File类。则首先要观察File类的构造方法，此类的常用构造方法如下所示：
+
+public class CodeCounter {
+	static long normalLines = 0;
+	static long commentLines = 0;
+	static long whiteLines = 0;
+	
+	public static void main(String[] args){
+		File f = new File("F:\\EclipseWork\\web\\WebContent\\otherStudy\\CodeCounter");
+	}
+}

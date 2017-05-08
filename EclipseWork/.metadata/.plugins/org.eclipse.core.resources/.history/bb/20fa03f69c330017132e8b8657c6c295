@@ -1,0 +1,7 @@
+package personStudy;
+
+public class CodeCounter {
+	static long normalLines = 0;
+	static long commentLines = 0;
+	static long whiteLines = 0;
+}

@@ -1,0 +1,26 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<script type="text/javascript">
+window.onload = function(){
+	 //提示和注释
+	 // 注释：indexOf() 方法对大小写敏感！
+	 //  注释：如果要检索的字符串值没有出现，则该方法返回 -1。
+   if(location.search.indexOf("?")==-1){
+      location.href += "?myurl";
+   }
+   else{
+      if(location.search.indexOf("myurl")==-1) location.href += "&myurl";
+   }
+}
+</script>
+
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>hhhhh</h1>
+</body>
+</html>

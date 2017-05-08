@@ -1,0 +1,13 @@
+package personStudy;
+
+import java.io.File;
+
+public class CodeCounter {
+	static long normalLines = 0;
+	static long commentLines = 0;
+	static long whiteLines = 0;
+	
+	public static void main(String[] args){
+		File f = new File("F:\\EclipseWork\\web\\WebContent\\otherStudy\\CodeCounter");
+	}
+}

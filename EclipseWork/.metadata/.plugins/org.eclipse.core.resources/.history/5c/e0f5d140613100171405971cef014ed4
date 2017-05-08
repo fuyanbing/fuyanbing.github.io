@@ -1,0 +1,57 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<style type="text/css">
+	.outline{
+		width: 100px;
+		height: 50px;
+		margin: 20px;
+		border: 3px solid black;
+outline-color:red;
+outline-style:dotted;
+outline-width:1px;
+outline-offset: 5px;
+
+background-origin:content-box;
+background-origin:border-box;
+background-origin:padding-box;
+	}
+</style>
+<script type="text/javascript">
+window.onload = function(){
+	//提示和注释
+	// 注释：indexOf() 方法对大小写敏感！
+	//  注释：如果要检索的字符串值没有出现，则该方法返回 -1。
+   if(location.search.indexOf("?")==-1){
+      location.href += "?myurl";
+   }
+   else{
+      if(location.search.indexOf("myurl")==-1) location.href += "&myurl";
+   }
+}
+var ua = navigator.userAgent.toLowerCase(),ie;
+if (ie = ua.match(/msie ([\d.]+)/)) {
+    ie = ie[1] >> 0;
+    if (ie < 9) {
+        document.body.innerHTML = '你的浏览器不支持canvas';
+    };
+};
+document.querySelector("button").addEventListener('click',function () {
+	//querySelector方法返回文档中匹配指定 CSS 选择器的一个元素
+	var appCache = window.applicationCache;
+	appCache.update();
+	if (appCache.status == window.applicationCache.UPDATEREADY) {
+		appCache.swapCache();//更新成功后，切换到新的缓存
+	}
+})
+</script>
+<html manifest="ApplicationCache/application.manifest">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>hhhhh</h1>
+</body>
+</html>
