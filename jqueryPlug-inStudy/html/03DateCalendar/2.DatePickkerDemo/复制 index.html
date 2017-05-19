@@ -3,21 +3,31 @@
 	<head>
 		<meta charset="utf-8" />
 		<title></title>
-		<!--datepicker插件的CSS链接-->
-		<link rel="stylesheet" type="text/css" href="css/jquery-ui-1.10.3.custom.css">
-		<!--jQuery库的引用-->
-		<script type="text/javascript" src="js/jquery-1.9.1.js"></script>
-		<!--jQuery UI自定义下载库的引用-->
-		<script type="text/javascript" src="js/jquery-ui-1.10.3.custom.js"></script>
-		<!--添加简体中文的日历-->
-		<script type="text/javascript" src="js/jquery.ui.datepicker-zh-CN.js"></script>
+		
+		
+		<!--<link type="text/css" href="css/jquery-ui-1.11.4.css" rel="stylesheet" />-->
+	    <link rel="stylesheet" type="text/css" href="css/jquery-ui-1.10.3.custom.css">
+	    <link type="text/css" href="css/jquery-ui-timepicker-addon.css" rel="stylesheet" />
+	    <script type="text/javascript" src="js/jquery-1.11.1.js"></script>
+		<script type="text/javascript" src="js/jquery-ui-1.11.4.js"></script>
+		<script type="text/javascript" src="js/jquery-ui-timepicker-addon.js"></script>
+	    <script type="text/javascript" src="js/jquery-ui-timepicker-zh-CN.js"></script>
+	    
+	    
+
 		
 		<script type="text/javascript">
 			$(function () {
 				//调用datepicker插件在鼠标点击时显示日期选择框
-				$("#idDate").datepicker({
-					showSecond: true,  
-				});
+				$("#idDate").datetimepicker({
+		        	defaultDate: $('#idDate').val(),
+		            dateFormat: "yy-mm-dd",
+		            showSecond: true,
+		            timeFormat: 'hh:mm:ss',
+		            stepHour: 1,
+		            stepMinute: 1,
+		            stepSecond: 1
+		        })
 				//设置文本框的日期选择效果
 				$("#idDateIcon").datepicker({
 					//显示文本按钮
