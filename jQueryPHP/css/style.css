@@ -1,0 +1,256 @@
+﻿body {
+	padding:0;
+	font-size:12px;
+	font-family:宋体;
+	background:#fff;
+}
+/*更改jQuery UI主题的对话框header的背景*/
+.ui-widget-header {
+	background:url(../img/ui_header_bg.png);
+}
+/*按钮正常状态的背景*/
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+	background:url(../img/ui_header_bg.png);
+}
+/*按钮点击状态的背景*/
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active {
+	background:url(../img/ui_white.png);
+}
+/*工具提示的文本颜色*/
+.ui-tooltip {
+	color:#666;
+}
+/*邮箱自动补全的悬停背景色*/
+.ui-menu-item a.ui-state-focus {
+	background:url(../img/ui_header_bg.png);
+}
+.ui-menu-item a {
+	color:#666;
+}
+/*日历UI的今天单元格样式*/
+.ui-datepicker-today .ui-state-highlight {
+	border:1px solid #eee;
+	color:#f60;
+}
+/*日历UI的选定单元格样式*/
+.ui-datepicker-current-day .ui-state-active {
+	border:1px solid #eee;
+	color:#06f;
+}
+.a {
+	font-size:30px;
+}
+#header {
+	width:100%;
+	height:40px;
+	background:url(../img/header_bg.png);
+}
+#header .header_main {
+	width:800px;
+	height:40px;
+	margin:0 auto;
+}
+#header .header_main h1 {
+	font-size:20px;
+	margin:0;
+	padding:0;
+	color:#666;
+	height:40px;
+	line-height:40px;
+	padding:0 10px;
+	float:left;
+}
+#header .header_search {
+	padding:6px 0 0 0;
+	float:left;
+} 
+#header .header_search .search {
+	width:300px;
+	height:24px;
+	border:1px solid #ccc;
+	background:#fff;
+	color:#666;
+	font-size:14px;
+	text-indent:5px;
+}
+#header .header_button {
+	padding:5px;
+	float:left;
+}
+#header .header_member {
+	float:right;
+	height:40px;
+	line-height:40px;
+	color:#555;
+	font-size:14px;
+}
+#header .header_member a {
+	text-decoration:none;
+	color:#555;
+	font-size:14px;
+}
+#reg,#login{
+	padding:15px 0 0 15px;
+}
+#reg p,#login p,#question p {
+	margin:10px 0;
+	padding:0;
+}
+#reg p label,#login p label,#question p label {
+	font-size:14px;
+	color:#666;
+}
+#reg .star,#login .star,#question .star {
+	font-size:14px;
+	color:maroon;
+}
+#reg .succ,#login .succ,#question .succ {
+	display:inline-block;
+	width:28px;
+	background:url(../img/reg_succ.png) no-repeat;
+}
+#reg ol,#login ol,#question ol {
+	margin:0;
+	padding:0 0 0 20px;
+	color:maroon;
+}
+#reg ol li,#login ol li,#question ol li {
+	height:20px;
+}
+#reg .text,#login .text,#question .text {
+	border-radius:4px;
+	border:1px solid #ccc;
+	background:#fff;
+	width:200px;
+	height:25px;
+	line-height:25px;
+	text-indent:5px;
+	font-size:13px;
+	color:#666;
+}
+#loading {
+	background:url(../img/loading.gif) no-repeat 20px center;
+	line-height:28px;
+	font-size:14px;
+	font-weight:bold;
+	text-indent:40px;
+	color:#666;
+}
+#error {
+	background:url(../img/error.png) no-repeat 20px center;
+	line-height:28px;
+	font-size:14px;
+	font-weight:bold;
+	text-indent:40px;
+	color:#666;
+}
+#expires {
+	position:relative;
+	top:2px;
+	margin:0 2px 0 125px;
+}
+#main {
+	width:800px;
+	overflow: hidden;
+	margin:0 auto;
+	padding:10px 0 0 0;
+}
+#main .main_left {
+	width:580px;
+	float:left;
+}
+#main .main_right {
+	width:200px;
+	float:right;
+}
+#tabs {
+	border:none;
+}
+#ui-tabs-1,#ui-tabs-2,#ui-tabs-3 {
+	border:1px solid #aaa;
+	border-top:none;
+	position:relative;
+	top:-2px;
+}
+#accordion {
+
+}
+.content h4 {
+	color:#666;
+	font-weight:normal;
+}
+.content h3 {
+	color:#369;
+}
+.content .editor {
+	line-height:180%;
+	overflow:hidden;
+	color:#333;
+}
+.content .bottom {
+	padding:5px 0 0 0;
+}
+.content hr {
+	color:#ccc;
+	height:1px;
+}
+.content .comment {
+	color:#369;
+	cursor:pointer;
+}
+.content .comment_list {
+	border:1px solid #ccc;
+	border-radius:4px;
+	padding:5px 10px;
+	display:none;
+}
+.content .comment_list dl {
+	margin:0;
+	padding:3px 0px 5px 0;
+}
+.content .comment_list dl dt {
+	margin:0;
+	padding:5px 0 0 0;
+	color:#369;
+}
+.content .comment_list dl dd {
+	margin:0;
+	padding:0;
+	color:#333;
+	line-height:180%;
+}
+.content .comment_list dl dd.date {
+	color:#666;
+}
+.content .comment_list dl.comment_content {
+	border-bottom:1px solid #ccc;
+}
+.content .comment_add {
+	text-align:right;
+}
+.content .comment_add textarea {
+	width:98%;
+	border:1px solid #ccc;
+	border-radius:4px;
+	background:#fff;
+	padding:5px;
+	font-size:12px;
+	color:#666;
+	resize:none;
+}
+.content .comment_add input {
+	cursor:pointer;
+}
+.content .up {
+	float:right;
+	color:#369;
+	cursor:pointer;
+	display: none;
+}
+.content .down {
+	/*float:right;*/
+	color:#369;
+	cursor:pointer;
+	background-color: #eff6fa;
+	padding: 5px;
+}
