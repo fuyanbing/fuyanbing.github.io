@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<title>创建一个HTML5版的注册页面</title>
+<style>
+	*:focus {
+		outline: none;
+	}
+	body {
+		text-align: center;
+	}
+	form
+	{
+		height: 240px;
+		width: 400px;
+		margin: -200px 0 0 -240px;
+		padding: 30px;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		z-index: 0;
+		background-color: #eee;
+		/* linear-gradient带webkit前缀被 Chrome 10+, Safari 5.1+, iOS 5+ 支持 */
+		background-image: -webkit-linear-gradient(top, #fff, #eee);
+		/* linear-gradient带moz前缀被 Firefox 3.6-15 支持 */
+		background-image: -moz-linear-gradient(top, #fff, #eee);
+		/* linear-gradient带ms前缀被 IE9+ 支持 */
+		background-image: -ms-linear-gradient(top, #fff, #eee);
+		/* linear-gradient带o前缀被 Opera 10.5-12.00 支持 */
+		background-image: -o-linear-gradient(top, #fff, #eee);
+		border-radius: 3px;
+		/* 标准格式box-shadow被 Opera 10.5, IE9+, Firefox 4+, Chrome 6+, iOS 5 支持*/
+		box-shadow: 0 0 2px rgba(0, 0, 0, 0.2), 0 1px 1px rgba(0, 0, 0, .2), 0 3px 0 #fff, 0 4px 0 rgba(0, 0, 0, .2);
+	}
+	form:before
+	{
+		content: '';
+		/* content属性与:befor及:after伪元素配合使用，生成某个 CSS 选择器之前或之后的内容 */
+		position: absolute;
+		z-index: -1;
+		border: 1px dashed #ccc;
+		top: 5px;
+		bottom: 5px;
+		left: 5px;
+		right: 5px;
+		box-shadow: 0 0 0 1px #fff;
+		/* Opera 10.5, IE9+, Firefox 4+, Chrome 6+, iOS 5 */
+	}
+	input
+	{
+		float: left;
+		padding: 15px 15px 15px 45px;
+		margin: 0 0 10px 0;
+		width: 353px;
+		border: 1px solid #CCC;
+		background: #F1F1F1;
+		font-size: 14px;
+		border-radius: 5px;
+		box-shadow: 0 1px 1px #CCC inset, 0 1px 0 white;
+		/* Opera 10.5, IE9+, Firefox 4+, Chrome 6+, iOS 5 */
+		/* ease(逐渐慢下来);linear(匀速);ease-in(由慢到快);ease-out(由快到慢);ease-in-out(先慢到快再到慢) */
+		transition: all 0.5s ease-in-out;
+	}
+	input:focus
+	{
+		background-color: #fff;
+		border-color: #e8c291;
+		outline: none;
+		box-shadow: 0 0 0 1px #e8c291 inset;
+	}
+	input:hover
+	{
+		border-color: inherit !important;
+		background-color: #EfEfEf;
+	}
+	input:not(:focus){
+		opacity: 0.6;	/* 所有文本框非焦点样式 */
+	}
+	input:valid{
+		opacity: 0.8;	/*如果输入的值合法 */
+	}
+	input:focus:invalid{
+		border: 1px solid red;
+		background-color: #FFEFF0;
+	}
+	.clearfix{
+		clear: both;
+	}
+	#submit{
+		background-color: #FFB94B;
+		border-width: 1px;
+        border-style: solid;
+        border-color: #D69E31 #E3A037 #D5982D #E3A037;
+        float: left;
+        height: 35px;
+        padding: 0;
+        width: 120px;
+        font: bold 15px Arial, Helvetica;
+        color: #8F5A0A;
+        margin-top: 20px;
+        background-image: -webkit-linear-gradient(top, #FDDB6F, #FFB94B);
+        background-image: -moz-linear-gradient(top, #FDDB6F, #FFB94B);
+        background-image: -ms-linear-gradient(top, #FDDB6F, #FFB94B);
+        background-image: -o-linear-gradient(top, #FDDB6F, #FFB94B);
+        border-radius: 3px;
+        text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+	}
+	#submit:hover,
+	#submit:focus{
+		background: #FDDB6F;
+		background-image: -webkit-linear-gradient(top, #FFB94B, #FDDB6F);
+        background-image: -moz-linear-gradient(top, #FFB94B, #FDDB6F);
+        background-image: -ms-linear-gradient(top, #FFB94B, #FDDB6F);
+        background-image: -o-linear-gradient(top, #FFB94B, #FDDB6F);
+	}
+	.item-name {
+		background: url(../images/user.png) 10px 11px no-repeat;
+	}
+	.item-email {
+		background: url(../images/email.png) 10px 11px no-repeat;
+	}
+	.item-password {
+		background: url(../images/keys.png) 10px 11px no-repeat;
+	}
+</style>
+</head>
+<body>
+<header>
+<h2>创建一个HTML5版的注册页面</h2>
+</header>
+<section>
+	<form action="" method="post">
+		<div class="clearfix">
+			<input type="email" tabindex="1" id="email" class="item-email" placeholder="电子邮箱" autofocus required /> </div>
+		<div class="clearfix">
+			<input type="text" tabindex="2" id="name" class="item-name" placeholder="昵称" required /> </div>
+		<div class="clearfix">
+			<input type="password" tabindex="3" id="password" class="item-password" placeholder="密码" required /> </div>
+		<div class="clearfix">
+			<input type="submit" tabindex="4" id="submit" value="注      册" /> </div>
+	</form>
+</section>
+</body>
+<script src="../js/jquery-1.8.3.js"></script>
+<script type="text/javascript">
+	$(function () {
+		$('input:first').click();
+	})
+</script>
+</html>

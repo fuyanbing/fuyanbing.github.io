@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<style>
+		ul {
+			float: left;
+			list-style: none;
+		}
+		hr {
+			clear: both;
+		}
+		canvas {
+			border: 2px solid black;
+			float: left;
+			margin: 15px;
+		}
+	</style>
+	<title>绘制图形：矩形和圆形</title>
+</head>
+<body>
+	<header>
+		<h2>绘制图形：矩形和圆形</h2>
+	</header>
+	<!-- 矩形 Canvas画布 设置区 -->
+	<ul>
+		<li>
+			<h3>矩形</h3>
+		</li>
+		<li>颜色：
+			<input id="color_rect" type="color" value="#eabb02" /> </li>
+		<li>X轴：
+			<input id="x_rect" type="range" min="0" max="150" value="75" step="1" /> </li>
+		<li>Y轴：
+			<input id="y_rect" type="range" min="0" max="150" value="75" step="1" /> </li>
+		<li>宽度：
+			<input id="width_rect" type="range" min="0" max="200" value="50" step="1" /> </li>
+		<li>高度：
+			<input id="height_rect" type="range" min="0" max="200" value="50" step="1" /> </li>
+	</ul>
+	<!-- 圆形 Canvas画布 设置区 -->
+	<ul>
+		<li>
+			<h3>圆形
+				<h3>
+		</li>
+		<li>颜色：
+			<input id="color_circle" type="color" value="#506cc0" /> </li>
+		<li>X轴：
+			<input id="x_circle" type="range" min="0" max="200" value="100" step="1" /> </li>
+		<li>Y轴：
+			<input id="y_circle" type="range" min="0" max="200" value="100" step="1" /> </li>
+		<li>半径：
+			<input id="radius_circle" type="range" min="0" max="100" value="25" step="1" /> </li>
+	</ul>
+	<hr />
+	<!-- 矩形 Canvas画布 -->
+	<canvas id="canvas_rect" width="200" height="200"></canvas>
+	<!-- 圆形 Canvas画布 -->
+	<canvas id="canvas_circle" width="200" height="200"></canvas>
+</body>
+<script>
+	(function() {
+		//获取矩形Canvas画布绘图上下文
+		var content_rect = document.getElementById('canvas_rect').getContext("2d");
+		//获取圆形Canvas画布绘图上下文
+		var content_circle = document.getElementById('canvas_circle').getContext("2d");
+		//矩形事件
+		var color_rect = document.getElementById('color_rect'), // 获取矩形颜色选择元素
+			x_rect = document.getElementById('x_rect'), // 获取矩形x轴滑块元素
+			y_rect = document.getElementById('y_rect'), // 获取矩形y轴滑块元素
+			width_rect = document.getElementById('width_rect'), // 获取矩形宽度滑块元素
+			height_rect = document.getElementById('height_rect'); // 获取矩形高度滑块元素
+		function draw_rect() {
+			content_rect.clearRect(0, 0, 300, 300);
+			content_rect.fillStyle = color_rect.value;
+			content_rect.fillRect(parseInt(x_rect.value), parseInt(y_rect.value), parseInt(width_rect.value), parseInt(height_rect.value))
+		}
+		// 循环矩形设置元素，绑定数据变更change事件
+		[color_rect, x_rect, y_rect, width_rect, height_rect].forEach(function(item) {
+			item.addEventListener('change', draw_rect, false);
+		});
+		draw_rect();
+		//圆形事件
+		var color_circle = document.getElementById('color_circle'), // 获取圆形颜色选择元素
+			x_circle = document.getElementById('x_circle'), // 获取圆形x轴滑块元素
+			y_circle = document.getElementById('y_circle'), // 获取圆形y轴滑块元素
+			radius_circle = document.getElementById('radius_circle'); // 获取圆形半径滑块元素
+		function draw_circle () {
+			content_circle.clearRect(0, 0, 300, 300); 
+            content_circle.fillStyle = color_circle.value;
+            content_circle.beginPath(); 
+            content_circle.arc(                                       // 创建圆形
+                parseInt(x_circle.value),                            // 圆的中心的 x 坐标
+                parseInt(y_circle.value),                            // 圆的中心的 y 坐标
+                parseInt(radius_circle.value),                       // 圆的半径
+                0,                                                   // 起始角，以弧度计
+                2 * Math.PI,                                         // 结束角，以弧度计
+                true                                                 // 逆时针或顺时针绘图（false：顺时针，true：逆时针）
+            );
+            content_circle.closePath();
+            content_circle.fill(); 
+		}
+		// 循环圆形设置元素，绑定数据变更change事件
+		[color_circle, x_circle, y_circle, radius_circle].forEach(function(item) {
+			item.addEventListener('change', draw_circle, false);
+		});
+		draw_circle();
+	})();
+</script>
+</html>

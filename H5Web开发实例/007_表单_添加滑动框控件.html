@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>示例008 添加滑动控件</title>
+<link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css">
+<script src="../js/jquery-1.8.3.js"></script>
+<style type="text/css">
+	body {
+		margin: 50px auto;
+		width: 430px;
+		padding: 20px;
+		border: 1px solid #c88e8e;
+		border-radius: 15px;
+	}
+	.control-group {
+		border-bottom: 1px dashed #ccc;
+		padding: 5px 0;
+	}
+</style>
+</head>
+<body>
+	<blockquote>
+        <h3>示例008 添加滑动控件</h3>
+    </blockquote>
+	<h4>设置转盘抽奖中奖概率</h4>
+	<form action="#" method="get" autocomplete="on">
+		<div class="control-group">
+			<label for="one">一等奖</label>
+			<input type="range" class="range" name="one" id="one" min="0" max="100" step="1" />
+			<output onforminput="value=one.value + '%'">50%</output>
+		</div>
+		<div class="control-group">
+			<label for="two">二等奖</label>
+			<input type="range" class="range" name="two" id="two" min="0" max="100" step="1" />
+			<output onforminput="value=two.value + '%'">50%</output>
+		</div>
+		<div class="control-group">
+			<label for="three">三等奖</label>
+			<input type="range" class="range" name="three" id="three" min="0" max="100" step="1" />
+			<output onforminput="value=three.value + '%'">50%</output>
+		</div>
+		<input type="submit" class="btn" value="提交"/>
+	</form>	
+</body>
+<script type="text/javascript">
+	$(function () {
+		var ranges = $(".range"),i;
+		for (i=0; i<ranges.length; i++) {
+			var that = $(ranges[i]);
+			var bind = (function (t) {						// 把变量放到闭包里
+				var output = t.next('output');					// 获取显示控件
+				var showValue = function(v){					// 降级处理，显示值
+					output.text(v + '%');
+				}
+				t.bind("change", function(){					// 绑定滑动控件的change事件
+					val = t.val();
+					showValue(val);
+				});
+			}(that));
+		}
+	})
+</script>
+</html>

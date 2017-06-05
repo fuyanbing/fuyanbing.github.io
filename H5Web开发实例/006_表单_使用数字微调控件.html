@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<title>使用数字微调控件</title>
+<style type="text/css">
+	html{
+		text-align: center;
+	}
+	#spinner{
+		width: 200px;
+	}
+	section{
+		margin: 0 auto;
+		width: 300px;
+		padding: 15px;
+		background-color: #EEEEEE;
+		border-color: #EEEEEE;
+		border-radius:3px ;
+	}
+	.name-tip{
+		background-color: #D5982D;
+		width: 280px;
+		height: 200px;
+		line-height: 200px;
+		margin-top: 10px;
+		border-width: 10px;
+		border-style:solid ;
+		border-color: #D69E31 #E3A037 #D5982D #E3A037;
+		border-radius: 3px;
+	}
+</style>
+</head>
+<body> 
+	<header>
+		<h2>使用数字微调控件</h2>
+	</header>
+	<section>
+		<div>
+			<label for="spinner">年龄：</label>
+			<span class="age">
+				<!--speech x-webkit-speech 表示允许用语音输入-->
+				<input id="spinner" name="spinner" type="number" min="1" max="100" step="1" required="required" speech x-webkit-speech />
+			</span>
+		</div>
+		<!-- 提示容器 -->
+        <div class="name-tip" id="J_name_tip"></div>
+	</section>
+</body>
+<script type="text/javascript">
+	var spinner = document.getElementById('spinner'),
+		name_tip = document.getElementById('J_name_tip'),
+		arr = ['猴', '鸡', '狗', '猪', '鼠', '牛', '虎', '兔', '龙', '蛇', '马', '羊'];
+	
+	function getTip () {
+		var number = parseInt(spinner.value),
+		year = (new Date().getFullYear()-number),
+		msg;
+		if (!spinner.validity.valid) {
+			msg = '您输入有误，请清空后重新输入。';
+		} else{
+            msg = '您出生于：' + year + '；属：' + arr[year % 12] + '。';
+		}
+		name_tip.innerHTML = msg; 
+	}
+	spinner.addEventListener('input', getTip, false);           // 数值文本框input事件
+    spinner.addEventListener('speechchange', getTip, false);    // 数值文本框speechchange事件
+</script>
+</html>

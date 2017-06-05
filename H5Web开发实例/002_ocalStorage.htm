@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html>
+<style type="text/css">
+	.top-tips {
+		font: 12px/1.5 Arial, sans-serif;
+		width: 400px;
+		height: 18px;
+		margin: 0 auto 10px auto;
+		padding: 5px 15px 8px;
+		border: 1px solid #e0db65;
+		background-color: #feffd7;
+		color: #333;
+		zoom: 1;
+	}
+	.top-tips p {
+		float: left;
+		margin: 0;
+		padding: 0;
+	}
+	.top-tips .delt {
+		float: right;
+		color: #ad865d;
+		text-decoration: none;
+	}
+	.top-tips .delt span {
+		background: url(http://si1.s1.dpfile.com/s/c/user/i/home-sprite.png) no-repeat -191px -50px;
+		margin-left: 6px;
+		display: inline-block;
+		width: 8px;
+		height: 8px;
+	}
+</style>
+<script src="js/jquery-1.8.3.js"></script>
+<script src="js/localstorage.js"></script>
+<body>
+<div class="top-tips" style="display:none">
+	<p>网站有新功能上线啦，快来体验吧！</p>
+	<a href="#" class="delt" title="不再提示">不再提示
+		<span></span>
+	</a>
+</div>
+<input type="button" id="btn" value="清除本地存储" />
+</body>
+<script type="text/javascript">
+	Storage.ready(function() {
+		var tips = document.querySelector('div.top-tips'),
+			key = 'html5_close',
+			data = Storage.getItem(key);
+		if(!data) {
+			tips.style.display = 'block';
+			tips.querySelector('a.delt').addEventListener('click', function(e) {
+				e.preventDefault();
+				Storage.setItem(key, 1);
+				tips.style.display = 'none';
+			}, false);
+		};
+	})
+	$("#btn").click(function () {
+		localStorage.clear();
+	})
+</script>
+</html>

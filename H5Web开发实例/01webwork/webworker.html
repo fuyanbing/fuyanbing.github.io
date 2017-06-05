@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<body>
+<img src="webworker.jpg" /> 
+<div>
+	<button id='invert'>逆白</button>
+	<button id='grayscale'>黑白</button>
+</div>
+<canvas width="550" height="100" style="border: 1px solid black;"></canvas>
+<script type="text/javascript">
+	var worker = new Worker('webworker.js');//实例化Web Workers对象，传递脚本
+	var canvas = document.querySelector('canvas');
+	var context = canvas.getContext('2d');
+	var buttons = document.querySelectorAll('button');
+	var img = document.querySelector('img');
+	//监听worker 的message事件，接受返回信息
+	worker.addEventListener('message',function (e) {
+		context.putImageData(e.data,0,0);
+		//复制画布上指定矩形的像素数据，然后通过 putImageData() 将图像数据放回画布
+	},false)
+	
+	for (var i=0; buttons[i]; i++) {
+		buttons[i].addEventListener('click',function(e){
+			e.preventDefault();
+			context.drawImage(img,0,0);
+			var imgData = context.getImageData(0,0,img.width,img.height);
+			worker.postMessage({id:this.id,data:imgData})
+		})
+	}
+	
+</script>
+</body>
+</html>

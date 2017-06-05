@@ -1,0 +1,64 @@
+﻿<!DOCTYPE>
+<html>
+<head>
+	<style type="text/css">
+	#main {
+		cursor: pointer;
+		position:relative;
+		width:200px;
+		height:200px;
+		margin:0 auto 10px;
+		border:3px #aaa solid;
+		padding:10px;
+	}
+	#main div {
+		width:50px;
+		height:50px;
+		position:absolute;
+		border-radius:50px;
+		text-align:center;
+	}
+	#t1 {
+	  	z-index:8;
+	  	top:70px;
+		left:100px;
+	  	background-color:red;
+	  	/*-webkit-transition-property: top, left, border-radius, background-color;*/
+		transition-property: top, left, border-radius, background-color;  
+		-webkit-transition-duration: 2s, 1s, 0.5s, 0.5s;
+		transition-duration: 2s, 1s, 0.5s, 0.5s;  
+		-webkit-transition-delay: 0s, 0.5s, 1s, 1.5s;
+		transition-delay: 0s, 0.5s, 1s, 1.5s;
+	}
+	#t2 {
+	    z-index:9;
+	    top:90px;
+		left:20px;
+	    border:2px #aaa solid;
+	    -webkit-transition-property: top, left;
+		transition-property: top, left;  
+		-webkit-transition-duration: 1s, 1s;
+		transition-duration: 1s, 1s;  
+		-webkit-transition-delay: 0s, 1s;
+		transition-delay: 0s, 1s;
+	}
+	#main:hover #t1 {
+		top:0px;
+		left:0px;
+		background-color:orange;
+	}
+	#main:hover #t2 {
+		top:0px;
+		left:160px;
+		border-radius: 0;
+	}
+	</style>
+</head>
+<body>
+<div id="main">
+  <div id="t1"></div>
+  <div id="t2"></div>
+</div>
+</body>
+</html> 
+ 

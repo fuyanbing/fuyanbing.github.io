@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css"/>
+<style type="text/css">
+	body{
+		margin: 50px auto;
+		width: 430px;
+		padding: 20px;
+		border: 1px solid #C88E8E;
+		border-radius: 15px;
+	}
+</style>
+<title>用HTML5的验证方法验证注册页面</title>
+</head>
+<body> 
+	<blockquote>
+		<p>用HTML5的验证方法验证注册页面</p>
+	</blockquote>
+	<form class="form-horizontal" name="myform">
+		<div class="control-group">
+			<label class="control-label" for="username">用户名</label>
+			<div class="controls">
+				<input type="text" name="username" id="username" required />
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="email">电子邮箱</label>
+			<div class="controls">
+				<input type="email" name="email" id="email" required />
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="phone">手机号码</label>
+			<div class="controls">
+				<input type="text" name="phone" id="phone" pattern="^((13)|(15)|(18))+\d{9}$" />
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="birth">生日</label>
+			<div class="controls">
+				<input type="text" name="birth" id="birth" />
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="qq">QQ</label>
+			<div class="controls">
+				<input type="text" name="qq" id="qq" pattern="[1-9][0-9]{4}" required />
+			</div>
+		</div>
+		
+		<div class="control-group">
+			<label class="control-label" for="url">个人站点</label>
+			<div class="controls">
+				<input type="url" name="url" id="url" required />
+			</div>
+		</div>
+		
+		<div class="control-group">
+			<label class="control-label" for="password">密码</label>
+			<div class="controls">
+				<input type="password" min="6" max="10" name="password" id="password" required />
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="repassword">重复登录密码</label>
+			<div class="controls">
+				<input type="password" min="6" max="10" name="repassword" id="repassword" required oninput="customvalid(this)" />
+			</div>
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<button type="submit" class="btn">注册</button>
+			</div>
+		</div>
+	</form>
+	<script>
+		function customvalid(o) {
+			var password = document.querySelector("#password");
+			if(o.value !== password.value){//比较登录密码与重复登录密码的值是否相等
+				o.setCustomValidity("两次输入的密码不一致！");//两次输入的密码不一致，自定义错误信息
+			}else{
+				o.setCustomValidity("");//验证通过，清除出错信息
+			}
+		}
+	</script>
+</body>
+</html>
