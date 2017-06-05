@@ -1,0 +1,158 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<style>
+		.wraper_i {
+			border: 1px solid #cccc99;
+			border-radius: 10px;
+			background-color: green;
+			width: 333px;
+			padding: 10px;
+		}
+		.wraper_ii {
+			border: 1px solid #cccc99;
+			border-radius: 10px;
+			background-color: #cccc99;
+			padding: 5px;
+		}
+		div.buttons {
+			height: 30px;
+			margin: 0 auto;
+			padding: 8px 0 5px 30px;
+		}
+		.viewport {
+			border: 1px solid #cccc99;
+			border-radius: 10px;
+			background-color: green;
+			height: 55px;
+			padding: 5px 0 0 5px;
+			margin: 0;
+		}
+		a.button {
+			display: block;
+			float: left;
+			position: relative;
+			height: 25px;
+			width: 80px;
+			margin: 0 10px 18px 0;
+			text-decoration: none;
+			font: 12px Arial;
+			font-weight: bold;
+			line-height: 25px;
+			text-align: center;
+			border-radius: 3px;
+		}
+		a.button:before, a.button:after {
+			content: '';
+			position: absolute;
+			left: -1px;
+			height: 25px;
+			width: 80px;
+			bottom: -1px;
+			border-radius: 3px;
+		}
+		a.button:active {
+			bottom: -4px;
+		}
+		a.green, a.green:hover, a.green:visited {
+			color: #5d7731;
+			border-bottom: 4px solid #799545;
+			text-shadow: 0px 1px 0px #d5e8aa;
+			background: #cae285;
+			background: -webkit-gradient(linear, left top, left bottom, from(#cae285), to(#a3cd5a));
+			background: -moz-linear-gradient(top, #cae285, #a3cd5a);
+			box-shadow: inset 1px 1px 0 #cce3a1;
+		}
+		.green:before, .green:after {
+			border: 1px solid #98b85b;
+			border-bottom: 1px solid #6d883b;
+		}
+		a.green:hover {
+			background: #a3cd5a;
+			background: -webkit-gradient(linear, left top, left bottom, from(#a3cd5a), to(#cae285));
+			background: -moz-linear-gradient(top, #a3cd5a, #cae285);
+		}
+	</style>
+	<meta charset="utf-8"> </head>
+<body>
+	<header>
+		<h2>制作一个动画计时器</h2>
+	</header>
+	<section>
+		<div class="wraper_i">
+			<div class="wraper_ii">
+				<ul class="viewport">
+					<!-- 计时屏 -->
+					<canvas width="315" height="50"></canvas>
+				</ul>
+				<div class="buttons">
+					<a href="#" class="button green J_start">开始</a>
+					<a href="#" class="button green J_stop">暂停</a>
+					<a href="#" class="button green J_reset">复位</a>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+<script>
+	var canvas = document.querySelector('canvas'), // 获取Canvas画布元素
+		context = canvas.getContext("2d"), // 获取Canvas元素上下文
+		start = document.querySelector('a.J_start'), // 开始按钮
+		stop = document.querySelector('a.J_stop'), // 停止按钮
+		reset = document.querySelector('a.J_reset'); // 复位按钮
+	function draw(text) { // 绘制计时器数字
+		// 清空画布指定矩形区域内容
+		context.clearRect(0, 0, parseInt(canvas.width), parseInt(canvas.height));
+		context.fillStyle = 'black'; // 画布计时器文字颜色为黑色
+		context.font = 'italic 50px sans-serif'; // 设置文字字体和大小
+		context.textBaseline = 'top'; // 设置文本基线
+		context.fillText(text || '00:00:00:000', 0, 0); // /填充文字到画布指定区域
+	};
+	draw();
+	var start_time, // 点击开始时间
+		time_spend, // 时差（毫秒）
+		time_stop = 0, // 停顿时的时差（毫秒）
+		interval; // 轮询变量
+	function runtime() { // 计算时差，返回指定格式时间hh:MM:ss:SSS
+		time_spend = (new Date() - start_time + time_stop) || 0; // 时差，默认为0
+		console.info('time_spend' + time_spend + "; start_time" + start_time + "; time_stop" + time_stop);
+		var hour,
+			minute,
+			second,
+			millisecond,
+			temp_time_spend = time_spend; // 临时变量，存放是差值
+		millisecond = temp_time_spend % 1000; // 取余获取毫秒
+		temp_time_spend = parseInt(temp_time_spend / 1000); // 取商获取总秒数
+		second = temp_time_spend % 60; // 取余获取秒
+		temp_time_spend = (temp_time_spend - second) / 60; // 取商获取总分
+		minute = temp_time_spend % 60; // 取余获取分
+		hour = (temp_time_spend - minute) / 60; // 取商获取总小时
+		second = second < 10 ? ('0' + second) : second; // 不足2位补0
+		minute = minute < 10 ? ('0' + minute) : minute;
+		hour = hour < 10 ? ('0' + hour) : hour;
+		return [hour, minute, second, millisecond].join(':');
+	}
+	start.addEventListener('click', function(e) { // 开始按钮点击事件
+		e.preventDefault();
+		if(!interval) {
+			start_time = new Date();
+			interval = setInterval(function() { // 每10毫秒执行一次
+				draw(runtime()); // 获取对应的计数并绘制
+			}, 10);
+		};
+	}, false);
+	stop.addEventListener('click', function(e) { // 停止按钮点击事件
+		e.preventDefault();
+		time_stop = time_spend; // 缓存停止时候的时差
+		clearInterval(interval);
+		interval = null;
+	}, false);
+	reset.addEventListener('click', function(e) { // 复位按钮点击事件
+		e.preventDefault();
+		time_stop = 0; // 清零时差
+		clearInterval(interval);
+		interval = null;
+		draw(); // 绘制默认计数
+	}, false);
+</script>
+</html>

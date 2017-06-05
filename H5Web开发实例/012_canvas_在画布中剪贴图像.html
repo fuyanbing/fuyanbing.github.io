@@ -1,0 +1,194 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<style>
+		section {
+			width: 450px;
+		}
+		canvas {
+			border: 2px solid #007d9a;
+			float: left;
+			border-radius: 5px;
+			margin-right: 10px;
+			margin-top: 5px;
+		}
+		.button {
+			background-color: #2DAEBF;
+			padding: 8px 19px 9px;
+			color: #fff;
+			font-size: 14px;
+			font-weight: bold;
+			text-decoration: none;
+			border-radius: 5px;
+			-moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+			-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+			text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.25);
+			border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+			-webkit-animation-name: bluePulse;
+			-webkit-animation-duration: 2s;
+			-webkit-animation-iteration-count: infinite;
+			/*//动画的播放次数infinite规定动画应该无限次播放。*/
+			cursor: pointer;
+			width: 215px;
+		}
+		@-webkit-keyframes bluePulse {
+			/* 蓝色闪动动画 */
+			from {
+				background-color: #007d9a;
+				-webkit-box-shadow: 0 0 9px #333;
+			}
+			50% {
+				background-color: #2daebf;
+				-webkit-box-shadow: 0 0 18px #2daebf;
+			}
+			to {
+				background-color: #007d9a;
+				-webkit-box-shadow: 0 0 9px #333;
+			}
+		}
+		.button:hover {
+			/* 按钮悬浮样式 */
+			background-color: #007d9a;
+		}
+		.clip {
+			/* 剪贴框样式 */
+			border: 2px dashed #007d9a;
+			position: absolute;
+		}
+	</style>
+	<meta charset="utf-8"> </head>
+<body>
+	<header>
+		<h2>在画布中剪贴图像</h2>
+	</header>
+	<section>
+		<!-- 图片按钮上传 -->
+		<input type="file" class="button" />
+		<!-- 原画布 -->
+		<canvas id="J_canvas_i" width="250" height="300"></canvas>
+		<!-- 目标画布 -->
+		<canvas id="J_canvas_ii" width="150" height="200"></canvas>
+	</section>
+</body>
+<script>
+	var canvas_i = document.getElementById('J_canvas_i'), // 获取Canvas画布元素
+		context_i = canvas_i.getContext("2d"), // 获取Canvas元素上下文
+		canvas_ii = document.getElementById('J_canvas_ii'), // 获取目标Canvas画布元素
+		context_ii = canvas_ii.getContext("2d"), // 获取目标Canvas元素上下文
+		input_file = document.querySelector('input[type=file]'), // 图按上传按钮
+		clip_wraper = document.createElement('div'), // 自创建剪贴框元素
+		img = new Image(); // 新建图片元素实例
+	clip_wraper.setAttribute('class', 'clip'); // 设置剪贴框样式
+	function draw() { // 绘制上传图片
+		// 清空原画布指定矩形区域内容
+		context_i.clearRect(0, 0, parseInt(canvas_i.width), parseInt(canvas_i.height));
+		// 清空目标画布指定矩形区域内容
+		context_ii.clearRect(0, 0, parseInt(canvas_ii.width), parseInt(canvas_ii.height));
+		context_i.drawImage(img, 0, 0); // 填充图片到画布
+	};
+	//获取或设置元素样式方法。参数1为目标元素；参数2如果为字符取则获取样式，如果为对象则设置元素样式
+	function css(element, options) {
+		if(typeof options === 'string') {
+			return element.style[options];
+		} else {
+			for(var name in options) {
+				element.style[name] = options[name];
+			};
+		}
+	};
+	img.addEventListener('load', draw, false); // 监听图片的加载完毕事件
+	input_file.addEventListener('change', function() { // 上传按钮值改变事件
+		var files = this.files, // 获取文件列表
+			reader;
+		for(var i = 0, length = files.length; i < length; i++) {
+			if(files[i].type.toLowerCase().match(/image.*/)) { // 正则判断文件类型是否为图片类型
+				reader = new FileReader(); // 实例化FileReader对象，用于读取文件数据
+				reader.addEventListener('load', function(e) { // 监听FileReader实例的load事件
+					img.src = e.target.result; // 设置图片内容
+				});
+				reader.readAsDataURL(files[i]); // 读取图片文件为dataURI格式
+				break;
+			};
+		};
+	}, false);
+	var start_x = 0,
+		start_y = 0, // 鼠标单击的XY轴坐标位置
+		move_x = 0,
+		move_y = 0, // 鼠标单击后移动的相对距离
+		offset_xy = 4; // 剪贴框距鼠标的相对位置
+	function canvas_mousemove(e) { // 鼠标移动事件函数
+		// 鼠标移动时屏幕位置减去鼠标单击时位置获取鼠标移动的相对距离
+		move_x = e.clientX - start_x;
+		move_y = e.clientY - start_y;
+		if(move_x > 0 && move_y > 0) { // 鼠标标往右下方移动
+			css(clip_wraper, {
+				'width': move_x + 'px',
+				'height': move_y + 'px',
+				'top': (start_y - offset_xy) + 'px',
+				'left': (start_x - offset_xy) + 'px'
+			});
+		}else if (move_x > 0 && move_y < 0) {                  // 鼠标往右上方移动
+            css(clip_wraper, {
+                'width': move_x + 'px',
+                'height': Math.abs(move_y) + 'px',
+                'top': (e.clientY + offset_xy) + 'px'
+            });
+        } else if (move_x < 0 && move_y > 0) {                  // 鼠标往左下方移动
+            css(clip_wraper, {
+                'width': Math.abs(move_x) + 'px',
+                'height': move_y + 'px',
+                'left': (e.clientX + offset_xy) + 'px'
+            });
+        } else if (move_x < 0 && move_y < 0) {                  // 鼠标往左上方移动
+            css(clip_wraper, {
+                'width': Math.abs(move_x) + 'px',
+                'height': Math.abs(move_y) + 'px',
+                'left': e.clientX + 'px',
+                'top': (e.clientY + offset_xy) + 'px'
+            });
+        };
+	}
+	// 监听剪贴框鼠标移动事件
+	clip_wraper.addEventListener('mousemove', canvas_mousemove, false);
+	// 监听原画布鼠标单击事件
+	canvas_i.addEventListener('mousedown', function(e) {
+		css(clip_wraper, {
+			//初始化拖拽位置，大小
+			// 获取鼠标单击时的屏幕位置，设置剪贴框样式，并临时存放到变量中
+			'left': (start_x = (e.clientX - offset_xy))+'px',
+			'top': (start_y = (e.clientY - offset_xy))+'px',
+			'width': '1px',
+			'height': '1px'
+		});
+		document.body.appendChild(clip_wraper); // 将剪贴框添加到DOM文档内
+		// 监听原画布的鼠标移动事件，绑定canvas_mousemove函数
+		canvas_i.addEventListener('mousemove', canvas_mousemove, false);
+	}, false);
+	document.addEventListener('mouseup', function(e) { // 当鼠标在DOM文档内释放后触发;
+		// 移除原画布的鼠标移动事件
+		//e表示当前操作的元素对象
+		canvas_i.removeEventListener('mousemove', canvas_mousemove, false);
+		// 移动的相对距离必须超过预设距离// 判断是否已经上传图片
+		if(e.target.nodeName.toLowerCase() == 'canvas' && Math.abs(move_x) > 0 && 
+			Math.abs(move_y) > 0 && img.src.length > 0 
+		) {
+			var sourceX = parseInt(css(clip_wraper, 'left')) - canvas_i.offsetLeft,
+				sourceY = parseInt(css(clip_wraper, 'top')) - canvas_i.offsetTop,
+				destWidth = parseInt(canvas_ii.width),
+				destHeight = parseInt(canvas_ii.height);
+			context_ii.clearRect(0, 0, destWidth, destHeight); // 清空目标画布内容
+			// 填充图片到画布
+			context_ii.drawImage(img, sourceX, sourceY, Math.abs(move_x), Math.abs(move_y), 0, 0, destWidth, destHeight);
+		};
+		// 从DOM文档中移除剪贴框
+		try{
+			document.body.removeChild(clip_wraper);
+		}catch(e){
+		}
+	}, false);
+	// 阻止文档内容选择事件，避免拖动时触发内容选择照成不便。
+	document.addEventListener('selectstart', function(e) {
+		e.preventDefault()
+	}, false);
+</script>
+</html>

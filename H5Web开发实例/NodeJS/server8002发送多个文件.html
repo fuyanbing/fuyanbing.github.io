@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style type="text/css">
+	html {
+		text-align: center;
+	}
+	section {
+		margin: 0 auto;
+		padding: 5px;
+		width: 400px;
+		border: solid 3px gray;
+		border-radius: 3px;
+	}
+	form {
+		width: 350px;
+		padding: 5px;
+		margin: 0 auto;
+		background-color: gray;
+		border-color: gray;
+		border-radius: 3px;
+	}
+	table {
+		padding: 5px;
+		height: 200px;
+		width: 400px;
+	}
+	th {
+		color: #4f6b72;
+		border-right: 1px solid gray;
+		border-bottom: 1px solid gray;
+		border-top: 1px solid gray;
+		letter-spacing: 2px;
+		text-transform: uppercase;
+		/* 标题英文转为大写 */
+		padding: 6px 6px 6px 12px;
+		background: #CAE8EA;
+		width: 120px;
+		border-radius: 3px;
+		/* 圆角，水平半径为3px */
+		-moz-border-radius: 3px;
+		-webkit-border-radius: 3px;
+	}
+	td
+	/* 单元格样式 */
+	
+	{
+		border-right: 1px solid gray;
+		border-bottom: 1px solid;
+		background: #fff;
+		font-size: 11px;
+		padding: 6px 6px 6px 12px;
+		color: #4f6b72;
+		border-radius: 3px;
+		/* 圆角，水平半径为3px */
+		-moz-border-radius: 3px;
+		-webkit-border-radius: 3px;
+	}
+</style>
+<title>发送多个文件</title>
+</head>
+<body>
+<header>
+<h2>发送多个文件</h2>
+</header>
+<section>
+	<form method="post" enctype="multipart/form-data" action="http://localhost:8002">
+		<input type="file" name="multi-file" id="multi-file" multiple />
+		<input type="submit" value="提交" /> </form>
+	<table id="file-list">
+		<tr>
+			<td>空</td>
+		</tr>
+	</table>
+</section>
+</body>
+<script>
+	var multi_file = document.getElementById('multi-file'), // 获取上传控件
+		file_list = document.getElementById('file-list'), // 获取列表控件
+		slice = Array.prototype.slice; // 获取数组slice原型方法
+	multi_file.addEventListener('change', function(e) { // 监听上传控件数据变化
+		var files = slice.call(multi_file.files, 0), // 将FileList对象转为数组获取forEach方法
+			htmls = ['<tr><th>文件名</th><th>类型</th><th>大小</th></tr>']; // 列表标题
+			console.info(files);
+		files.forEach(function(file, index) { // 循环File数组
+			// 组装 File对象的 name、type、size属性为html
+			htmls.push('<tr><td>' + file.name + '</td><td>' + file.type + '</td><td>' + file.size + '</td></tr>');
+		});
+		file_list.innerHTML = htmls.join(''); // 重设列表html
+	}, false);
+</script>
+</html>

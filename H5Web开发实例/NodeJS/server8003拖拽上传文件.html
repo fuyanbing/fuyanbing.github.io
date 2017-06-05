@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+	html {
+		text-align: center;
+	}
+	section {
+		margin: 0 auto;
+		padding: 5px;
+		width: 590px;
+		border: solid 3px gray;
+		border-radius: 3px;
+	}
+	form {
+		width: 530px;
+		padding: 5px;
+		margin: 0 auto;
+		background-color: gray;
+		border-color: gray;
+		border-radius: 3px;
+	}
+	table {
+		table-layout: fixed;
+		word-break: break-all;
+		word-wrap: break-word;
+		padding: 5px;
+		height: 200px;
+		width: 590px;
+	}
+	th {
+		color: #4f6b72;
+		border-right: 1px solid gray;
+		border-bottom: 1px solid gray;
+		border-top: 1px solid gray;
+		letter-spacing: 2px;
+		text-transform: uppercase;
+		padding: 6px 6px 6px 12px;
+		background: #CAE8EA;
+		width: 80px;
+		height: 20px;
+		border-radius: 3px;
+	}
+	td {
+		border-right: 1px solid gray;
+		border-bottom: 1px solid;
+		background: #fff;
+		font-size: 11px;
+		padding: 6px 6px 6px 12px;
+		color: #4f6b72;
+		border-radius: 3px;
+	}
+	img {
+		max-width: 60px;
+		max-height: 60px;
+	}
+	input[type="file"] {
+		width: 300px;
+	}
+	.progressbar {
+		border: 1px solid #dddddd;
+		border-radius: 4px;
+		width: 80px;
+		height: 14px;
+	}
+	.progressbar-value {
+		margin: -1px;
+		height: 100%;
+		border: 1px solid #e78f08;
+		border-radius: 4px;
+		background-color: #f6a828;
+		width: 0;
+	}
+	.hover {
+		border: 4px dashed orange;
+		height: 190px;
+		margin-top: 10px;
+	}
+</style>
+<title>拖拽上传文件</title>
+</head>
+<body>
+<header>
+<h2>拖拽上传文件</h2>
+</header>
+<section>
+	<!-- 表单编码类型为“multipart/form-data”，post到本机服务器8080端口 -->
+	<form method="post" enctype="multipart/form-data" action="http://localhost:8003">
+		<!-- 多文件上传控件，增加了multiple属性 -->
+		<input type="file" name="multi-file" multiple />
+		<input type="submit" value="提交" /> </form>
+	<!-- 文件显示列表 -->
+	<table>
+		<tr>
+			<td>空(可拖拽)</td>
+		</tr>
+	</table>
+	<!-- 列表标题模板 -->
+	<script id="J_head_tpl" type="text/x-html5-tmpl">
+		<tr>
+			<th>文件名</th>
+			<th>类型</th>
+			<th>大小</th>
+			<th>预览</th>
+			<th>上传进度</th>
+		</tr>
+	</script>
+	<!-- 列表单行模板 -->
+	<script id="J_item_tpl" type="text/x-html5-tmpl">
+		<tr>
+			<td>{name}</td>
+			<td>{type}</td>
+			<td>{size}</td>
+			<td id="J_{guid}"></td>
+			<td>
+				<div class="progressbar">
+					<div class="progressbar-value" style="display:none" id="J_p_{guid}"></div>
+				</div>
+			</td>
+		</tr>
+	</script>
+</section>
+</body>
+<script type="text/javascript">
+	(function() {
+		var multi_file = document.querySelector('input[type=file]'), // 获取上传控件
+			file_list = document.querySelector('table'), // 获取列表控件
+			submit = document.querySelector('input[type=submit]'), // 获取提交按钮
+			form = document.querySelector('form'), // 获取页面表单
+			slice = Array.prototype.slice, // 获取数组slice原型方法
+			form_action = form.getAttribute('action'), // 获取表单提交远程地址
+			head_tpl = document.getElementById('J_head_tpl').innerHTML, // 获取列表标题模板
+			item_tpl = document.getElementById('J_item_tpl').innerHTML, // 获取列表单行模板
+			file_map = {}, // 缓存文件对象
+			section = document.querySelector('section'); // 获取整个控件
+		var GUID = 0;
+
+		function guid() {
+			return GUID++;
+		}; // 全球唯一标识符生成函数
+		function substitute(template, params) { // 工具方法，用对象替换字符串中的占位符
+			//console.info(template);
+			//console.info(params);
+			return('' + template).replace(/\\?\{([^{}]+)\}/g, function(match, name) {
+				//console.info(params[name]);
+				return params[name];
+			});
+			/*return('' + template).replace(/\\?\{([^{}]+)\}/g, function(match, name) {
+							return match.charAt(0) === '\\' ? match.slice(1) : (params[name] != null ? params[name] : '');
+						});*/
+		};
+
+		function upload_file(file, gid) { // 用于上传单个文件
+			var xhr = new XMLHttpRequest(), // 实例化XMLHttpRequest对象，用于与后台通信
+				formData = new FormData(), // 实例化FormData对象，用于存储表单数据信息
+				progress = document.getElementById('J_p_' + gid); // 通过传入的gid获取对应上传文件的显示进度条
+			formData.append('file', file); // 添加文件数据到formData对象
+			xhr.open('post', form_action, true); // 初始化HTTP请求，设置请求类型、地址、是否异步
+			xhr.addEventListener('load', function() { // 监听XMLHttpRequest对象的load事件，读取完毕后触发
+				var data = JSON.parse(xhr.responseText); // 将返回的字符串转化为对象
+				console.log('上传完毕：' + file.name);
+				console.log(data.msg);
+			});
+			xhr.upload.addEventListener('progress', function(e) { // 监听XMLHttpRequest对象的progress事件，读取完毕后触发
+				var percent;
+				if(e.lengthComputable) { // 是否可以计算上传字节数
+					percent = (e.loaded / e.total * 100) + '%'; // 已上传字节数除以总字节数，计算上传进度百分比
+					progress.style.width = percent; // 更新上传进度条样式为当前上传比例相同
+					progress.innerHTML = percent; // 更新上传百分比
+				};
+			});
+			xhr.send(formData); // 发送数据到服务器
+			progress.style.display = '';
+		};
+
+		function render_list(files) { // 读取文件信息，展现列表
+			var htmls = [head_tpl]; // 文初始化数组，填充列表标题
+			file_map = {}; // 重置文件缓存对象
+			files.forEach(function(file, index) { // 循环File数组
+				var reader, // reader变量存放FileReader实例
+					_guid = guid(); // 获取全球唯一标识符
+				//console.log(htmls.join(''));
+				htmls.push(substitute(item_tpl, { // 组装 File对象的 name、type、size属性为html
+					name: file.name,
+					type: file.type,
+					size: file.size,
+					guid: _guid
+				}));
+				//console.log(htmls.join(''));
+				if(file.type.toLowerCase().match(/image.*/)) { // 正则判断文件是否为图片类型
+					reader = new FileReader(); // 实例化FileReader对象，用于读取文件数据
+					reader.addEventListener('load', function(e) { // 监听FileReader实例的load事件
+						// 获取对应元素，并填充相应图片
+						document.getElementById('J_' + _guid).innerHTML = '<img title="' + file.name + '" alt="' + file.name + '" src="' + e.target.result + '"/>';
+					});
+					reader.readAsDataURL(file); // 读取文件为DataURL
+				};
+				file_map[_guid] = file; // 存储文件到临时缓存对象，用于提交保存
+			});
+			file_list.innerHTML = htmls.join('');
+		};
+		multi_file.addEventListener('change', function(e) { // 监听上传控件数据变化
+			render_list(slice.call(multi_file.files, 0)); // 将FileList对象转为数组获取forEach方法
+		}, false);
+		submit.addEventListener('click', function(e) { // 监听提交点击事件
+			e.preventDefault(); // 取消表单提交按钮事件的默认动作
+			for(var gid in file_map) { // 循环文件缓存列表调用upload_file上传文件
+				upload_file(file_map[gid], gid);
+			};
+		}, false);
+		section.addEventListener('dragenter', function(e) { // 按下鼠标，拖拽进入该该元素时触发
+			e.preventDefault();
+			file_list.className = 'hover';
+		}, true);
+		file_list.addEventListener('dragleave', function(e) { // 鼠标拖拽离开该元素时触发
+			e.preventDefault();
+			this.className = '';
+		}, false);
+		file_list.addEventListener('dragover', function(e) { // 鼠标拖拽在该元素上移动时触发
+			e.preventDefault();
+		}, false);
+		file_list.addEventListener('drop', function(e) { // 鼠标拖拽在该元素上释放时触发
+			e.preventDefault();
+			e.stopPropagation();
+			this.className = '';
+			render_list(slice.call(e.dataTransfer.files, 0));
+		}, false);
+	})()
+</script>
+</html>

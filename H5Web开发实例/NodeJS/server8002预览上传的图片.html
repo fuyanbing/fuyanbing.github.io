@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+	html {
+		text-align: center;
+	}
+	section {
+		margin: 0 auto;
+		padding: 5px;
+		width: 420px;
+		border: solid 3px gray;
+		border-radius: 3px;
+		-moz-border-radius: 3px;
+		-webkit-border-radius: 3px;
+	}
+	form {
+		width: 350px;
+		padding: 5px;
+		margin: 0 auto;
+		background-color: gray;
+		border-color: gray;
+		border-radius: 3px;
+		-moz-border-radius: 3px;
+		-webkit-border-radius: 3px;
+	}
+	table {
+		table-layout: fixed;
+		word-break: break-all;
+		word-wrap: break-word;
+		padding: 5px;
+		height: 200px;
+		width: 420px;
+	}
+	th {
+		color: #4f6b72;
+		border-right: 1px solid gray;
+		border-bottom: 1px solid gray;
+		border-top: 1px solid gray;
+		letter-spacing: 2px;
+		text-transform: uppercase;
+		padding: 6px 6px 6px 12px;
+		background: #CAE8EA;
+		width: 75px;
+		border-radius: 3px;
+		-moz-border-radius: 3px;
+		-webkit-border-radius: 3px;
+	}
+	td {
+		border-right: 1px solid gray;
+		border-bottom: 1px solid;
+		background: #fff;
+		font-size: 11px;
+		padding: 6px 6px 6px 12px;
+		color: #4f6b72;
+		border-radius: 3px;
+		-moz-border-radius: 3px;
+		-webkit-border-radius: 3px;
+	}
+	img {
+		max-width: 60px;
+		max-height: 60px;
+	}
+</style>
+<title>预览上传的图片</title>
+</head>
+<body>
+	<header><h2>预览上传的图片</h2></header>
+	<section>
+        <!-- 表单编码类型为“multipart/form-data”，post到本机服务器8002端口 -->
+        <form method="post" enctype="multipart/form-data"  action="http://localhost:8002" >
+            <!-- 多文件上传控件，增加了multiple属性 -->
+            <input type="file" name="multi-file" id="multi-file" multiple />
+            <input type="submit" value="提交" />
+        </form>
+        <!-- 文件显示列表 -->
+        <table id="file-list"><tr><td>空</td></tr></table>
+    </section>
+</body>
+<script type="text/javascript">
+	
+	(function () {
+		var multi_file = document.getElementById('multi-file'),                 // 获取上传控件
+	        file_list = document.getElementById('file-list'),                   // 获取列表控件
+	        slice = Array.prototype.slice;                                      // 获取数组slice原型方法
+	    
+	    var GUID = 0;
+	    function guid () {
+	    	return GUID++;								//全球唯一标识符生成函数
+	    };
+	    
+	    multi_file.addEventListener('change',function (e) {
+	    	var files = slice.call(multi_file.files,0),
+	    		htmls = ['<tr><th>文件名</th><th>类型</th><th>大小</th><th>预览</th></tr>'];
+	    	files.forEach(function (file,index) {
+	    		//console.info(file);
+	    		var reader,					//reader变量存放FileReader实例
+	    			_guid = guid();			//获取全球唯一标识符
+	    		htmls.push('<tr><td>' + file.name + '</td><td>' + file.type + '</td><td>' + file.size + '</td><td id="J_' + _guid + '"></td></tr>');
+	    		if (file.type.toLowerCase().match(/image.*/)) {// 正则判断文件是否为图片类型
+	    			reader = new FileReader();	//实例化FileReader对象，用于读取文件数据
+	    			//console.info(reader);
+	    			reader.addEventListener('load',function (e) { // 监听FileReader实例的load事件
+	    				console.info(e.target.result);
+	    				// 获取对应元素，并填充相应图片
+                    	document.getElementById('J_' + _guid).innerHTML = '<img title="' + file.name + '" alt="' + file.name + '" src="' + e.target.result + '"/>';
+	    			});
+	    			reader.readAsDataURL(file);// 读取文件为DataURL
+	    		}
+	    	});
+	    	file_list.innerHTML = htmls.join('');
+	    },false);
+})()
+</script>
+</html>

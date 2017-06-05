@@ -1,0 +1,164 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<style>
+		ul {
+			float: left;
+			list-style: none;
+			font-size: 13px;
+			border: 1px solid #cccc99;
+			border-radius: 3px;
+			-moz-border-radius: 3px;
+			-webkit-border-radius: 3px;
+			background-color: #cccc99;
+			padding: 10px;
+		}
+		hr {
+			clear: both;
+		}
+		canvas {
+			border: 2px solid black;
+			float: left;
+			margin: 15px;
+			font-family: border-radius: 5px;
+			-moz-border-radius: 5px;
+			-webkit-border-radius: 5px;
+		}
+		.item {
+			padding-left: 20px;
+		}
+	</style>
+	<meta charset="utf-8"> </head>
+<body>
+	<header>
+		<h2>在图形中写字</h2>
+	</header>
+	<section>
+		<!-- 矩形 Canvas画布 设置区 -->
+		<ul>
+			<li>
+				<h3>画布</h3>
+			</li>
+			<!-- 画布长宽调节区 -->
+			<li class="item">宽：
+				<input id="width_canvas" type="range" min="200" max="500" value="300" step="1" /> </li>
+			<li class="item">高：
+				<input id="height_canvas" type="range" min="200" max="500" value="395" step="1" /> </li>
+			<li>
+				<h3>图片</h3>
+			</li>
+			<!-- 图片选择区 -->
+			<li class="item">
+				<input id="file_img" type="file" value="在图形中写字" /> </li>
+			<!-- 文字设置区 -->
+			<li>
+				<h3>文字</h3>
+			</li>
+			<li class="item">字体：
+				<select id="family_font">
+					<option value="宋体">宋体</option>
+					<option value="黑体">黑体</option>
+					<option value="幼圆">幼圆</option>
+					<option value="微软雅黑">微软雅黑</option>
+					<option value="楷体">楷体</option>
+					<option value="隶书">隶书</option>
+					<option value="方正姚体">方正姚体</option>
+					<option value="方正舒体">方正舒体</option>
+					<option value="华文彩云">华文彩云</option>
+				</select>
+			</li>
+			<li class="item">内容：
+				<input id="text_font" value="在图形中写字" maxlength=16 /> </li>
+			<li class="item">颜色：
+				<input id="color_font" type="color" value="#0000ff" /> </li>
+			<li class="item">X轴：
+				<input id="x_font" type="range" min="0" max="500" value="90" step="1" /> </li>
+			<li class="item">Y轴：
+				<input id="y_font" type="range" min="0" max="500" value="150" step="1" /> </li>
+			<li class="item">大小：
+				<input id="size_font" type="range" min="1" max="40" value="20" step="1" /> </li>
+		</ul>
+		<!-- 矩形 Canvas画布 -->
+		<canvas id="canvas"></canvas>
+	</section>
+</body>
+<script>
+	(function() {
+		var canvas = document.getElementById('canvas'), // 获取Canvas画布元素
+			context = canvas.getContext("2d"), // 获取Canvas元素上下文
+			width_canvas = document.getElementById('width_canvas'), // 画布宽
+			height_canvas = document.getElementById('height_canvas'), // 画布长
+			file_img = document.getElementById('file_img'), // 图片选择
+			text_font = document.getElementById('text_font'), // 文字内容
+			color_font = document.getElementById('color_font'), // 文字颜色
+			x_font = document.getElementById('x_font'), // 文字x轴坐标
+			y_font = document.getElementById('y_font'), // 文字y轴坐标
+			size_font = document.getElementById('size_font'), // 文字大小
+			family_font = document.getElementById('family_font'), // 文字字体
+			img = new Image(); // 新建图片元素实例
+		var move_x = 0,
+			move_y = 0; //初始化图片的位置，相对于canvas位置0,0
+		function draw(e, x, y) { // 绘制图片和文字
+			// 清空画布指定矩形区域内容
+			context.clearRect(0, 0, parseInt(canvas.width), parseInt(canvas.height));
+			canvas.width = parseInt(width_canvas.value); // 设置画布宽
+			canvas.height = parseInt(height_canvas.value); // 设置画布搞
+			context.drawImage(img, move_x, move_y); // 填充图片到画布
+			context.fillStyle = color_font.value; // 设置文字字体
+			context.textAlign = 'left'; // 设置文字水平对齐方式
+			context.font = size_font.value + "px " + family_font.value; // 设置文字大小和字体
+			// 填充文字到画布指定区域
+			context.fillText(text_font.value, parseInt(x_font.value), parseInt(y_font.value));
+		};
+		//绑定文字内容文本框keyup事件，当键盘按键释放时触发
+		text_font.addEventListener('keyup', draw, false);
+		// 绑定数值区域选择控件change事件，当数值变化时触发draw函数
+		[color_font, x_font, y_font, size_font, width_canvas, height_canvas, family_font].forEach(function(item) {
+			item.addEventListener('change', draw, false);
+		});
+		// 绑定图片load事件，当图片加载完毕后触发
+		img.addEventListener('load', draw, false);
+		//绑定长传控件change事件，当路径发生变化时触发
+		file_img.addEventListener('change', function() {
+			var files = this.files, // 获取文件列表
+				reader;
+			for(var i = 0, length = files.length; i < length; i++) {
+				if(files[i].type.toLowerCase().match(/image.*/)) { // 正则判断文件类型是否为图片类型
+					reader = new FileReader(); // 实例化FileReader对象，用于读取文件数据
+					reader.addEventListener('load', function(e) { // 监听FileReader实例的load事件
+						img.src = e.target.result; // 设置图片内容
+					});
+					reader.readAsDataURL(files[i]); // 读取图片文件为dataURI格式
+					canvas.style.cursor = 'move'; // 设置光标为移动样式
+					break;
+				};
+			};
+		}, false);
+		//当鼠标按下时图片的位置
+		canvas.addEventListener('mousedown', function(e) { // 当鼠标单击画布区时触发
+			if(img.src.length) { // 判断画布区内是否已经存在图片
+				canvas.$mousedown_x = e.clientX; // 缓存当前鼠标x轴坐标
+				canvas.$mousedown_y = e.clientY; // 缓存当前鼠标y轴坐标
+				// 监听画布区鼠标拖动事件
+				canvas.addEventListener('mousemove', canvas_mousemove, false);
+			};
+		}, false);
+		document.addEventListener('mouseup', function(e) { // 当鼠标在文档内释放后触发
+			canvas.$mouseup_move_x = move_x; // 缓存拖动后图片x轴坐标 
+			canvas.$mouseup_move_y = move_y; // 缓存拖动后图片y轴坐标
+			// 移除对画布鼠标拖动监听事件
+			canvas.removeEventListener('mousemove', canvas_mousemove, false);
+		}, false);
+
+		function canvas_mousemove(e) { // 当鼠标拖动图片时触发
+			// 计算图片拖动后的x轴位置
+			move_x = e.clientX - canvas.$mousedown_x + canvas.$mouseup_move_x;
+			// 计算图片拖动后的y轴位置
+			move_y = e.clientY - canvas.$mousedown_y + canvas.$mouseup_move_y;
+			// 按照计算后的坐标位置重新绘制图片和文字
+			draw(null, move_x, move_y);
+		};
+		draw(); // 绘制默认内容
+	})();
+</script>
+</html>
