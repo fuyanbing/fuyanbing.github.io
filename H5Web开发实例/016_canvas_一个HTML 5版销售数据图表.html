@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8"> </head>
+<body>
+	<header>
+		<h2>一个HTML5版销售数据图表</h2>
+	</header>
+	<section <!-- 柱形图 -->
+		<canvas id="chart" width="600" height="420"></canvas>
+	</section>
+</body>
+<script>
+	var canvas = document.getElementById('chart'),
+		context = canvas.getContext("2d");
+	var length_X = 500,
+		length_Y = 300,
+		baseX = 80,
+		baseY = 40,
+		rightX = baseX + length_X,
+		leftY = length_Y + baseY;
+	// 绘制XY轴
+	context.moveTo(baseX, baseY);
+	context.lineTo(baseX, leftY);
+	context.lineTo(rightX, leftY);
+	// 绘制Y轴箭头
+	context.moveTo(baseX - 5, baseY + 10);
+	context.lineTo(baseX, baseY);
+	context.lineTo(baseX + 5, baseY + 10);
+	// 绘制X轴箭头
+	context.moveTo(rightX - 10, leftY - 5);
+	context.lineTo(rightX, leftY);
+	context.lineTo(rightX - 10, leftY + 5);
+	context.strokeStyle = 'red'; // 绘制颜色
+	context.stroke(); // 绘制当前路径
+	context.font = "bold 16px sans-serif"; // 设置画布字体
+	//context.textBaseline = "top";// 设置文本基线
+	context.fillText("金额(亿)", 5, leftY / 2); // Y轴写上说明文字
+	context.fillText("年份", rightX / 2, leftY + 50); // X轴写上说明文字
+	var moneyData = [ // 柱形图图表数据
+		{
+			date: '2010',
+			num: 60
+		}, {
+			date: '2011',
+			num: 180
+		}, {
+			date: '2012',
+			num: 120
+		}, {
+			date: '2013',
+			num: 270
+		}
+	];
+	var barSpace = 25, // 柱形之间间隔
+		// 单个柱形的宽度
+		barWidth = (length_X - barSpace * (moneyData.length + 2)) / moneyData.length,
+		axleWidth = 1, //柱到x轴的距离
+		barStart = baseX + barSpace;
+	moneyData.forEach(function(item) { // 循环绘制柱形采用
+		// 设置柱形图颜色，颜色随机
+		context.fillStyle = '#' + ('00000' + (Math.random() * 0x1000000 << 0).toString(16)).slice(-6);
+		// 绘制柱形context.fillRect(x,y,width,height);从左上角开始绘制
+		context.fillRect(barStart, leftY - item.num - axleWidth, barWidth, item.num);
+		// 对应柱形下方绘制年月文字
+		context.fillText(item.date, barStart + barWidth / 4, leftY + 20);
+		// 对应柱形上方绘制金额数字
+		context.fillText(item.num, barStart + barWidth / 4, leftY - item.num - 10);
+		// 计算下个柱形X轴距离
+		barStart += barSpace + barWidth;
+	});
+</script>
+</html>

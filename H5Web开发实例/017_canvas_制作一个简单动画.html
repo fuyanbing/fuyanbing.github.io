@@ -1,0 +1,123 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<script src="../js/kinetic-v4.3.3.min.js"></script>
+	<meta charset="utf-8"> </head>
+<body>
+	<header>
+		<h2>制作一个简单动画</h2>
+	</header>
+	<div id="container"></div>
+</body>
+<script>
+	var STAGE_WIDTH = 600,
+		STAGE_HEIGHT = 300; // 画布的宽、高  
+	var stage = new Kinetic.Stage({ // 新建一个舞台对象
+		container: 'container', // 目标元素ID
+		width: STAGE_WIDTH,
+		height: STAGE_HEIGHT
+	});
+	var swardLayer = new Kinetic.Layer(), // 新建一个层，用于放草坪
+		lineLayer = new Kinetic.Layer(), // 新建一个层，用于放茎
+		flowerLayer = new Kinetic.Layer(); // 新建一个层，用于放花
+	// 新建一个图形群组，用于存放草
+	var sward = new Kinetic.Group({
+			x: STAGE_WIDTH,
+			y: STAGE_HEIGHT
+		}),
+		// 新建一个图形群组，用于存放花
+		flower = new Kinetic.Group({
+			x: STAGE_WIDTH / 2,
+			y: STAGE_HEIGHT / 2,
+			draggable: true
+		});
+	var grassNum = 50,
+		grassWidth = 10,
+		graddHeight = 30; // 草数量、草宽、草高
+	for(var i = 2; i < grassNum; i++) { // 循环生成草
+		(function(index) { // 创建一个闭包环境
+			var grass = new Kinetic.Shape({ // 新建一个图形对象，用于草
+				drawFunc: function(canvas) { // 绘图方法
+					var context = canvas.getContext();
+					context.beginPath(); // 开始一条新的路径
+					context.moveTo(index * grassWidth, STAGE_HEIGHT); //起点
+					context.lineTo((index + 0.5) * grassWidth, STAGE_HEIGHT - graddHeight); //峰点
+					context.lineTo((index + 1) * grassWidth, STAGE_HEIGHT); //下来
+					context.closePath(); // 关闭路径，结束绘制
+					canvas.fillStroke(this); // 填充和绘制边框
+				},
+				opacity: 0.8, // 透明度
+				fill: 'green',
+				strokeWidth: 1
+			});
+			swardLayer.add(grass);
+		})(i);
+	};
+	var stem = new Kinetic.Line({ // 新建一个线条对象，用于茎
+		strokeWidth: 10,
+		stroke: 'green',
+		// 绘制线段的起点和终点
+		points: [{
+			x: flower.getX(),
+			y: flower.getY()
+		}, {
+			x: STAGE_WIDTH / 2,
+			y: STAGE_HEIGHT + 10
+		}]
+	});
+	var center = new Kinetic.Circle({ // 新建一个圆，用于花心
+		x: 0,
+		y: 0,
+		radius: 20,
+		fill: 'orange',
+		stroke: 'black',
+		strokeWidth: 4
+	});
+	center.on('mouseover', function() { // 监听花心鼠标悬浮事件                     
+		this.setFill('red'); // 设置花心为空色
+		flowerLayer.draw(); // 重新绘制花朵层
+		document.body.style.cursor = 'pointer';
+	});
+	center.on('mouseout', function() { // 监听花心鼠标移出事件
+		this.setFill('orange'); // 设置花心为桔红色
+		flowerLayer.draw();
+		document.body.style.cursor = 'default';
+	});
+	var numPetals = 10,
+		petal; // 花瓣数、花瓣变量
+	for(var n = 0; n < numPetals; n++) {
+		petal = new Kinetic.Shape({ // 新建一个图形示例，用于花瓣
+			drawFunc: function(canvas) {
+				var context = canvas.getContext();
+				context.beginPath();
+				context.moveTo(-5, -20);
+				// 绘制贝塞尔曲线
+				context.bezierCurveTo(-40, -90, 40, -90, 5, -20);
+				context.closePath();
+				canvas.fillStroke(this);
+			},
+			opacity: 0.8,
+			fill: 'pink',
+			strokeWidth: 4, // 边框宽度
+			draggable: true,
+			rotation: 2 * Math.PI * n / numPetals //旋转弧度
+		});
+		flower.add(petal); // 将花瓣添加到花的图像群组中
+	};
+	stage.on('mouseup', function() {
+		document.body.style.cursor = 'default';
+	});
+	//swardLayer.add(sward); // 将草群组添加到草的图层中
+	lineLayer.add(stem); // 将茎的线条对象添加到线条图层中
+	flower.add(center); // 将花心添加到花的图形群组中
+	flowerLayer.add(flower); // 将花群组添加到花的图层中
+	// 分别将草图层、线图层、花图层添加到舞台中
+	stage.add(swardLayer);
+	stage.add(lineLayer);
+	stage.add(flowerLayer);
+	stage.getDragLayer().afterDraw(function() { // 拖动层绘制后触发
+		stem.attrs.points[0] = flower.getPosition(); // 设置茎与花心的连接点位置
+		lineLayer.draw();
+	});
+</script>
+</html>
