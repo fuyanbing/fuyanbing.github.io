@@ -1,0 +1,63 @@
+﻿<!doctype html>
+<html>
+<head>
+<style>
+.product-list{
+    white-space: normal;
+    overflow: hidden;
+    width: 270px;
+    -webkit-box-shadow: 0 0 3px rgba(0,0,0,0.2);
+    box-shadow: 0 0 3px rgba(0,0,0,0.2);
+    padding:0;
+    background-color: #f2f2f2;
+}
+.product-list .product{
+    float: left;
+    width: 90px;
+    color: #999;
+    overflow: hidden;
+        -webkit-transition: -webkit-transform 0.2s ease-out;
+    -moz-transition: -moz-transform 0.2s ease-out;
+    -o-transition: -o-transform 0.2s ease-out;
+    -ms-transition: -ms-transform 0.2s ease-out;
+    transition: transform 0.2s ease-out;
+}
+.product-hover {
+    background:  #4285F4;
+    border-radius: 5px;                        /* 圆角 */
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    cursor:pointer;
+}
+.product-list .title{ text-align:center; }
+</style>
+<script src="../js/jquery-1.8.3.js"></script>
+</head>
+<body>
+    <header><h2>存储数据的共享操作页</h2></header>
+     <ul class="product-list">
+        <li class="product"><h1 class="title">1</h1></li>
+        <li class="product"><h1 class="title">2</h1></li>
+        <li class="product"><h1 class="title">3</h1></li>
+        <li class="product"><h1 class="title">4</h1></li>
+        <li class="product"><h1 class="title">5</h1></li>
+        <li class="product"><h1 class="title">6</h1></li>
+    </ul>
+</body>
+<script>
+    var list_items = $('li.product'),
+        localstorage_key = 'slide_step';                                            // 缓存幻灯片编号键
+    list_items.bind({                                                               // 绑定商品列表若干事件
+        'mouseenter': function () { $(this).addClass('product-hover'); },           // 鼠标移入效果增强
+        'mouseleave': function () {
+            var self = $(this), checked = self.attr('checked');
+            if (!checked) self.removeClass('product-hover');                        // 移出效果消失
+        },        
+        'click': function () {                                                  
+            list_items.removeClass('product-hover').removeAttr('checked');          // 移除标注样式和属性
+            $(this).addClass('product-hover').attr('checked', true);                // 添加当前元素标注样式和属性
+            localStorage.setItem(localstorage_key, $(this).find('h1').text());    // 缓存序号至本地离线数据库
+        }
+    });
+</script>
+</html>

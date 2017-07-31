@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>查找路线</title>
+	<style>
+		body {
+			margin: 50px auto;
+			width: 870px;
+			padding: 20px;
+			border: 1px solid #c88e8e;
+			border-radius: 15px;
+			height: 100%;
+			/* 设置高度自适应 */
+		}
+		.item {
+			width: 430px;
+			display: inline-block;
+			padding-right: 2px;
+		}
+		/* 设置ip和wifi容器的宽度并左浮动 */
+		
+		.section {
+			padding: 5px;
+		}
+		.btn {
+			text-decoration: none;
+			color: #c89191;
+			font-size: 11px;
+		}
+		.btn:hover {
+			text-decoration: underline;
+		}
+		input, select {
+			border: #b9aaaa 1px solid;
+			height: 22px;
+			width: 200px;
+			margin-left: 5px;
+		}
+		#map {
+			height: 400px;
+			width: 430px;
+			text-align: center;
+		}
+		/* 设置地图宽高 */
+		
+		.search {
+			/* 设置查找按钮样式 */
+			padding: 4px 12px;
+			text-decoration: none;
+			cursor: pointer;
+			/* 设置光标的手形 */
+			color: #333333;
+			background-color: #f5f5f5;
+			/* 设置查找按钮背景色 */
+			border-radius: 4px;
+			box-shadow: inset 0 1px 0 rgba(255, 255, 255, .2), 0 1px 2px rgba(0, 0, 0, .05);
+		}
+	</style>
+</head>
+<body>
+	<p>查找路线
+		<span id="info"></span>
+	</p>
+	<div class="section">
+		<label for="start">起始位置</label>
+		<input type="text" id="origin" />
+		<a href="javascript:;" class="btn" id="user-origin">使用当前位置作为起始位置</a>
+	</div>
+	<div class="section">
+		<label for="end">结束位置</label>
+		<input type="text" id="destination" />
+		<a href="javascript:;" class="btn" id="user-destination">使用当前位置作为结束位置</a>
+	</div>
+	<div class="section">
+		<label for="travelMode">出行方案</label>
+		<select id="travelMode">
+			<option value="TRANSIT">公交</option>
+			<option value="DRIVING">驾车</option>
+			<option value="BICYCLING">自行车</option>
+			<option value="WALKING">步行</option>
+		</select>
+		<a href="javascript:;" class="search" id="search">查找</a>
+	</div>
+	<div id="map" class="item">加载中...</div>
+	<!-- 地图显示控件 -->
+	<div id="directionsPanel" class="item"></div>
+</body>
+<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script>
+	var gmap = document.querySelector("#map"), // 获取地图DOM
+		ginfo = document.querySelector("#info"), // 获取显示经纬度DOM
+		origin = document.querySelector("#origin"),
+		destination = document.querySelector("#destination"),
+		userOrigin = document.querySelector("#user-origin"),
+		userDestination = document.querySelector("#user-destination"),
+		travelMode = document.querySelector("#travelMode"),
+		search = document.querySelector("#search"),
+		directionsPanel = document.querySelector("#directionsPanel"),
+		map,
+		currentMaker,
+		currentPosition,
+		directionsService = new google.maps.DirectionsService(),
+		directionsDisplay = new google.maps.DirectionsRenderer(),
+		showMap = function(position) {
+			currentPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude); // 经纬度
+			var options = {
+				zoom: 14,
+				center: currentPosition,
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			}; // 地图参数
+			map = new google.maps.Map(gmap, options), // 地图
+				currentMaker = new google.maps.Marker({
+					position: currentPosition,
+					map: map,
+					title: "用户位置"
+				}); // 地图浮动提示
+			ginfo.innerHTML = "{ 当前位置（纬度：" + position.coords.latitude + "，经度：" + position.coords.longitude + "）}"; // 显示定位结果
+			directionsDisplay.setMap(map);
+			directionsDisplay.setPanel(directionsPanel);
+		},
+		userSelectionCurrent = function(e) {
+			var prev = this.previousElementSibling;
+			prev.value = '我的位置';
+			prev.style.color = 'blue';
+			prev.isCurrent = true;
+		},
+		cancelCurrent = function() {
+			this.style.color = '#111';
+			this.isCurrent = false;
+		},
+		bind = function() {
+			[userOrigin, userDestination].forEach(function(item) {
+				item.addEventListener('click', userSelectionCurrent, false);
+				item.previousElementSibling.addEventListener('change', cancelCurrent, false);
+			});
+			search.addEventListener("click", calcRoute, false);
+		},
+		calcRoute = function() {
+			var start = origin.isCurrent ? currentPosition : origin.value,
+				end = destination.isCurrent ? currentPosition : destination.value,
+				selectedMode = travelMode.value,
+				request = {
+					origin: start,
+					destination: end,
+					travelMode: google.maps.TravelMode[selectedMode]
+				};
+			directionsService.route(request, function(response, status) {
+				if(status == google.maps.DirectionsStatus.OK) {
+					directionsPanel.innerHTML = '';
+					directionsPanel.style.color = '';
+					directionsDisplay.setMap(map);
+					directionsDisplay.setDirections(response);
+					currentMaker.setMap(null);
+				} else {
+					directionsPanel.style.color = 'red';
+					if(status === google.maps.DirectionsStatus.ZERO_RESULTS) {
+						if(selectedMode === 'BICYCLING') {
+							directionsPanel.innerHTML = '没有找到路线，可能是不支持当前国家';
+						} else {
+							directionsPanel.innerHTML = '没有找到相关路线';
+						}
+					} else if(status == google.maps.DirectionsStatus.NOT_FOUND) {
+						directionsPanel.innerHTML = '地址没有找到';
+					} else {
+						directionsPanel.innerHTML = '其他错误：' + status;
+					}
+					directionsDisplay.setMap(null);
+					currentMaker.setMap(map);
+				}
+			});
+		},
+		getPosition = function() {
+			var errorHandler = function(error) { // 定位出错处理函数
+					switch(error.code) {
+						case error.PERMISSION_DENIED: // 定位失败，没有权限
+							gmap.innerHTML = "定位被阻止，请检查您的授权或者网络协议（" + error.message + ")";
+							break;
+						case error.POSITION_UNAVAILABLE: // 定位失败，不可达
+							gmap.innerHTML = "定位暂时无法使用，请检查您的网络(" + error.message + ")";
+							break;
+						case error.TIMEOUT: // 定位失败，超时
+							gmap.innerHTML = "您的网络较慢，请耐心等待...";
+							gmap.innerHTML = "对不起，定位超时"; // 超时了
+							break;
+					}
+				},
+				getCurrentPosition = function() { // 定位函数
+					navigator.geolocation.getCurrentPosition(showMap, errorHandler);
+				};
+			return getCurrentPosition; // 返回定位函数供外部调用
+		}();
+	var init = function() {
+		if(navigator.geolocation) {
+			gmap.innerHTML = "定位中...";
+			getPosition(); // 定位开始
+			bind();
+		} else {
+			gmap.innerHTML = '您的浏览器不支持地理位置 ~O(∩_∩)O~'; // 定位失败，浏览器不支持
+		}
+	};
+	google.maps.event.addDomListener(window, 'load', init);
+</script>
+</html>

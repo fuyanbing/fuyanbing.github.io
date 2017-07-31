@@ -1,0 +1,109 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<style>
+		section {
+			/* 商品列表框样式 */
+			font-size: 25px;
+			width: 320px;
+			border: 2px solid black;
+			padding: 5px;
+			border-radius: 10px;
+			background-color: #f1f1f1;
+		}
+		img {
+			width: 70px;
+			height: 70px;
+			margin: 0 5px;
+		}
+		/* 商品图片样式 */
+		
+		div {
+			/* 单个商品样式 */
+			border-bottom: 2px solid black;
+			cursor: move;
+			padding-top: 5px;
+			-webkit-transition: -webkit-transform 0.2s ease-out;
+			-moz-transition: -moz-transform 0.2s ease-out;
+			-o-transition: -o-transform 0.2s ease-out;
+			-ms-transition: -ms-transform 0.2s ease-out;
+			transition: transform 0.2s ease-out;
+		}
+		.over {
+			background-color: #FFFFD5;
+		}
+		/* 拖动悬浮元素样式 */
+		
+		.moving {
+			/* 被拖动元素样式 */
+			opacity: 0.25;
+			-webkit-transform: scale(0.97);
+			-moz-transform: scale(0.97);
+			-ms-transform: scale(0.97);
+			-o-transform: scale(0.97);
+			transform: scale(0.97);
+		}
+	</style>
+	<title>对照片进行排序</title>
+</head>
+<body>
+	<header>
+		<h2>对照片进行排序</h2>
+	</header>
+	<section>
+		<!-- 商品元素列表 -->
+		<div draggable="true">
+			<img src="../images/shop/黑色护腕.png" draggable="false" />黑色护腕</div>
+		<div draggable="true">
+			<img src="../images/shop/护目镜.png" draggable="false" />护目镜</div>
+		<div draggable="true">
+			<img src="../images/shop/护腿.png" draggable="false" />护腿</div>
+		<div draggable="true">
+			<img src="../images/shop/篮球鞋.png" draggable="false" />篮球鞋</div>
+		<div draggable="true">
+			<img src="../images/shop/男套装.png" draggable="false" />男套装</div>
+		<div draggable="true">
+			<img src="../images/shop/太阳镜.png" draggable="false" />太阳镜</div>
+	</section>
+</body>
+<script type="text/javascript">
+	(function() {
+		var slice = Array.prototype.slice,
+			list = slice.call(document.getElementsByTagName('div'), 0), // 商品元素列表数组
+			move_item; // 当前拖动元素
+		list.forEach(function(item) { // 循环数组，监听元素事件
+			item.addEventListener('dragstart', function(e) { // 拖动开始
+				e.dataTransfer.effectAllowed = 'move'; // 设置拖动允许的事件行为
+				e.dataTransfer.setData('html', e.target.innerHTML); // 保存目标元素结构至拖拽数据中
+				this.style.opacity = '0.4';
+				this.classList.add('moving');
+				move_item = item;
+			}, false);
+			item.addEventListener('dragenter', function(e) { // 拖入元素边界内触发
+				e.target.classList.add('over');
+			}, false);
+			item.addEventListener('dragover', function(e) { // 元素在目标元素上移动
+				e.preventDefault(); // 阻止元素默认时间，保证drop被触发
+				e.target.classList.add('over');
+			}, false);
+			item.addEventListener('dragleave', function(e) { // 元素离开目标元素触发
+				e.target.classList.remove('over');
+			}, false);
+			item.addEventListener('drop', function(e) { // 拖拽元素放在目标元素内
+				var target = e.target;
+				if(move_item != target) { // 拖动元素与放置元不同
+					move_item.innerHTML = item.innerHTML; // 将被拖放元素结构填充为放置元素
+					item.innerHTML = e.dataTransfer.getData('html'); // 设置拖放元素结构为被拖放元素
+				}
+			}, false);
+			item.addEventListener('dragend', function(e) {
+				this.style.opacity = '1';
+				list.forEach(function(item) {
+					item.classList.remove('moving'); // 移除拖动样式
+				});
+			}, false);
+		})
+	})();
+</script>
+</html>

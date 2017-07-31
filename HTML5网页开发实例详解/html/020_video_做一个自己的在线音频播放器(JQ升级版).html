@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<script src="../js/jquery-1.9.0.min.js" type="text/javascript" charset="utf-8"></script>
+	<title>做一个自己的在线音频播放器</title>
+	<style type="text/css">
+		body {
+			text-align: center;
+			margin: 0 auto;
+			max-width: 370px;
+			padding: 0 10px;
+			box-sizing: border-box;
+		}
+		.box {
+			border: 1px solid #464646;
+			border-radius: 3px;
+			padding: 20px;
+			background: -moz-linear-gradient(top, rgb(53, 111, 143), #f6f6f8);
+			background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgb(53, 111, 143)), to(#f6f6f8));
+		}
+		.list {
+			min-height: 150px;
+			font-size: 15px;
+			border: 1px solid #464646;
+			border-radius: 3px;
+			background-color: #F5F6F9;
+			margin-bottom: 10px;
+		}
+		ul, li {
+			list-style: none;
+		}
+		ul {
+			padding: 5px;
+		}
+		li {
+			cursor: pointer;
+			margin-bottom: 5px;
+			padding: 2px 7px 2px 25px;
+			line-height: 20px;
+			border-radius: 3px;
+		}
+		li:hover {
+			background-color: #e3e3e3;
+		}
+		.run {
+			background-color: #4BA9E6 !important;
+			background: url(../images/running.gif) no-repeat;
+			background-position: 4px 3px;
+			color: #FFFFFF;
+		}
+		.time01, .time02 {
+			visibility: hidden;
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<h2>做一个自己的在线音频播放器</h2>
+	</header>
+	<div class="box">
+		<div class="list">
+			<!-- 播放列表 -->
+			<ul>
+				<li class="run">爱江山更爱美人.mp3</li>
+				<li>爱你在心口难开.mp3</li>
+				<li>爱情码头-爱情码头.mp3</li>
+				<li>爱情诺曼底-黄征.mp3</li>
+				<li>爱情神马价.mp3</li>
+				<li>爱情这杯酒谁喝都得醉-闫旭.mp3</li>
+				<li>爱情转移-陈奕迅.mp3</li>
+				<li>爱如潮水-张信哲.mp3</li>
+				<li>爱上你是我的错.mp3</li>
+				<li>爱上一个不回家的人（林忆莲）.mp3</li>
+			</ul>
+		</div>
+		<div>
+			<!-- 播放器 -->
+			<audio id="audio" src="../res/爱江山更爱美人.mp3" controls> 非常抱歉，您的浏览器不支持audio标签。 </audio>
+		</div>
+	</div>
+	<div class="time01"></div>
+</body>
+<script type="text/javascript">
+	$(function() {
+		var audio = $('audio'),
+			LisMusic = $('li').length,
+			indexMusic,
+			times, //播放时间计时器
+			run;
+		//点击播放
+		$('li').on("click", function() {
+			run = $('li.run').removeClass();
+			$(this).addClass('run');
+			audio.attr('src', audio.attr('src').replace(run.text(), $(this).text()));
+			audio.get(0).play();
+		});
+		//设置播放时间长度
+		audio.on("loadedmetadata", function(totalTime) {
+			$('.time01').text(audio.get(0).duration >> 0);
+		});
+		//设置播放当前时间
+		audio.on("play", function() {
+			if(!!times) {
+				clearInterval(times);
+			}
+			times = setInterval(function() {
+				getTime01 = $(".time01").text();
+				getTime02 = parseInt(audio.get(0).currentTime >> 0) + 5;
+				indexMusic = parseInt($('li.run').index()) + 1;
+				if((getTime02 >= getTime01) && (indexMusic < LisMusic)) {
+					$('li.run').next().click();
+				}
+			}, 1000);
+		});
+		//清除计时器
+		audio.on("pause", function() {
+			clearInterval(times);
+		});
+	})
+</script>
+</html>

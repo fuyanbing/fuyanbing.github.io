@@ -1,0 +1,313 @@
+﻿html{
+    padding:10px;
+}
+textarea {
+    margin: 2px 0px 0px 2px; 
+    padding: 5px; 
+    border-style: none; 
+    border-width: 0px; 
+    font-size: 14px; 
+    font-family: Tahoma, 宋体; 
+    word-wrap: break-word; 
+    line-height: 18px; 
+    overflow-y: auto; 
+    overflow-x: hidden; 
+    outline: none;
+    background: transparent;
+    width: 544px;
+    height: 74px;
+    resize: none;
+}
+.textarea-enter{
+    background:url("images/weibo-drag.png") no-repeat 190px 20px;
+    border: 1px dashed gray;
+}
+address, caption, cite, code, dfn, em, i, th, var, b {
+    font-style: normal;
+    font-weight: normal;
+}
+a {
+    text-decoration: none;
+    color: #6c6351;
+}
+ul,li{
+    margin: 0;
+    padding: 0;
+}
+li {
+    list-style: none;
+}
+body, button, input, select, textarea {
+    font: 12px/1.125 Arial,Helvetica,sans-serif;
+}
+.input {
+    background-color: #FFFFFF;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #cccccc;
+    box-shadow: 1px 1px 1px 0px #eaeaea inset;
+    height: 88px;
+    width:560px;
+    position: relative;
+    border-radius: 3px;
+    margin: 15px 0 0;
+}
+.input .arrow {
+    display: block;
+    width: 11px;
+    height: 19px;
+    background: url("http://img.t.sinajs.cn/t5/skin/skin034/images/all_iconbtn.png") no-repeat;
+    background-position: -475px 0px;
+    position: absolute;
+    top: 19px;
+    right: -11px;   
+}
+.img_upload {
+    position: absolute;
+    z-index: 99;
+    border: 1px dashed #ccc;
+    left: 5px;
+    top: 5px;
+    right: 5px;
+    bottom: 5px;
+    color: #808080;
+    text-align: center;
+}
+.img_upload b {
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+    color: #808080;
+    text-align: center;
+}
+.img_upload .iu-tip {
+    display: inline-block;
+    vertical-align: middle;
+}
+.img_upload .iu-tip .W_ico12 {
+    vertical-align: -2px;
+    margin-right: 8px;
+}
+.W_ico12 {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    background-image: url("http://img.t.sinajs.cn/t5/style/images/common/icon.png?id=201308301130");
+    background-repeat: no-repeat;
+    background-position: -175px -250px;
+}
+.func_area{
+    width: 560px;
+}
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+.func {
+    float: right;
+    padding: 5px 0 0;
+    text-align: right;
+    width: 170px;
+    white-space: nowrap;
+}
+.func .limits {
+    display: inline-block;
+    margin: 6px 10px 0 0;
+    vertical-align: top;
+}
+.func .limits .W_autocut {
+    display: inline-block;
+    width: 62px;
+    cursor: pointer;
+    text-align: right;
+}
+.W_arrow {
+    display: inline-block;
+    width: 7px;
+    height: 4px;
+    margin: 0 0 0 5px;
+    overflow: hidden;
+    font-size: 12px;
+    line-height: 12px;
+    vertical-align: 3px;
+}
+.W_arrow em {
+    display: inline-block;
+    font-family: "SimSun";
+    margin: 0 0 0 -2px;
+}
+.send_btn {
+    background-position: -225px 0px;
+    background-image: url("http://img.t.sinajs.cn/t5/skin/skin034/images/all_iconbtn.png");
+    color: #ccc;
+    font: normal 16px/30px Tahoma;
+    text-align: center;
+    text-indent: -9999em;
+    outline-style: none;
+    display: inline-block;
+    width: 82px;
+    height: 30px;
+}
+.S_txt3 {
+    color: #aeaeae;
+}
+.kind_v2 {
+    float: left;
+    width: 390px;
+    padding: 10px 0 0;
+}
+.kind_detail {
+    float: left;
+}
+.kind_v2 i.S_txt2 {
+    float: left;
+    margin: 0 8px 0 -1px;
+}
+.kind_v2 .more {
+    float: left;
+    margin: 1px 0 0;
+}
+.kind_v2 .kind_detail a {
+    float: left;
+    width: auto;
+    height: auto;
+    margin: 0 14px 0 0;
+    text-align: left;
+    font-size: 12px;
+    line-height: 16px;
+    overflow: hidden;
+}
+.W_ico16 {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background-image: url("http://img.t.sinajs.cn/t5/style/images/common/icon.png");
+    background-repeat: no-repeat;
+    margin: 0 4px 0 0;
+    vertical-align: -4px;
+}
+.kind_v2 .icon_sw_face {
+    width: 16px;
+    background-position: -275px 0;
+}
+.kind_v2 .icon_sw_img {
+    background-position: -275px -25px;
+}
+.kind_v2 .icon_sw_movie {
+    background-position: -275px -50px;
+}
+.kind_v2 .icon_sw_qing {
+    background-position: -275px -100px;
+}
+.kind_v2 .icon_sw_chang {
+    background-position: -275px -250px;
+}
+.W_layer{
+    color: #333;
+    text-decoration: none;
+    width: 480px;
+    height: 190px;
+    position: absolute;
+    top: 149px;
+}
+.W_layer .bg {
+    padding: 3px;
+    border-radius: 4px;
+    background: url("http://img.t.sinajs.cn/t5/style/images/common/layer_bg.png") repeat;
+}
+.W_layer .content {
+    position: relative;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+}
+.W_layer .W_close {
+    position: absolute;
+    z-index: 2;
+    right: 17px;
+    top: 6px;
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background: url("http://img.t.sinajs.cn/t5/style/images/common/icon.png") no-repeat -75px -200px;
+}
+.W_layer .title {
+    background: #f2f2f2;
+    height: 30px;
+    line-height: 30px;
+    font-weight: 700;
+    padding: 0 0 0 20px;
+    font-size: 12px;
+    vertical-align: middle;
+}
+.layer_pic_list {
+    width: 464px;
+    overflow: hidden;
+    padding: 20px 0 20px 20px;
+}
+.layer_pic_list .pic_list_count {
+    margin-bottom: 10px;
+}
+.W_layer .S_txt2 {
+    color: #808080;
+}
+.layer_pic_list .pic_list li {
+    float: left;
+    width: 80px;
+    height: 80px;
+    position: relative;
+    margin: 0 6px 6px 0;
+    border-radius: 1px;
+    text-align: center;
+    padding: 1px;
+    overflow: hidden;
+}
+
+.layer_pic_list .pic_list li.pic {
+    display: block;
+    width: 80px;
+    height: 80px;
+    text-decoration: none;
+    position: relative;
+    margin: 0 6px 6px 0;
+    border: 1px solid #ccc;
+    float: left;
+    border-radius: 1px;
+    background: url("http://img.t.sinajs.cn/t5/style/images/layer/img_default.png") no-repeat 1px 1px;
+    text-align: center;
+    padding: 1px;
+    overflow: hidden;
+}
+.layer_pic_list .pic_list li.pic img{
+    width: 80px;
+    height: 80px;
+}
+.pic_list .add {
+    width: 80px;
+    height: 80px;
+    border: 2px dashed #ccc;
+    background: none;
+    padding: 0;
+}
+.layer_pic_list .pic_list .add a {
+    display: block;
+    font-size: 40px;
+    font-weight: bold;
+    color: #ccc;
+    margin-top: 18px;
+}
+.W_layer .arrow {
+    position: absolute;
+    overflow: hidden;
+    display: block;
+    background: url("http://img.t.sinajs.cn/t5/style/images/common/layer_arrow.png") no-repeat;
+    width: 14px;
+    height: 9px;
+    top: -5px;
+    left: 30px;
+    background-position: 0 0;
+    left: 72px;
+}

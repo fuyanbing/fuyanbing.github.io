@@ -1,0 +1,16 @@
+﻿CACHE MANIFEST
+
+CACHE:
+ 
+#../js/jquery-ui-1.9.2.custom.js
+../js/jquery-1.8.3.js
+
+../css/grid.css
+../css/jquery-ui-1.9.2.custom.css
+
+../css/images/grid/bg.gif
+../css/images/grid/add.png
+../css/images/grid/bar_top.png
+
+NETWORK:
+*

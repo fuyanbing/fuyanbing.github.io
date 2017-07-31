@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>预览网站内容</title>
+	<script type="text/javascript" src="../js/jquery-1.8.3.js"></script>
+	<style type="text/css">
+		.feedback {
+			width: 15px;
+			padding: 27px 7px 0;
+			line-height: 16px;
+			height: 105px;
+			border: 1px solid #D7D7D7;
+			background: #FFFCCE url(../feedback.png) no-repeat 6px 6px;
+			position: fixed;
+			bottom: 20px;
+			left: 0;
+			font-size: 14px;
+			color: #333;
+			text-decoration: none;
+		}
+		body {
+			background: #000;
+		}
+		.news .clist {
+			border-left: 2px solid #ccc;
+			padding-left: 10px;
+			margin: 15px 0;
+		}
+		.news .clist h3 {
+			margin: 3px 0;
+		}
+		.news .clist h3 a {
+			font-size: 14px;
+			color: #fff;
+			text-decoration: none;
+		}
+		.news .clist h3 a:hover {
+			color: #bf9a63;
+		}
+		.news .clist-con {
+			font-size: 13px;
+			color: #777;
+		}
+		.news .clist-con a {
+			font-size: 12px;
+			color: #ccc;
+		}
+		#iframe {
+			position: absolute;
+			display: none;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			border: none;
+			left: 0px;
+			background: white;
+			overflow: hidden;
+		}
+	</style>
+</head>
+<body>
+	<div class="news">
+		<div class="clist clearfix">
+			<div class="clist-center clist-noavatar">
+				<h3>
+					<a href="http://taobao.com/" class="item" target="_blank">淘宝网</a>
+				</h3>
+				<div class="clist-con">
+					<a href="http://taobao.com/" class="item" target="_blank">www.taobao.com</a>
+					<span>&nbsp;&nbsp;-&nbsp;</span> 淘宝网 </div>
+			</div>
+		</div>
+		<div class="clist clearfix">
+			<div class="clist-center clist-noavatar">
+				<h3>
+					<a href="http://www.36kr.com/p/203197.html" class="item" target="_blank">一周文章精选 +《氪周刊：互联网创业必读》#126 | 36氪</a>
+				</h3>
+				<div class="clist-con">
+					<a href="http://www.36kr.com/p/203197.html" class="item" target="_blank">www.36kr.com</a>
+					<span>&nbsp;&nbsp;-&nbsp;</span> 一周文章精选 +《氪周刊：互联网创业必读》#126 | 36氪 </div>
+			</div>
+		</div>
+		<div class="clist clearfix">
+			<div class="clist-center clist-noavatar">
+				<h3>
+					<a href="http://shangyejia.cn/index/renwen/zlsq/2011-12-06/390.shtml" class="item" target="_blank">谁在追随安•兰德？</a>
+				</h3>
+				<div class="clist-con">
+					<a href="http://shangyejia.cn/index/renwen/zlsq/2011-12-06/390.shtml" class="item" target="_blank">shangyejia.cn</a>
+					<span>&nbsp;&nbsp;-&nbsp;</span> 谁在追随安•兰德？ </div>
+			</div>
+		</div>
+	</div>
+	<iframe src="004.无刷新加载网页操作页.html" id="iframe"></iframe>
+</body>
+<script type="text/javascript">
+	$(function() {
+		var body = document.querySelector("body"), // 获取body控件
+			iframe = document.querySelector("#iframe"), // 获取iframe控件
+			win = iframe.contentWindow; ///contentWindow属性是指指定的frame或者iframe所在的window对象
+		$(".item").on('click', function(e) {
+			e.stopPropagation(); //终止事件在传播过程的捕获、目标处理或起泡阶段进一步传播
+			e.preventDefault();
+			var style = window.getComputedStyle(iframe); // 获取iframe的样式对象
+			body.style.height = document.documentElement.clientHeight;
+			iframe.style.display = "block";
+			iframe.style.height = (document.documentElement.clientHeight - 15) + 'px';
+			var width = (document.documentElement.clientWidth - 50) + 'px';
+			win.postMessage({ // 发送消息给iframe
+				href: e.target.href,
+				height: iframe.style.height,
+				width: width
+			}, '*');
+		});
+		window.addEventListener('message', function(evt) { // 监听从iframe中传来的动作
+			if(evt.data === 'closed') { // 动作为关闭操作
+				iframe.style.display = 'none'; // 关闭当前预览
+			}
+		});
+	})
+</script>
+</html>

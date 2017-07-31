@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<script src="../js/jquery-1.8.3.js" type="text/javascript" charset="utf-8"></script>
+	<title>做一个自己的视频播放器</title>
+	<style type="text/css">
+		.video_box {
+			position: relative;
+			width: 480px;
+			height: 320px;
+		}
+		.play_button {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			margin: -25px 0 0 -25px;
+			width: 50px;
+			height: 50px;
+			vertical-align: baseline;
+			border: 1px solid #1a1b1a;
+			cursor: pointer;
+			border-radius: 5px;
+			background: -moz-linear-gradient(top, #474747, #1B1C1B);
+			background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#474747), to(#1B1C1B));
+		}
+		.play_button:hover {
+			border: 1px solid #565656;
+			background: #565656;
+			background: -moz-linear-gradient(top, #D7D7D7, #565656);
+			background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#D7D7D7), to(#565656));
+		}
+		.play_button div {
+			margin: 13px 0 0 14px;
+			border-top: 12px solid transparent;
+			border-left: 24px solid #FFFFFF;
+			border-bottom: 12px solid transparent;
+		}
+		.play_controls {
+			position: absolute;
+			right: 1px;
+			bottom: 0px;
+			left: 1px;
+			height: 12px;
+			padding: 9px;
+			border-top: 1px solid #000;
+			background: -moz-linear-gradient(top, #252624, #111);
+			background: -webkit-linear-gradient(top, #252624, #111);
+		}
+		.control {
+			cursor: pointer;
+			float: left;
+			margin: 0 10px;
+		}
+		.play_control div {
+			border-top: 7px solid transparent;
+			border-left: 14px solid #D7D7D7;
+			border-bottom: 7px solid transparent;
+		}
+		.pause_control div {
+			margin: 0 2px;
+			height: 13px;
+			width: 5px;
+			float: left;
+			background: #D7D7D7;
+		}
+		.fullscreen_control {
+			float: right;
+		}
+		.fullscreen_control div {
+			margin: 2px 2px 0 0;
+			border: 1px solid #f1f1f1;
+			height: 7px;
+			width: 14px;
+			background: #7a7a7a;
+			background: -moz-linear-gradient(top, #BBBBBB, #8A8A8A);
+			background: -webkit-linear-gradient(top, #BBBBBB, #8A8A8A);
+		}
+		.fullscreen_control div:hover {
+			margin: -1px -1px 0 0;
+			height: 11px;
+			width: 20px;
+			background: #2b5880;
+			background: -moz-linear-gradient(top, #4090D9, #30689B);
+			background: -webkit-linear-gradient(top, #4090D9, #30689B);
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<h2>做一个自己的视频播放器</h2>
+	</header>
+	<div class="video_box">
+		<video src="../res/BigBuck.webm" width="480" height="320" controls></video>
+	</div>
+	<!--<div class="play_button" title="播放" data-type="go">
+		<div></div>
+	</div>
+	<div class="play_controls">
+		<div class="control play_control control_btn" data-type="play" title="播放">
+			<div></div>
+		</div>
+		<div class="control pause_control control_btn" data-type="pause" title="暂停">
+			<div></div>
+			<div></div>
+		</div>
+		<div class="control fullscreen_control" title="全屏" data-type="fullscreen">
+			<div></div>
+		</div>
+	</div>-->
+</body>
+<script type="text/javascript">
+	(function() {
+		//播放工具条
+		var CONTROLS_HTML = '<div class="play_button" title="播放" data-type="go"><div></div></div>' + '<div class="play_controls" style="display:none">' + '<div class="control play_control control_btn" data-type="play" title="播放" style="display:none"><div></div></div>' + '<div class="control pause_control control_btn" data-type="pause" title="暂停"><div></div><div></div></div>' + '<div class="control fullscreen_control" title="全屏" data-type="fullscreen"><div></div></div>' + '</div>';
+
+		function VideoControl(ele) { // 播放工具条类
+			this.video = $(ele);
+			this.init();
+		};
+		VideoControl.prototype = {
+			//原型方法
+			init: function() {
+				//移除video原本的controls属性，去除浏览器默认工具条
+				this.video.removeAttr('controls');
+				this._render();
+				this._bind();
+			},
+			_render: function() {
+				//用于生成工具条html结构
+				var wraper = this.wraper = $(document.createElement('div'));
+				wraper.html(CONTROLS_HTML);
+				this.video.parent().append(wraper); //将工具类插入文档
+			},
+			_bind: function() {
+				//给工具条的元素绑定事件
+				var self = this,
+					video = self.video.get(0),
+					wraper = self.wraper,
+					control_btn = wraper.find('div.control_btn');
+				//用jQuery的delegate方法委托特制元素监听click事件
+				wraper.delegate('div[data-type]', 'click', function(e) {
+					var data_type = $(this).attr('data-type');
+					switch(data_type) {
+						case 'go':
+							wraper.find('div.play_button').hide();
+							wraper.find('div.play_controls').show();
+							video.play();
+							break;
+						case 'play':
+							control_btn.toggle();
+							video.play();
+							break;
+						case 'pause':
+							control_btn.toggle();
+							video.pause();
+							break;
+						case 'fullscreen':
+							self._requestFullscreen(video);
+							break;
+					}
+				})
+			},
+			_requestFullscreen: function(video) {
+				var prefixs = 'Webkit Moz O ms Khtml'.split(' '),
+					parent = video,
+					prefix;
+				//循环各浏览器前缀名，找寻符合的方法并执行
+				for(var i = 0; i < prefixs.length; i++) {
+					prefix = prefixs[i].toLowerCase();
+					if(parent[prefix + 'EnterFullScreen']) {
+						parent[prefix + 'EnterFullScreen']();
+						break;
+					} else if(parent[prefix + 'RequestFullScreen']) {
+						parent[prefix + 'RequestFullScreen']();
+						break;
+					}
+				}
+			}
+		}
+		new VideoControl(document.querySelector('video'));
+	})()
+</script>
+</html>

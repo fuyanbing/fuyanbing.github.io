@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<script src="../js/jquery-1.8.3.js"></script>
+	<style>
+		body {
+			font: 12px/1.5 'Lucida Grande', tahoma, arial, \5b8b\4f53;
+			padding: 10px;
+		}
+		a:link, a:hover, a:active, a:visited {
+			text-decoration: none;
+		}
+		.picture-list {
+			white-space: normal;
+			overflow-x: hidden;
+			width: 407px;
+			-webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+			box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+			padding: 0 0 10px 10px;
+			background-color: #f2f2f2;
+			height: 297px;
+		}
+		.picture-list .picture {
+			float: left;
+			width: 120px;
+			margin: 10px 10px 0 0;
+			color: #999;
+			overflow: hidden;
+			-webkit-transition: -webkit-transform 0.2s ease-out;
+			-moz-transition: -moz-transform 0.2s ease-out;
+			-o-transition: -o-transform 0.2s ease-out;
+			-ms-transition: -ms-transform 0.2s ease-out;
+			transition: transform 0.2s ease-out;
+		}
+		.picture-list .picture .wraper {
+			position: relative;
+		}
+		.picture-list .info {
+			height: 128px;
+			padding: 10px 10px 0;
+		}
+		.picture-list img {
+			height: 100px;
+			width: 100px;
+			margin: 0;
+			cursor: pointer;
+			border-radius: 5px;
+			/* 圆角 */
+			-moz-border-radius: 5px;
+			-webkit-border-radius: 5px;
+			position: absolute;
+		}
+		.picture-list .img {
+			height: 106px;
+		}
+		.picture-title {
+			padding: 0;
+			overflow: hidden;
+			word-break: break-all;
+			line-height: 18px;
+			text-align: center;
+			margin: 0;
+		}
+		.picture-title a {
+			font-size: 12px;
+			font-weight: 400;
+			color: #666;
+		}
+		.picture-hover .info {
+			background: #f7faff;
+			border-radius: 5px;
+			/* 圆角 */
+			-moz-border-radius: 5px;
+			-webkit-border-radius: 5px;
+			cursor: pointer;
+		}
+		.picture-tip {
+			margin: 0 auto;
+			font-size: 14px;
+			font-weight: bolder;
+			color: gray;
+			width: 106px;
+			margin-top: 126px;
+		}
+		.progressbar {
+			border: 1px solid #dddddd;
+			border-radius: 4px;
+			-moz-border-radius: 4px;
+			-webkit-border-radius: 4px;
+			width: 80px;
+			height: 18px;
+			position: absolute;
+			top: 45px;
+			left: 9px;
+		}
+		.progressbar-value {
+			margin: -1px;
+			height: 100%;
+			border: 1px solid green;
+			border-radius: 4px;
+			-moz-border-radius: 4px;
+			-webkit-border-radius: 4px;
+			background-color: green;
+			width: 0;
+			display: none;
+			text-align: center;
+			opacity: 0.7;
+		}
+		a.button
+		/* 按钮通用样式 */
+		
+		{
+			display: block;
+			float: left;
+			position: relative;
+			/* 相对定位 */
+			height: 25px;
+			width: 80px;
+			margin: 0 10px 18px 0;
+			text-decoration: none;
+			/* 去除相关文本修饰 */
+			font: 12px Arial;
+			font-weight: bold;
+			line-height: 25px;
+			text-align: center;
+			-webkit-border-radius: 3px;
+			/* 圆角效果 */
+			-moz-border-radius: 3px;
+			border-radius: 3px;
+		}
+		a.button:before, a.button:after
+		/* 在按钮元素之前和之后添加样式 */
+		
+		{
+			content: '';
+			/* 在元素上添加内容 */
+			position: absolute;
+			/* 绝对定位 */
+			left: -1px;
+			height: 25px;
+			width: 80px;
+			bottom: -1px;
+			-webkit-border-radius: 3px;
+			/* 圆角效果 */
+			-moz-border-radius: 3px;
+			border-radius: 3px;
+		}
+		a.button:before
+		/* 在按钮元素之后添加 */
+		
+		{
+			height: 23px;
+			bottom: -4px;
+			border-top: 0;
+			border-radius: 0 0 3px 3px;
+			/* 圆角效果 */
+			-webkit-border-radius: 0 0 3px 3px;
+			-moz-border-radius: 0 0 3px 3px;
+			box-shadow: 0 1px 1px 0px #bfbfbf;
+			/* 图层阴影效果 */
+			-webkit-box-shadow: 0 1px 1px 0px #bfbfbf;
+			-moz-box-shadow: 0 1px 1px 0px #bfbfbf;
+		}
+		a.button:active
+		/* 元素激活，鼠标点击与释放之间样式 */
+		
+		{
+			border: none;
+			bottom: -4px;
+			margin-bottom: 22px;
+			-webkit-box-shadow: 0 1px 1px #fff;
+			-moz-box-shadow: 0 1px 1px #fff;
+			/* 添加内阴影，让按钮感觉是被按下 */
+			box-shadow: 1px 1px 0 #fff, inset 0 1px 1px rgba(0, 0, 0, 0.3);
+		}
+		a.button:active:before, a.button:active:after
+		/* 元素激活之前和之后添加样式 */
+		
+		{
+			border: none;
+			-webkit-box-shadow: none;
+			/* 去除图层阴影效果 */
+			-moz-box-shadow: none;
+			box-shadow: none;
+		}
+		a.green, a.green:hover, a.green:visited
+		/* 绿色按钮、悬停、或已被访问的链接 */
+		
+		{
+			color: #5d7731;
+			border-bottom: 4px solid #799545;
+			text-shadow: 0px 1px 0px #d5e8aa;
+			background: #cae285;
+			/* 线性渐变 */
+			background: -webkit-gradient(linear, left top, left bottom, from(#cae285), to(#a3cd5a));
+			background: -moz-linear-gradient(top, #cae285, #a3cd5a);
+			/* 内阴影 */
+			box-shadow: inset 1px 1px 0 #cce3a1;
+		}
+		.green:before, .green:after
+		/* 在绿色按钮元素之前和之后添加样式 */
+		
+		{
+			border: 1px solid #98b85b;
+			border-bottom: 1px solid #6d883b;
+		}
+		a.green:hover {
+			background: #a3cd5a;
+			/* 在绿色按钮悬停添加样式 */
+			/* 线性渐变 */
+			background: -webkit-gradient(linear, left top, left bottom, from(#a3cd5a), to(#cae285));
+			background: -moz-linear-gradient(top, #a3cd5a, #cae285);
+		}
+	</style>
+	<title>拖放图片保存服务器</title>
+</head>
+<body>
+	<header>
+		<h2>拖放图片保存服务器</h2>
+	</header>
+	<ul class="picture-list">
+		<script id="J_item_tpl" type="text/x-html5-tmpl">
+			<div class="info">
+				<div class="img">
+					<div class="wraper">
+						<img src="{src}" title="{name}" />
+						<div class="progressbar">
+							<div class="progressbar-value"></div>
+						</div>
+					</div>
+				</div>
+				<h3 class="picture-title">
+					<a href="#" target="_blank">{name}</a>
+				</h3>
+			</div>
+		</script>
+		<div class="picture-tip">拖拽图片至此</div>
+	</ul>
+	<a href="#" class="button green">上传图片</a>
+</body>
+<script type="text/javascript">
+	var slice = Array.prototype.slice; //获取数组slice原型方法
+	tpl = $('#J_item_tpl').html(),
+		list = $('ul.picture-list'),
+		list_tip = $('div.picture-tip'),
+		upload_btn = $('a.button'),
+		substitute = function(str, sub) { //字符串格式化函数
+			return str.replace(/\{(.+?)\}/g, function($0, $1) {
+				return $1 in sub ? sub[$1] : $0;
+			});
+		},
+		file_list = [];
+
+	function render_list(files) {
+		var file_list = file_list.concat(files);
+		files.forEach(function(file, index) { //循环File数组
+			var reader; //reader变量存放FileReader实例
+			item = $(document.createElement('li')).attr("class", 'picture');
+			if(file.type.toLowerCase().match(/image.*/)) { //正则判断文件是否为图片
+				reader = new FileReader(); //实例化FileReader对象，用于读取文件数据
+				reader.addEventListener('load', function(e) { //监听FileReader实例的load事件
+					item.html(substitute(tpl, { //组装File对象的name，type，size属性为html
+						name: file.name,
+						src: e.target.result
+					}));
+					list.append(item); //添加到商品列表尾部
+				});
+				reader.readAsDataURL(file); //读取文件为DataURL
+				files.length ? list_tip.hide() : list_tip.show();
+			};
+			item.bind({
+				mouseenter: function() {
+					item.addClass('picture-hover');
+				},
+				mouseleave: function() {
+					item.removeClass('picture-hover');
+				}
+			});
+		});
+	};
+
+	function upload_file(file, index) { //用于上传单个文件
+		var xhr = new XMLHttpRequest(), //实例化XMLHttpRequest对象，用于与后台通信
+			formData = new FormData(), //实例化FormData对象，用于存储表单数据信息
+			item = list.find('li').eq(index),
+			progress = item.find('div.progressbar-value'); //获取对应上传文件的显示进度条
+		formData.append('file', file); //添加文件数据到formData对象
+		xhr.open('post', 'http://localhost:8004', true); //初始化HTTP请求，设置请求类型，地址，是否异步
+		xhr.addEventListener('load', function() { //监听XMLHttpRequest对象的load事件，读取完毕后触发
+			var data = JSON.parse(xhr.responseText); //将返回的字符串转化为对象
+			item.find('a').attr('href', 'http://localhost:8004/' + data.name);
+		});
+		xhr.upload.addEventListener('progress', function(e) { //监听XMLHttpRequest对象的progress事件，读取完毕后触发
+			var percent;
+			if(e.lengthComputable) { //是否可以计算上传字节数
+				percent = (e.loaded / e.total * 100) + '%'; //已上传字节数除以总字节数，计算上传进度百分比
+				progress.css('width', percent); //更新上传进度条样式为当前上传比例相同
+				progress.html(percent); //更新上传百分比
+				file_list[index] = null; //清空列表对应索引内容
+			};
+		});
+		xhr.send(formData); //发送数据到服务器
+		progress.css('display', 'block');
+	};
+	list.bind('dragover', function(e) { //鼠标拖拽在该元素上移动时触发
+		e.preventDefault();
+	});
+	list.bind('drop', function(e) { //鼠标拖拽
+		e.preventDefault();
+		render_list(slice.call(e.originalEvent.dataTransfer.files, 0));
+	});
+	upload_btn.bind('click', function(e) {
+		e.preventDefault();
+		file_list.forEach(function(item, index) {
+			item && upload_file(item, index);
+		})
+	})
+</script>
+</html>

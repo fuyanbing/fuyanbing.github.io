@@ -1,0 +1,137 @@
+﻿.grid{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    position: relative;
+    overflow: hidden;
+    color: #000;
+    width: 500px;
+    border: 1px solid #eee;
+    box-shadow: 0 0 5px #ddd inset; 
+}
+.window_grid{
+    height:200px;
+    overflow-y:auto;
+}
+table.data {
+  width: 100%;
+  white-space: nowrap;
+}
+table.data th,
+table.data td {
+  padding: 5px 10px;
+  vertical-align: middle;
+  text-align: center;
+}
+table.data td.t-right,
+table.data th.t-right,
+table.data th.t-right div  {
+    text-align:right;
+    cursor: default;
+}
+table.data th {
+  background: #fff url(images/grid/bar_top.png) repeat-x left bottom;
+  border-left: 1px solid #fff;
+  border-bottom: 1px solid #fff;
+  font-weight: bold;
+  text-shadow: #fff 0 1px 1px;
+  white-space: nowrap;
+}
+table.data th:first-child {
+  border-left: 0;
+}
+table.data img {
+  display: block;
+}
+table.data tbody tr:nth-child(even) td {
+  background: #def;
+}
+.tablesorter th ,.tablesorter th div{ cursor:pointer}
+.window_search {
+    background: #E9E9E6 url(images/grid/bg.gif) repeat-x top;
+    position:relative;
+    border: 1px solid #CCC;
+    overflow: hidden; 
+    padding:3px 3px;
+    line-height:1;
+}
+.window_tools {
+    margin-bottom: 3px;
+    background: #FAFAFA url(images/grid/bg.gif) repeat-x top;
+    position: relative;
+    border: 1px solid #CCC;
+    overflow: hidden;
+}
+.window_tools .tDiv2 {
+    float: left;
+    clear: both;
+    padding: 1px;
+}
+.window_tools .fbutton {
+    float: left;
+    display: block;
+    cursor: pointer;
+    padding: 1px;
+}
+.window_tools .fbutton div {
+    float: left;
+    padding: 1px 3px;
+}
+.window_tools .fbutton .add {
+    background: url(images/grid/add.png) no-repeat center left;
+    padding-left: 20px;
+}
+.window_tools .fbutton .refresh {
+    background: url(images/grid/refresh.png) no-repeat center left;
+    padding-left: 20px;
+}
+.window_tools .fbutton .start{
+    background: url(images/grid/clock_start.png) no-repeat center left;
+    padding-left: 20px;
+}
+.window_tools .fbutton span {
+    cursor: pointer;
+    float: left;
+    display: block;
+    padding: 3px;
+    line-height: 20px;
+}
+.window_tools .fbutton:hover{border:1px solid #ccc;padding:0}
+.window_tools .fbutton:hover div{border-left:1px solid #fff;border-top:1px solid #fff;border-right:1px solid #eee;border-bottom:1px solid #eee;padding:0 2px}
+.window_tools .btnseparator {
+    float: left;
+    height: 28px;
+    border-left: 1px solid #CCC;
+    border-right: 1px solid white;
+    margin: 1px;
+}
+::-webkit-scrollbar-track-piece{
+	background-color:rgba(0,0,0,0);
+	-webkit-border-radius:0
+}
+::-webkit-scrollbar{
+	width:8px;
+	height:8px
+}
+::-webkit-scrollbar-thumb{
+	height:50px;
+	background-color:rgba(0,0,0,0.4);
+	-webkit-border-radius:4px
+}
+::-webkit-scrollbar-thumb:hover{
+	height:50px;
+	background-color:rgba(0,0,0,0.5);
+	-webkit-border-radius:4px
+}.window_page {
+    background: #E9E9E6 url(images/grid/wbg.gif) repeat-x 0 -1px;
+    border: 1px solid #ccc;
+    height: 26px;
+    padding-top: 3px;
+    padding-left: 3px;
+}.window_page .btn {
+    float: right;
+    height: 22px;
+    border: 0;
+    overflow: hidden;
+    margin: 0 20px;
+    line-height: 23px;
+}

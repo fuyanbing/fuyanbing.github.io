@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>{{title}}</title>
+  <style type="text/css">
+  body {
+    background-color: green;
+  }
+  .move{
+    background-color: red;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    cursor: move;
+  }
+  p{
+    margin: 0;
+    padding: 0;
+  }
+</style>
+</head>
+<body>
+  <div class="move" style="display:none"></div>
+</body>
+  <script src="socket.io/socket.io.js"></script>
+  <script>
+  var socket = io.connect(location.origin);
+  var move_div = document.querySelector('div.move'), start;
+
+  function log(msg){
+    var p = document.createElement('p');
+    p.innerHTML = msg;
+    document.body.appendChild(p);
+  };
+
+  function get_postion(e , type){
+    var pos={};
+    if( e.type == type){
+      pos.x = e.pageX || e.clientX;
+      pos.y = e.pageY;
+    }else{
+      if(e.targetTouches.length >= 1){
+        var touch = e.targetTouches[0];
+        pos.x = touch.pageX;
+        pos.y = touch.pageY;
+      }
+    };
+    return pos;
+  }
+  function start(e){
+    move_div.style.display = '';
+
+    start = get_postion(e,'mousedown').x;
+    document.addEventListener('mousemove',move,false);
+  };
+
+  function end(e){
+    move_div.style.display = 'none';
+
+    var method , end = parseInt(move_div.style.left);
+    if(end > start){
+      method = 'next';
+    }else if (end < start){
+      method = 'prev';
+    };
+    log(method);
+    document.removeEventListener('mousemove',move);
+    socket.emit('handle' , {method :method});
+  };
+
+  function move(e){
+    e.preventDefault();
+    var pos = get_postion(e,'mousemove');
+
+    move_div.style.top = (pos.y - 25) + 'px'
+    move_div.style.left = (pos.x - 25) + 'px';
+  };
+
+  document.addEventListener('mousedown',start,false);
+  document.addEventListener('touchstart',start,false);
+
+  document.addEventListener('mouseup',end,false);
+  document.addEventListener('touchend',end,false);
+
+  //document.addEventListener('mousemove',move,false);
+  document.addEventListener('touchmove',move,false);
+  document.addEventListener('selectstart',function(e){
+    e.preventDefault();
+  })
+</script></html>

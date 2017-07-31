@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>通过IP地址地理定位</title>
+	<link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css">
+	<script type="text/javascript" src="../js/jquery-1.8.3.js"></script>
+	<script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+	<script src="http://www.google.com/uds/api?file=uds.js&amp;v=1.0&amp;key=ABQIAAAAjU0EJWnWPMv7oQ-jjS7dYxQ82LsCgTSsdpNEnBsExtoeJv4cdBSUkiLH6ntmAr_5O4EfjDwOa0oZBQ" type="text/javascript"></script>
+	<style type="text/css">
+		body {
+			margin: 50px auto;
+			width: 430px;
+			padding: 20px;
+			border: 1px solid #c88e8e;
+			border-radius: 15px;
+			/* 设置圆角 */
+		}
+		#map {
+			height: 280px;
+			width: 430px;
+		}
+		/* 设置地图宽高 */
+	</style>
+</head>
+<body>
+	<!-- 引用bootstrap的块样式 -->
+	<blockquote>
+		<p>通常IP获取经纬度，显示当前位置</p>
+	</blockquote>
+	<!-- 块结束 -->
+	<div id="info"></div>
+	<!-- 地理位置信息显示控件 -->
+	<div id="map"></div>
+	<!-- 地图显示控件 -->
+</body>
+<script type="text/javascript">
+	// 定义获取第三方数据函数
+	function getData(url) {
+		var res; // 设置返回值
+		jQuery.ajax({
+			url: url,
+			success: function(_res) {
+				if(typeof _res == "string") {
+					_res = $.parseJSON(_res); // 解析为标准的 JSON 格式
+				}
+				res = _res;
+			},
+			async: false // 设置同步请求
+		});
+		return res;
+	}
+	// 通过IP获取经纬度
+	function getLatLng() {
+		// 通过 hostip.info API 获取当前 IP
+		var hostip = getData('http://api.hostip.info/get_json.php'),
+			ip = hostip.ip,
+			coords = getData('http://freegeoip.net/json/' + ip), // 通过 freegeoip.net API 获取当前地理坐标
+			info = $("#info"), // 获取地理位置信息控件
+			longlat_html = '<ul>' + '<li>当前IP：' + coords.ip + '</li>' + '<li>经度：' + coords.longitude + '</li>' + '<li>纬度：' + coords.latitude + '</li>' + '</ul>';
+		info.html(longlat_html); // 显示地理坐标
+		return {
+			latitude: coords.latitude,
+			longitude: coords.longitude
+		};
+	}
+
+	function showMap(coords) { // 通过经纬度显示地图
+		var mapDiv = document.getElementById("map"), // 获取地图控件
+			map; // 定义地图变量
+		map = new google.maps.Map(mapDiv, { // 初始化 google 地图
+			zoom: 3,
+			center: new google.maps.LatLng(coords.latitude, coords.longitude),
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+		});
+		// 设置坐标标记
+		var latLng = new google.maps.LatLng(coords.latitude, coords.longitude);
+		// 在地图上显示标记
+		var marker = new google.maps.Marker({
+			position: latLng,
+			map: map
+		});
+		map.setCenter(latLng); // 设置当前坐标居中
+		map.setZoom(14); // 设置地图放大 14 倍
+	}
+	var coords = getLatLng(); // 调用获取经纬度函数
+	showMap(coords); // 调用地图显示当前位置的函数
+</script>
+</html>

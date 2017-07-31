@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<style>
+		body {
+			color: #333;
+			font-size: 12px;
+			font-family: Tahoma, Verdana, sans-serif;
+		}
+		div, tbody, tr, td, input, ul, li, p {
+			margin: 0;
+			padding: 0;
+		}
+		table {
+			width: 100%;
+			border-collapse: collapse;
+			border-spacing: 0;
+			border-color: gray;
+		}
+		li {
+			list-style: none;
+		}
+		a {
+			color: #005eac;
+			text-decoration: none;
+		}
+		img {
+			border: none;
+		}
+		.clearfix {
+			display: block;
+		}
+		.clearfix:after {
+			content: ".";
+			display: block;
+			height: 0;
+			clear: both;
+			visibility: hidden;
+		}
+		.comment-box {
+			width: 500px;
+			border: 1px solid #3879D9;
+			border-radius: 5px;
+			padding: 2px;
+			box-shadow: 0 0 5px #3879D9 inset;
+		}
+		.comment-box_2 {
+			padding: 10px 10px 5px;
+			background: #f0f5f8;
+		}
+		textarea {
+			width: 98%;
+			height: 23px;
+			padding: 3px;
+			border: 1px solid #bcc7d8;
+			margin-bottom: 5px;
+			overflow: auto;
+			font-size: 12px;
+		}
+		.input-button, .input-submit {
+			background-color: #005eac;
+			border-width: 1px;
+			border-style: solid;
+			border-color: #b8d4e8 #124680 #124680 #b8d4e8;
+			color: #fff;
+			cursor: pointer;
+			font-size: 12px;
+			padding: 2px 15px;
+			overflow: visible;
+			float: right;
+		}
+		.comment-box .content {
+			padding: 0 10px;
+		}
+		.comment-list .comment {
+			word-wrap: break-word;
+		}
+		.comment-list .avatar {
+			float: left;
+		}
+		.comment-list li {
+			padding: 5px 0;
+			border-bottom: 1px solid #ddd;
+			vertical-align: top;
+		}
+		.content .s_3 {
+			margin: 0 40px 0 60px;
+		}
+		.comment-list .p_1 {
+			margin-bottom: 5px;
+		}
+		.comment-list .date {
+			color: #999;
+			margin-left: 10px;
+		}
+		.content .s_4 {
+			float: right;
+			color: #999;
+			margin-left: 10px;
+		}
+		span.tip {
+			color: Red;
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<h2>开发一个离线留言网页</h2>
+	</header>
+	<div class="comment-box">
+		<div class="comment-box_2 clearfix">
+			<table>
+				<tr>
+					<td style="width: 60px; vertical-align: top;">
+						<img height="50" width="50" src="../images/comment/men_tiny.gif" /> </td>
+					<td>
+						<textarea placeholder="请输入留言"></textarea>
+						<div>
+							<span class="tip">请填写留言内容</span>
+							<input type="button" value="留言" class="input-button" /> </div>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div class="content">
+			<ul class="comment-list">
+				<script id="J_item" type="text/x-html5-tmpl">
+					<img class="avatar" height="50" width="50" src="../images/comment/{img}.jpg" />
+					<a href="#" class="s_4">举报</a>
+					<div class="s_3">
+						<p class="p_1">
+							<a class="user" target="blank">{name}</a>
+							<span class="date">{date}</span>
+						</p>
+						<p class="comment">
+							<span>{content}</span>
+						</p>
+					</div>
+				</script>
+			</ul>
+		</div>
+	</div>
+</body>
+<script>
+	var DB_NAME = 'html5_storage_form_comment'; //数据库和表名
+	var substitute = function(str, sub) { //字符串格式化函数
+		return str.replace(/\{(.+?)\}/g, function($0, $1) {
+			return $1 in sub ? sub[$1] : $0;
+		});
+	};
+	var comment_list = document.querySelector('ul.comment-list'),
+		first_item_el = document.getElementById('J_item'),
+		item_tpl = first_item_el.innerHTML,
+		submit_btn = document.querySelector('input[type=button]'),
+		textarea_el = document.querySelector('textarea'),
+		tip_el = document.querySelector('span.tip'),
+		storageDriver = window.openDatabase(DB_NAME, '1.0', 'html5 storage comment', 1048576);
+
+	function build_item(data) {
+		var li = document.createElement('li');
+		li.className = 'clearfix';
+		li.innerHTML = substitute(item_tpl, data);
+		li.setAttribute('data-id', data.id);
+		comment_list.insertBefore(li, first_item_el);
+		first_item_el = li;
+	};
+
+	function store_data(data) {
+		storageDriver.transaction(function(t) { //往数据库插入一条数据
+			t.executeSql("INSERT INTO " + DB_NAME + " (img,name,date,content) VALUES (?,?,?,?);", [data.img, data.name, data.data, data.content], function(transaction, resultSet) { // 传入保存数据
+				data.id = resultSet.insertId; //获取数据库返回的自增ID
+				build_item(data);
+				textarea_el.value = '';
+			}, function(transaction, error) {
+				show_error_tip(error.message);
+			}); //错误回调函数
+		});
+	};
+
+	function show_error_tip(msg) {
+		tip_el.style.display = 'inline';
+		tip_el.innerHTML = msg;
+		setTimeout(function() {
+			tip_el.style.display = 'none'
+		}, 1500);
+	};
+	submit_btn.addEventListener('click', function(e) {
+		e.preventDefault();
+		var content = textarea_el.value.trim();
+		if(content.length) {
+			store_data({
+				img: (new Date().getTime()) % 5,
+				name: '陌生人' + (new Date().getTime()) % 5,
+				date: new Date().toLocaleString(),
+				content: content
+			});
+		} else {
+			show_error_tip("请填写留言内容");
+		}
+	}, false);
+	storageDriver.transaction(function(t) { //启动一个事务生成列表
+		t.executeSql("CREATE TABLE IF NOT EXISTS " + DB_NAME + //创建数据表
+			"(id INTEGER PRIMARY KEY AUTOINCREMENT, " + //自增字段
+			"name TEXT NOT NULL, " + //姓名字段
+			"date TEXT NOT NULL, " + //时间字段
+			"content TEXT NOT NULL, " + //内容字段
+			"img INTEGER DEFAULT 1" //照片字段
+		);
+		t.executeSql("SELECT * FROM " + DB_NAME, [], function(t, results) {
+			for(var i = 0; i < results.rows.length; i++) {
+				build_item(results.rows.item(i));
+			}
+		});
+		// t.executeSql("drop table " + DB_NAME);
+	})
+</script>
+</html>

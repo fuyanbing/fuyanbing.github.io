@@ -1,0 +1,42 @@
+﻿<!doctype html>
+<html>
+<head>
+    <link href="../css/impress-demo.css" rel="stylesheet" />
+</head>
+<body class="impress-not-supported">
+<div class="fallback-message">
+    <p>Your browser <b>doesn't support the features required</b> by impress.js, so you are presented with a simplified version of this presentation.</p>
+    <p>For the best experience please use the latest <b>Chrome</b>, <b>Safari</b> or <b>Firefox</b> browser.</p>
+</div>
+<div id="impress">
+    <div class="step slide" data-x="-1000" data-y="-1500">
+        <q><h1>论语</h1></q>
+    </div>
+    <div class="step" data-x="0" data-y="0" data-scale="4">
+        <q><h1>学而第一</h1></q>
+    </div>
+    <div class="step" data-x="850" data-y="3000" data-rotate="90" data-scale="5">
+        <p>子曰：「学而时习之，不亦说乎？有朋自远方来，不亦乐乎？人不知而不愠，不亦君子乎？」</p>
+    </div>
+    <div class="step" data-x="3500" data-y="6100" data-rotate="180" data-scale="6">
+        <p>有子曰：「其为人也孝弟，而好犯上者，鲜矣；不好犯上，而好作乱者，未之有也。君子务本，本立而道生。孝弟也者，其为仁之本与！」</p>
+    </div>
+    <div class="step" data-x="2825" data-y="2325" data-z="-3000" data-rotate="300" data-scale="1">
+        <p>子曰：「巧言令色，鲜矣仁！」</p>
+    </div>
+     <div class="step" data-x="6200" data-y="4300" data-z="-100" data-rotate-x="-40" data-rotate-y="10" data-scale="2">
+        <p>曾子曰：「吾日三省吾身—为人谋而不忠乎？与朋友交而不信乎？传不习乎？」</p>
+    </div>
+</div>
+<div class="hint"><p>使用空格或方向键导航</p></div>
+<script src="../js/impress.js"></script>
+<script>
+    var instance_impress = impress();
+    instance_impress.init();
+    setInterval(function () {
+        var step = localStorage.getItem('slide_step');
+        if (step) instance_impress.goto(parseInt(step));
+    }, 100);
+</script>
+</body>
+</html>

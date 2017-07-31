@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>在iframe中嵌入一个可变大小的编辑器-内容页</title>
+	<script src="../js/jquery-1.8.3.js"></script>
+	<style>
+		a {
+			color: #34538b;
+			text-decoration: none;
+		}
+		a:hover {
+			text-decoration: underline;
+		}
+		.constr {
+			width: 600px;
+			padding: 20px;
+		}
+		.content {
+			font-size: 14px;
+		}
+		html, body, div {
+			margin: 0;
+			padding: 0;
+		}
+		lable {
+			color: #000;
+			font-size: 14px;
+			margin: 0;
+			padding: 0;
+			display: block;
+			padding-bottom: 3px;
+		}
+		ul {
+			margin: 0;
+			padding: 0;
+		}
+		ul li {
+			float: left;
+			list-style: none;
+			margin: 0 5px 5px;
+		}
+		ul li a {
+			float: left;
+			color: #a0a0a0;
+			font-size: 13px;
+			padding: 3px 4px;
+			text-decoration: none;
+		}
+		ul li a:hover, ul li a.selected {
+			text-decoration: none;
+			background: #bb4046;
+			border-radius: 3px;
+			color: #fff;
+		}
+		.st {
+			position: relative;
+			width: 500px;
+			margin: 10px 0;
+		}
+		.viewMore {
+			position: absolute;
+			top: 3px;
+			font-size: 13px;
+			right: -10px;
+			border-radius: 2px;
+			color: #a0a0a0;
+			cursor: pointer;
+		}
+		.viewMore:hover {
+			color: #bb4046;
+		}
+		.hidden {
+			display: none;
+		}
+		.txt {
+			border: 1px solid #cccccc;
+			color: #a0a0a0;
+			border-radius: 3px;
+		}
+		.title {
+			width: 250px;
+			height: 24px;
+			padding: 3px;
+			line-height: 24px;
+		}
+		.content {
+			width: 350px;
+			height: 200px;
+		}
+		.txt-wraper {
+			clear: both;
+		}
+		.st-tip {
+			font-size: 12px;
+			color: #a0a0a0;
+		}
+		.item {
+			margin-bottom: 10px;
+		}
+	</style>
+</head>
+<body>
+	<div class="constr">
+		<form action="#" method="post" onsubmit="alert('保存功能请自己扩展!');return false;">
+			<div class="item">
+				<lable for="title">编辑您的标题</lable>
+				<input type="text" class="txt title" name="title" id="title" /> </div>
+			<div class="item">
+				<lable for="content">编辑您的内容</lable>
+				<div class="st">
+					<ul>
+						<li class="st-tip">选择尺寸</li>
+						<li>
+							<a href="javascript:;" class="slt selected" data-cat="1">350X200</a>
+						</li>
+						<li>
+							<a href="javascript:;" class="slt" data-cat="2">700X400</a>
+						</li>
+						<li>
+							<a href="javascript:;" class="slt" data-cat="3">1050X600</a>
+						</li>
+					</ul>
+				</div>
+				<div class="txt-wraper">
+					<textarea class="txt content" name="content" id="content"></textarea>
+				</div>
+				<div class="btn">
+					<input type="submit" value="保存文章" /> </div>
+			</div>
+		</form>
+	</div>
+</body>
+<script type="text/javascript">
+	var txt = $(".content");
+	$(".slt").bind("click",function () {
+		var cat = this.dataset.cat;
+		var offset = {
+			"width":cat*350,
+			"height" : cat*200
+		}
+		$(".slt").removeClass("selected")
+		$(this).addClass("selected");
+		txt.css(offset)
+		window.parent.postMessage(offset,'*');
+	})
+</script>
+</html>

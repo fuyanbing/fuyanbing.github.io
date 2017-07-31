@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<script src="../js/jquery-1.8.3.js" type="text/javascript" charset="utf-8"></script>
+	<title>解决视频自定义工具条全屏问题</title>
+	<style type="text/css">
+		/*自媒体字幕文件*/
+		::cue(.loud) {
+			font-size: 2em;
+			color: Red;
+		}
+		 ::cue(v[voice="Man"]) {
+			color: green
+		}
+		.video_box {
+			position: relative;
+			width: 480px;
+			height: 320px;
+		}
+		.play_button {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			margin: -25px 0 0 -25px;
+			width: 50px;
+			height: 50px;
+			vertical-align: baseline;
+			border: 1px solid #1a1b1a;
+			cursor: pointer;
+			border-radius: 5px;
+			background: -moz-linear-gradient(top, #474747, #1B1C1B);
+			background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#474747), to(#1B1C1B));
+		}
+		.play_button:hover {
+			border: 1px solid #565656;
+			background: #565656;
+			background: -moz-linear-gradient(top, #D7D7D7, #565656);
+			background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#D7D7D7), to(#565656));
+		}
+		.play_button div {
+			margin: 13px 0 0 14px;
+			border-top: 12px solid transparent;
+			border-left: 24px solid #FFFFFF;
+			border-bottom: 12px solid transparent;
+		}
+		.play_controls {
+			position: absolute;
+			right: 0px;
+			bottom: -30px;
+			left: 0px;
+			height: 12px;
+			padding: 9px;
+			border-top: 1px solid #000;
+			background: -moz-linear-gradient(top, #252624, #111);
+			background: -webkit-linear-gradient(top, #252624, #111);
+		}
+		.control {
+			cursor: pointer;
+			float: left;
+			margin: 0 3px;
+		}
+		.play_control, .pause_control {
+			width: 20px;
+		}
+		.play_control div {
+			border-top: 7px solid transparent;
+			border-left: 14px solid #D7D7D7;
+			border-bottom: 7px solid transparent;
+			margin-left: 4px;
+		}
+		.pause_control div {
+			margin: 0 2px;
+			height: 13px;
+			width: 5px;
+			float: left;
+			background: #D7D7D7;
+		}
+		.fullscreen_control {
+			float: right;
+		}
+		.fullscreen_control div {
+			margin: 2px 2px 0 0;
+			border: 1px solid #f1f1f1;
+			height: 7px;
+			width: 14px;
+			background: #7a7a7a;
+			background: -moz-linear-gradient(top, #BBBBBB, #8A8A8A);
+			background: -webkit-linear-gradient(top, #BBBBBB, #8A8A8A);
+		}
+		.fullscreen_control div:hover {
+			margin: -1px -1px 0 0;
+			height: 11px;
+			width: 20px;
+			background: #2b5880;
+			background: -moz-linear-gradient(top, #4090D9, #30689B);
+			background: -webkit-linear-gradient(top, #4090D9, #30689B);
+		}
+		.timer_control div {
+			font: 10px/1.231 "bitstream vera sans", "lucida grande", verdana !important;
+			text-align: center;
+			text-shadow: 1px 1px 1px rgba(0, 0, 0, 1);
+			color: #fff;
+		}
+		.progress_control {
+			/* 进度条样式 */
+			height: 11px;
+			background: #272826;
+		}
+		.progress_bar_bg {
+			position: absolute;
+			height: 11px;
+			cursor: pointer;
+			z-Index: 3;
+			border-style: solid;
+			border-width: 1px;
+			border-color: #f1f1f1 #c1c1c1 #c1c1c1 #f1f1f1;
+		}
+		.progress_bar_buffered {
+			/* 下载进度条 */
+			position: absolute;
+			height: 11px;
+			cursor: pointer;
+			z-index: 1;
+			top: 10px;
+			margin-left: 1px;
+			background: #666666;
+			background: transparent url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAALCAIAAAAx7HC4AAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAABFSURBVHjaYjh48CBAADH9+vULIIBAGCCAmH7+/AkQQEzfv38HCCAQBgggEAYIIBAGCCCmHz9+AAQQSA4ggJh+//4NEGAAp5AfekadfZoAAAAASUVORK5CYII=') repeat-x;
+		}
+		.progress_bar_played {
+			/* 播放进度条 */
+			position: absolute;
+			height: 11px;
+			cursor: pointer;
+			z-index: 2;
+			top: 10px;
+			margin-left: 1px;
+			background: #f1f1f1;
+			background: transparent url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAALCAIAAAAx7HC4AAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAABJSURBVHjaYnCYcBMggJj+/vkBEEBMf/78AQggJqY/vwECCEQDBBATw+8vAAHE9O/fP4AAYmL89Q0ggEA0QAAB+V8BAggkDhBgAEoNG0hmL6RlAAAAAElFTkSuQmCC') repeat-x;
+		}
+		.progress_bar_time {
+			position: absolute;
+			height: 8px;
+			border: 1px solid transparent;
+			background: transparent;
+			z-Index: 3;
+			display: none;
+		}
+		.progress_bar_time_line {
+			position: absolute;
+			top: -13px;
+			width: 0;
+			height: 0;
+			cursor: pointer;
+			left: 15px;
+			font-size: 0px;
+			line-height: 0%;
+			border-top: 10px solid #f1f1f1;
+			border-bottom: 10px solid transparent;
+			border-left: 10px solid transparent;
+			border-right: 10px solid transparent;
+		}
+		.progress_bar_time_txt {
+			position: absolute;
+			top: -35px;
+			padding: 4px 5px;
+			height: 12px;
+			color: #f1f1f1;
+			border: 1px solid #f1f1f1;
+			font: 9px/1.231 "bitstream vera sans", "lucida grande", verdana;
+			text-shadow: 1px 1px 1px rgba(0, 0, 0, 1);
+			background: #7a7a7a;
+			background: transparent url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAAZCAIAAACUxWgrAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAWUlEQVQImTWNwQnEQBDDZHCzW3PSSGB3dI/kXgZh2VlrAb3vC+g+G+nMIHUUe+aE/OHMhHTvt3mGvAL0eZ4vklR0LAJ0fDcVKSJ2nJACatXvKKSI8ROSBPgBKfBOodJK2ZEAAAAASUVORK5CYII=') repeat-x;
+		}
+		.backward_control {
+			width: 25px;
+			margin-left: 5px;
+		}
+		.backward_control div:nth-child(2) {
+			margin-top: -4px;
+			font-size: 0px;
+			line-height: 0%;
+			cursor: pointer;
+			height: 18px;
+			width: 13px;
+			float: left;
+			transform: rotate(-180deg);
+			-moz-transform: rotate(-180deg);
+			-webkit-transform: rotate(-180deg);
+			background: transparent url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAAPCAYAAAA/I0V3AAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAEKSURBVHjaYpgxY8b+////M5CCAQKI8fr16/8/f/7M8P3790Y7O7sGBiIAQAAxXrt27T+M8+XLF6I0AwQQiiZiNQMEEOOFCxf+4zLx169fWDUDBBDjmdNn/hPyw7///1A0AwQQ4+HDh/8zEAnY2dnBmgECiAVIEKsHpIHhypUr9QABxPL502eiNa1Zu4bh7LlTDAABxPLp8yeCinft2gVWfOvmXVDkMgIEEMvHjx9xKj558iSKYpg4QACxgOIEHVy9epXh9JlTDHduoyqGAYAAYvn27Rucc//+fYbzF84x3Lh+E6tiGAAIILCmly9fMly+conhyuWreBXDAEAAMaipK4Pi6T8pqRwgwABM+9n3+5s7rgAAAABJRU5ErkJggg==') no-repeat;
+		}
+		.backward_control div:nth-child(1) {
+			height: 13px;
+			width: 4px;
+			float: left;
+			border-right: 1px solid #000;
+			border-bottom: 1px solid #000;
+			background: #f1f1f1;
+			background: transparent url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAANCAIAAADntZOlAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAABNSURBVHjaYjh+/DhAADH9+vULIIBAGCCAQBgggJh+/vwJEEBM379/BwggEAYIIBAGCCAQBgggph8/fgAEEEgOIICYfv/+DRBAIBogwAC/IyVsa3L9ogAAAABJRU5ErkJggg==') repeat-x;
+		}
+		.forward_control {
+			width: 25px;
+		}
+		.forward_control div:nth-child(1) {
+			font-size: 0px;
+			line-height: 0%;
+			cursor: pointer;
+			height: 18px;
+			width: 13px;
+			float: left;
+			background: transparent url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAAPCAYAAAA/I0V3AAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAEKSURBVHjaYpgxY8b+////M5CCAQKI8fr16/8/f/7M8P3790Y7O7sGBiIAQAAxXrt27T+M8+XLF6I0AwQQiiZiNQMEEOOFCxf+4zLx169fWDUDBBDjmdNn/hPyw7///1A0AwQQ4+HDh/8zEAnY2dnBmgECiAVIEKsHpIHhypUr9QABxPL502eiNa1Zu4bh7LlTDAABxPLp8yeCinft2gVWfOvmXVDkMgIEEMvHjx9xKj558iSKYpg4QACxgOIEHVy9epXh9JlTDHduoyqGAYAAYvn27Rucc//+fYbzF84x3Lh+E6tiGAAIILCmly9fMly+conhyuWreBXDAEAAMaipK4Pi6T8pqRwgwABM+9n3+5s7rgAAAABJRU5ErkJggg==') no-repeat;
+		}
+		.forward_control div:nth-child(2) {
+			font-size: 0px;
+			line-height: 0%;
+			cursor: pointer;
+			height: 13px;
+			width: 4px;
+			float: left;
+			border-right: 1px solid #000;
+			border-bottom: 1px solid #000;
+			background: #f1f1f1;
+			background: transparent url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAANCAIAAADntZOlAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAABNSURBVHjaYjh+/DhAADH9+vULIIBAGCCAQBgggJh+/vwJEEBM379/BwggEAYIIBAGCCAQBgggph8/fgAEEEgOIICYfv/+DRBAIBogwAC/IyVsa3L9ogAAAABJRU5ErkJggg==') repeat-x;
+		}
+		.fullscreen {
+			height: 100%;
+			width: 100%;
+		}
+		/* 全屏效果样式 */
+	</style>
+</head>
+<body>
+	<header>
+		<h2>给播放器添加快进慢进按钮</h2>
+	</header>
+	<div class="video_box">
+		<video width="480" height="320" controls poster="../images/BigBuck.png" preload="none">
+			<source src="../res/BigBuck.webm" type="video/mp4">
+			<track label="English subtitles" kind="captions" srclang="en" src="../res/BigBuck.vtt" default> </video>
+	</div>
+</body>
+<script type="text/javascript">
+	(function() {
+		//播放工具条
+		var CONTROLS_HTML = '<div class="play_button" title="播放" data-type="go"><div></div></div>' + '<div class="play_controls" style="display:none">' + '<div class="control backward_control" data-type="backward" title="慢退"><div></div><div></div></div>' + '<div class="control play_control control_btn" data-type="play" title="播放" style="display:none"><div></div></div>' + '<div class="control pause_control control_btn" data-type="pause" title="暂停"><div></div><div></div></div>' + '<div class="control forward_control" data-type="forward" title="快进"><div></div><div></div></div>' + '<div class="control progress_control">' + '<div class="progress_bar_bg"></div>' + '<div class="progress_bar_buffered"></div>' + '<div class="progress_bar_played"></div>' + '<div class="progress_bar_time">' + '<div class="progress_bar_time_line"></div>' + '<div class="progress_bar_time_txt">00:00</div>' + '</div>' + '</div>' + '<div class="control timer_control"><div><span class="J_currentTime">00:00</span> / <span class="J_duration">00:00</span></div></div>' + '<div class="control fullscreen_control" title="全屏" data-type="fullscreen"><div></div></div>' + '</div>';
+		var DOC = $(document);
+
+		function timeFormat(seconds) {
+			var min = Math.floor(seconds / 60),
+				second = Math.floor(seconds - (min * 60));
+			return(min < 10 ? '0' + min : min) + ':' + (second < 10 ? '0' + second : second);
+		}
+
+		function VideoControl(ele) { // 播放工具条类
+			this.prefix = 'Webkit Moz O ms Khtml '.split(' ');
+			this.video = $(ele);
+			this.init();
+		};
+		VideoControl.prototype = {
+			//原型方法
+			init: function() {
+				//移除video原本的controls属性，去除浏览器默认工具条
+				this.video.removeAttr('controls');
+				this._render();
+				this._bind();
+				this._timeupdate();
+				this._progress();
+				this._bartime();
+			},
+			_render: function() {
+				//用于生成工具条html结构
+				var wraper = this.wraper = $(document.createElement('div'));
+				wraper.html(CONTROLS_HTML);
+				this.video.parent().append(wraper); //将工具类插入文档
+			},
+			_bind: function() {
+				//给工具条的元素绑定事件
+				var self = this,
+					video = self.video.get(0), // 获取对应的原生元素
+					wraper = self.wraper,
+					control_btn = wraper.find('div.control_btn');
+				fullscreen_btn = wraper.find('div.fullscreen_control');
+				//用jQuery的delegate方法委托特制元素监听click事件
+				wraper.delegate('div[data-type]', 'click', function(e) {
+					var target = $(this), // 获取按钮自定义操作类型属性
+						data_type = target.attr('data-type'); // 获取按钮自定义操作类型属性
+					//					var data_type = $(this).attr('data-type');// 获取按钮自定义操作类型属性
+					switch(data_type) {
+						case 'go': // 初始屏中间大按钮
+							wraper.find('div.play_button').hide();
+							wraper.find('div.play_controls').show();
+							video.play();
+							self._resizeProgressBar();
+							break;
+						case 'play': // 播放视频 
+							control_btn.toggle();
+							video.play();
+							break;
+						case 'pause': // 播放视频 
+							control_btn.toggle();
+							video.pause();
+							break;
+						case 'fullscreen': // 自定义工具条全屏键
+							self._requestFullscreen(video, target);
+							break;
+						case 'exitfullscreen': // 自定义工具条全屏键
+							self._exitFullscreen(video, target);
+							break;
+						case 'backward': // 自定义工具条慢退
+							self._playbackRate(-0.2);
+							break;
+						case 'forward': // 自定义工具条快进
+							self._playbackRate(0.2);
+							break;
+					}
+				});
+				DOC.on({
+					"fullscreenchange": function() {
+						if(!document.fullscreen) {
+							self._exitFullscreen(video, fullscreen_btn);
+						}
+					},
+					"mozfullscreenchange": function() {
+						if(!document.mozFullScreen) {
+							self._exitFullscreen(video, fullscreen_btn);
+						};
+					},
+					"webkitfullscreenchange": function() {
+						if(!document.webkitIsFullScreen) {
+							self._exitFullscreen(video, fullscreen_btn);
+						};
+					}
+				})
+			},
+			_timeupdate: function() {
+				var self = this,
+					currentTime = self.wraper.find('span.J_currentTime'),
+					duration = self.wraper.find('span.J_duration'),
+					progress_bar = self.wraper.find('div.progress_control'),
+					progress_bar_played = self.wraper.find('div.progress_bar_played'),
+					video = self.video.get(0);
+				this.video.on({ // 监听视频事件
+					'timeupdate': function() { // 视频位置变化
+						currentTime.html(timeFormat(video.currentTime));
+						var percent = video.currentTime / video.duration;
+						progress_bar_played.width(percent * progress_bar.width());
+					},
+					'loadedmetadata': function() { // 视频开始
+						duration.html(timeFormat(video.duration));
+					}
+				})
+			},
+			// 全屏方法
+			_requestFullscreen: function(video, target) {
+				// 各种浏览器全屏方法前缀
+				var prefixs = this.prefix,
+					parent = video.parentNode,
+					prefix;
+				//循环各浏览器前缀名，找寻符合的方法并执行
+				for(var i = 0; i < prefixs.length; i++) {
+					prefix = prefixs[i].toLowerCase();
+					if(parent[prefix + 'EnterFullScreen']) {
+						parent[prefix + 'EnterFullScreen']();
+						break;
+					} else if(parent[prefix + 'RequestFullScreen']) {
+						parent[prefix + 'RequestFullScreen']();
+						break;
+					}
+				}
+				$(video).addClass('fullscreen');
+				$(parent).addClass('fullscreen');
+				target.attr('data-type', 'exitfullscreen');
+				this._resizeProgressBar();
+			},
+			_exitFullscreen: function(video, target) {
+				var prefixs = this.prefix,
+					parent = video.parentNode,
+					prefix;
+				//循环各浏览器前缀名，找寻符合的方法并执行
+				for(var i = 0; i < prefixs.length; i++) {
+					prefix = prefixs[i].toLowerCase();
+					if(document[prefix + 'exitFullscreen']) {
+						document[prefix + 'exitFullscreen']();
+						break;
+					} else if(document[prefix + 'CancelFullScreen']) {
+						document[prefix + 'CancelFullScreen']();
+						break;
+					}
+				}
+				$(video).removeClass('fullscreen');
+				$(parent).removeClass('fullscreen');
+				target.attr('data-type', 'fullscreen');
+				this._resizeProgressBar();
+			},
+			_resizeProgressBar: function() {
+				var wraper = this.wraper,
+					width = this.video.outerWidth(false) - wraper.find('div.play_control').outerWidth(true) - wraper.find('div.timer_control').outerWidth(true) - wraper.find('div.fullscreen_control').outerWidth(true) - 100;
+				wraper.find('div.progress_control').css('width', width);
+				wraper.find('div.progress_bar_bg').css('width', width);
+			},
+			_progress: function() {
+				var self = this,
+					video = self.video,
+					video_ele = video.get(0), //视频原生元素
+					progress_bar = self.wraper.find('div.progress_control'), //进度条外围元素
+					progress_bar_buffered = self.wraper.find('div.progress_bar_buffered'); //下载进度条
+				video.on({
+					'progress': function(e) { //监听video的下载进度条
+						var self = this;
+						setTimeout(function() {
+							//判断是否开始接收数据
+							if(self.buffered && self.buffered.length) {
+								//计算下载数据相对于总时间百分比
+								var percent = video_ele.buffered.end(0) / video_ele.duration;
+								//设置下载进度条长度
+								progress_bar_buffered.width(percent * progress_bar.width());
+							}
+						}, 50);
+					}
+				});
+			},
+			//鼠标悬浮进度条显示时间提示
+			_bartime: function() {
+				var wraper = this.wraper,
+					//进度条外围元素
+					progress_control = wraper.find('div.progress_control'),
+					//进度条背景层
+					progress_bar_bg = wraper.find('div.progress_bar_bg'),
+					//时间悬浮提示层外框
+					progress_bar_time = wraper.find('div.progress_bar_time'),
+					//悬浮提示时间元素
+					progress_bar_time_txt = wraper.find('div.progress_bar_time_txt'),
+					video_ele = this.video.get(0);
+				//绑定进度条背景层
+				progress_bar_bg.on({
+					'mousemove': function(e) {
+						//相对于进度条横轴距离
+						var offsetX = e.clientX - progress_bar_bg.offset().left,
+							percent = offsetX / progress_bar_bg.width();
+						//设置时间浮动框位置
+						progress_bar_time.css('left', offsetX + 78);
+						progress_bar_time_txt.html(timeFormat((percent * video_ele.duration) || 0));
+					},
+					///移入时显示时间提醒
+					'mouseenter': function() {
+						progress_bar_time.show();
+					},
+					//移出时隐藏时间提醒
+					'mouseleave': function() {
+						progress_bar_time.hide();
+					}
+				})
+			},
+			_playbackRate: function(rate) {
+				this.video.get(0).playbackRate += rate;
+			}
+		}
+		new VideoControl(document.querySelector('video')); // 实例化自定义工具条类
+	})();
+</script>
+</html>

@@ -1,0 +1,110 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>图标拖动</title>
+	<style>
+		.phone {
+			/* 模拟平板外宽 */
+			background: url(../images/phone.jpg) no-repeat;
+			background-position: -287px -84px;
+			position: relative;
+			width: 450px;
+			height: 550px;
+			border-radius: 10px;
+		}
+		img {
+			width: 59px;
+			height: 60px;
+			cursor: pointer;
+			position: absolute;
+		}
+		.facebook {
+			/* facebook图标位置 */
+			top: 48px;
+			left: 45px;
+		}
+		.contacts {
+			/* 通讯录图标位置 */
+			top: 48px;
+			left: 145px;
+		}
+		.calculator {
+			/* 计算器图标位置 */
+			top: 48px;
+			left: 245px;
+		}
+		.camera {
+			/* 照相机图标位置 */
+			top: 48px;
+			left: 345px;
+		}
+		.pro {
+			/* 游戏图标位置 */
+			top: 165px;
+			left: 45px;
+		}
+		.flashlight {
+			/* 手电图标位置 */
+			top: 165px;
+			left: 145px;
+		}
+		.copiercin {
+			/* 文章图标位置 */
+			top: 165px;
+			left: 245px;
+		}
+		.bossprefs {
+			/* 开关图标位置 */
+			top: 165px;
+			left: 345px;
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<h2>拖动图标</h2>
+	</header>
+	<section>
+		<div class="phone">
+			<img class="facebook" src="../images/icon/facebook.png" />
+			<img class="contacts" src="../images/icon/contacts.png" />
+			<img class="calculator" src="../images/icon/calculator.png" />
+			<img class="camera" src="../images/icon/camera.png" />
+			<img class="pro" src="../images/icon/pro.png" />
+			<img class="flashlight" src="../images/icon/flashlight.png" />
+			<img class="copiercin" src="../images/icon/copiercin.png" />
+			<img class="bossprefs" src="../images/icon/bossprefs.png" /> </div>
+	</section>
+</body>
+<script type="text/javascript">
+	(function () {
+		var slice=Array.prototype.slice,
+			phone = document.querySelector('div.phone'),
+			icons = slice.call(document.querySelectorAll('img'),0);//获取所有图标元素并转化成数组
+		icons.forEach(function (icon) {
+			var move_start = {};//开始移动的临时存储变量
+			icon.addEventListener('dragstart',function (e) {
+				move_start = {
+					x:e.pageX,
+					y:e.pageY,
+					left:icon.offsetLeft,
+					top:icon.offsetTop
+				};
+			},false);
+			icon.addEventListener('drag',function (e) {
+				var left = move_start.left + e.pageX -move_start.x,
+					top = move_start.top + e.pageY -move_start.y,
+					maxTop = phone.offsetHeight - icon.offsetHeight,
+					maxLeft = phone.offsetWidth - icon.offsetWidth;
+				left = left>maxLeft?maxLeft:(left<0?0:left);
+				top = top>maxTop?maxTop:(top<0?0:top);
+				if(e.pageX && e.pageY){
+					icon.style.left = left + 'px';
+					icon.style.top = top + 'px';
+				}
+			},false);
+		})
+	})();
+</script>
+</html>

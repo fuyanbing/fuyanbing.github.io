@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>通过GPS获取地理定位信息</title>
+	<link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css">
+	<script type="text/javascript" src="../js/jquery-1.8.3.js"></script>
+	<style type="text/css">
+		body {
+			margin: 50px auto;
+			width: 430px;
+			padding: 20px;
+			border: 1px solid #c88e8e;
+			border-radius: 15px;
+			/* 设置圆角 */
+		}
+	</style>
+</head>
+<body>
+	<blockquote>
+		<p>通常 GPS 获取经纬度</p>
+	</blockquote>
+	<div id="info"></div>
+	<!-- 显示结果控件 -->
+</body>
+<script type="text/javascript">
+	// 定义通过 GPS 获取定位信息函数函数
+	function viaGPS() {
+		if(navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(function(position) {
+				var info = $("#info"), // 获取地理位置信息控件
+					longlat_html = '<ul>' + '<li>经度：' + position.coords.longitude + '</li>' + '<li>纬度：' + position.coords.latitude + '</li>' + '</ul>';
+				info.html(longlat_html); // 显示地理坐标
+			});
+		} else {
+			// 浏览器不支持定位处理逻辑
+			var info = $("#info");
+			// 显示不支持提示信息
+			info.html("您的浏览器不支持 HTML5 Geolocation API，无法通过GPS定位").css('color', '#F30');
+		}
+	}
+	viaGPS();
+</script>
+</html>

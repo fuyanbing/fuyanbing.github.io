@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<!--本示例程序需要通过http://localhost地址运行。-->
+	<title>微博消息实时推送</title>
+	<style type="text/css">
+		body {
+			margin: 50px auto;
+			width: 400px;
+			padding: 20px;
+			border: 1px solid #c88e8e;
+			border-radius: 15px;
+			/* 设置圆角 */
+			height: 100%;
+		}
+		#weibolist {
+			list-style: none;
+			padding: 0;
+		}
+		#weibolist li {
+			background: #F3F3F3;
+			line-height: 24px;
+			height: 24px;
+			padding: 5px;
+			width: 95%;
+		}
+		#weibolist li:nth-child(2n) {
+			background: #fff;
+		}
+		/* 设置微博列表的偶数项目样式 */
+		
+		#weibo-iframe {
+			display: none;
+		}
+		/* 微博获取iframe设置为不可见 */
+	</style>
+</head>
+<body>
+	<!--本示例程序需要通过http://localhost地址运行。-->
+	<p>微博消息实时推送</p>
+	<ul id="weibolist"></ul>
+	<iframe id="weibo-iframe" src="001.微博消息实时推送-server.html"></iframe>
+</body>
+<script type="text/javascript">
+	;
+	(function(W) {
+		var weibolist = W.document.querySelector("#weibolist");
+		var handler = function(weibo_data) { //处理新的微博信息
+			var li = document.createElement("li");
+			li.innerText = weibo_data;
+			weibolist.appendChild(li); // 把微博信息显示在weibolist控件中
+		};
+		//监听从“微博消息实时推送-server.html”页面是否有postMessage请求
+		W.addEventListener('message', function(evt) { // message事件代理
+			if(evt.origin === 'http://localhost') { // 判断发消息的来源是否正确
+				handler(evt.data); // 把新的微博消息交给处理函数处理
+			}
+		})
+	}(window));
+</script>
+</html>

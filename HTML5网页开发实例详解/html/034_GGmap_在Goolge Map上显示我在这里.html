@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>在Goolge Map上显示我在这里</title>
+	<style>
+		body {
+			margin: 50px auto;
+			width: 634px;
+			padding: 20px;
+			border: 1px solid #c88e8e;
+			border-radius: 15px;
+			height: 500px;
+			position: relative;
+			/* 设置相对定位 */
+		}
+		.item {
+			width: 430px;
+			float: left;
+			padding-right: 2px;
+		}
+		/* 设置ip和wifi容器的宽度并左浮动 */
+		
+		.map {
+			height: 400px;
+			width: 630px;
+			text-align: center;
+		}
+		/* 设置地图宽高 */
+	</style>
+</head>
+<body>
+	<p>在Goolge Map上显示我在这里</p>
+	<div id="map" class="map">加载中...</div>
+	<!-- 地图显示控件 -->
+</body>
+<script src="../js/jquery-1.8.3.js"></script>
+<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script>
+	// 定义获取第三方数据函数
+	function getData(url) {
+		var res; // 设置返回值
+		jQuery.ajax({
+			url: url,
+			success: function(_res) {
+				if(typeof _res == "string") {
+					_res = $.parseJSON(_res); // 解析为标准的 JSON 格式
+				}
+				res = _res;
+			},
+			async: false // 设置同步请求
+		});
+		return res;
+	}
+	var gmap = document.getElementById("map"),
+		// Google API: 将经纬度转化为具体的地址信息API
+		coordsMapAddress = 'http://maps.google.com/maps/api/geocode/json?&language=zh-CN&sensor=false&latlng=';
+	var showMap = function(position) {
+		var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude), // 经纬度
+			options = {
+				zoom: 14,
+				center: pos,
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			}, // 地图参数
+			map = new google.maps.Map(gmap, options), // 地图
+			marker = new google.maps.Marker({
+				position: pos,
+				map: map,
+				title: "用户位置"
+			}), // 地图浮动提示
+			// 通过经纬度信息获取具体的地址
+			address = getData(coordsMapAddress + position.coords.latitude + ',' + position.coords.longitude),
+			boxString = "<div style='text-align:left;'><b>我在这里: </b><br>" + address.results[0].formatted_address + "<br><b>用户位置:</b>" // 提示内容
+			+ "<br>纬度：" + position.coords.latitude + "<br>经度：" + position.coords.longitude + "<br>精确度：" + position.coords.accuracy + "</div>",
+			infoBox = new google.maps.InfoWindow({
+				content: boxString
+			}); // 弹出窗口
+		google.maps.event.addListener(marker, 'click', function() { // 事件绑定
+			infoBox.open(map, marker); // 打开窗口
+		});
+	};
+	if(navigator.geolocation) {
+		gmap.innerHTML = "定位中..."; // 定位开始
+		navigator.geolocation.getCurrentPosition(showMap); // 获取定位信息
+	} else {
+		gmap.innerHTML = '您的浏览器不支持地理位置 ~O(∩_∩)O~'; // 定位失败
+	}
+</script>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>预览网站内容</title>
+	<style type="text/css">
+		html {
+			overflow: hidden;
+		}
+		body {
+			margin: 0;
+			padding: 0;
+		}
+		.feedback {
+			width: 15px;
+			padding: 27px 7px 0;
+			line-height: 16px;
+			height: 105px;
+			border: 1px solid #D7D7D7;
+			background: #FFFCCE url(../feedback.png) no-repeat 6px 6px;
+			position: fixed;
+			bottom: 20px;
+			left: 0;
+			font-size: 14px;
+			color: #333;
+			text-decoration: none;
+		}
+		p {
+			padding: 0;
+			margin: 0;
+			position: absolute;
+			width: 44px;
+			height: 90%;
+			text-align: center;
+			background: #000;
+			opacity: 0.8;
+			border: 2px solid #998844;
+			border-radius: 7px;
+			top: 5%;
+		}
+		p a {
+			color: #fff;
+			font-size: 13px;
+			text-decoration: none;
+			padding: 5px 0;
+			display: block;
+		}
+		#iframe {
+			width: 100%;
+			height: 100%;
+			border: none;
+			left: 50px;
+			position: absolute;
+			top: 0;
+		}
+	</style>
+</head>
+<body>
+	<p>
+		<a href="javascript:;" onclick="alert('请自己扩展此功能');">收藏</a>
+		<a href="javascript:;" onclick="alert('请自己扩展此功能');">评论</a>
+		<a href="javascript:;" id="close">关闭</a>
+	</p>
+	<iframe src="004.无刷新加载网页父级.html" id="iframe"></iframe>
+</body>
+<script type="text/javascript">
+	;(function (W) {
+		var doc = W.document;
+		var parent = window.parent;
+		var iframe = document.querySelector("#iframe");
+		var close = document.querySelector("#close");
+		window.addEventListener('message',function (evt) {
+			iframe.src = evt.data.href;
+			iframe.style.height = evt.data.height;
+			iframe.style.width = evt.data.width;
+			console.log(evt.data);
+		},false);
+		close.addEventListener('click',function () {
+			window.parent.postMessage("closed","*");
+		},false);
+		//当文档加载完毕，给父级来源发送信息
+		window.addEventListener("load",function (e) {
+			window.parent.postMessage("ready","*");
+		},false);
+	}(window))
+</script>
+</html>

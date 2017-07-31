@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<style>
+		h2 {
+			margin: 0;
+		}
+		video {
+			border: 1px solid #1a1b1a;
+			border-radius: 5px;
+			background-color: Gray;
+			width: 100%;
+			max-width: 360px;
+		}
+		canvas {
+			border-radius: 5px;
+			background-color: Gray;
+		}
+		a, button {
+			margin-top: 5px;
+			margin-right: 20px;
+			float: left;
+			background-color: #8c9cbf;
+			background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #8c9cbf), color-stop(50%, #546a9e), color-stop(50%, #36518f), color-stop(100%, #3d5691));
+			background-image: -webkit-linear-gradient(top, #8c9cbf 0%, #546a9e 50%, #36518f 50%, #3d5691 100%);
+			background-image: -moz-linear-gradient(top, #8c9cbf 0%, #546a9e 50%, #36518f 50%, #3d5691 100%);
+			background-image: -ms-linear-gradient(top, #8c9cbf 0%, #546a9e 50%, #36518f 50%, #3d5691 100%);
+			background-image: -o-linear-gradient(top, #8c9cbf 0%, #546a9e 50%, #36518f 50%, #3d5691 100%);
+			background-image: linear-gradient(top, #8c9cbf 0%, #546a9e 50%, #36518f 50%, #3d5691 100%);
+			border: 1px solid #172d6e;
+			border-bottom: 1px solid #0e1d45;
+			border-radius: 5px;
+			-webkit-box-shadow: inset 0 1px 0 0 #b1b9cb;
+			box-shadow: inset 0 1px 0 0 #b1b9cb;
+			color: #fff;
+			font: bold 16px/1 "helvetica neue", helvetica, arial, sans-serif;
+			padding: 7px 0 8px 0;
+			text-decoration: none;
+			text-align: center;
+			text-shadow: 0 -1px 1px #000f4d;
+			width: 150px;
+		}
+		a:hover, button:hover {
+			background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #7f8dad), color-stop(50%, #4a5e8c), color-stop(50%, #2f477d), color-stop(100%, #364c80));
+			background-image: -webkit-linear-gradient(top, #7f8dad 0%, #4a5e8c 50%, #2f477d 50%, #364c80 100%);
+			background-image: -moz-linear-gradient(top, #7f8dad 0%, #4a5e8c 50%, #2f477d 50%, #364c80 100%);
+			background-image: -ms-linear-gradient(top, #7f8dad 0%, #4a5e8c 50%, #2f477d 50%, #364c80 100%);
+			background-image: -o-linear-gradient(top, #7f8dad 0%, #4a5e8c 50%, #2f477d 50%, #364c80 100%);
+			background-image: linear-gradient(top, #7f8dad 0%, #4a5e8c 50%, #2f477d 50%, #364c80 100%);
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<h2>用HTML5拍照和摄像</h2>
+	</header>
+	<section>
+		<!-- 关闭音频、显示视频工具条 -->
+		<video width="360" height="240" muted controls></video>
+		<!-- 快照画布 -->
+		<canvas width="240" height="160"></canvas>
+	</section>
+	<section>
+		<a id="save" href="javascript:;" download="照片">保 存</a>
+		<button id="photo">快 照</button>
+	</section>
+</body>
+<script>
+	(function() {
+		var video = document.querySelector('video'), //视频元素
+			canvas = document.querySelector('canvas'), //画布元素
+			photo = document.getElementById('photo'), //拍照按钮
+			save = document.getElementById('save'); //保存按钮
+		//获取浏览器摄像头视频流
+		navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+		if(navigator.getUserMedia) {
+			//摄像头连接成功回调
+			navigator.getUserMedia({
+				video: true
+			}, function(stream) {
+				//是否火狐浏览器
+				if('mozSrcObject' in video) {
+					video.mozSrcObject = stream;
+				} else if(window.webkitURL) { // 是否Webkit核心浏览器
+					// 获取流的对象URL
+					video.src = window.webkitURL.createObjectURL(stream);
+				} else { //其他标准浏览器
+					video.src = stream;
+				}
+				video.play(); //播放视频
+			}, function(error) {
+				console.log(error); //摄像头连接失败回调
+			});
+		};
+		//拍照按钮单击事件监听
+		photo.addEventListener('click', function(e) {
+			//阻止按钮默认事件
+			e.preventDefault();
+			//在画布中绘制视频照片
+			canvas.getContext('2d').drawImage(video, 0, 0, 240, 160);
+			//设置下载a元素的href值为图片base64值
+			save.setAttribute('href', canvas.toDataURL('image/png'));
+		}, false);
+	})();
+</script>
+</html>

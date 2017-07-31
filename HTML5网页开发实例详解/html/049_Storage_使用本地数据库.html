@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="../css/jquery-ui-1.9.2.custom.css" />
+	<link rel="stylesheet" type="text/css" href="../css/grid.css" />
+	<script src="../js/jquery-1.8.3.js"></script>
+	<script src="../js/jquery-ui-1.9.2.custom.js"></script>
+	<title>003.使用本地数据库</title>
+</head>
+<body>
+	<header>
+		<h2>使用本地数据库</h2>
+	</header>
+	<div class="grid">
+		<div class="window_search">
+			<div class="window_tools">
+				<div class="tDiv2">
+					<div class="fbutton">
+						<div>
+							<span class="add">添加</span>
+						</div>
+					</div>
+					<div class="btnseparator"> </div>
+					<!--<div class="fbutton">
+						<div>
+							<select>
+								<option value="name">姓名</option>
+								<option value="sex">性别</option>
+								<option value="age">年龄</option>
+							</select>
+							<input type="text" />
+							<input type="submit" value="查询" /> </div>
+					</div>--></div>
+			</div>
+		</div>
+		<div class="window_grid">
+			<table class="data tablesorter">
+				<thead>
+					<tr class="tablesorter-header">
+						<th class="tablesorter-header">
+							<div class="tablesorter-header-inner">姓名</div>
+						</th>
+						<th class="tablesorter-header">
+							<div class="tablesorter-header-inner">性别</div>
+						</th>
+						<th class="tablesorter-header">
+							<div class="tablesorter-header-inner">年龄</div>
+						</th>
+						<th class="tablesorter-header">
+							<div class="tablesorter-header-inner">操作</div>
+						</th>
+					</tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+		</div>
+	</div>
+	<script id="J_item" type="text/x-html5-tmpl">
+		<tr class="zebra">
+			<td>{name}</td>
+			<td>{sex}</td>
+			<td>{age}</td>
+			<td>
+				<a href="#" class="del" data-id="{id}">删除</a>
+			</td>
+		</tr>
+	</script>
+	<script id="J_form" type="text/x-html5-tmpl">
+		<table>
+			<tr>
+				<td>姓名：</td>
+				<td>
+					<input class="name" /> </td>
+			</tr>
+			<tr>
+				<td>性别：</td>
+				<td>
+					<select class="sex">
+						<option value="未知">未知</option>
+						<option value="男">男</option>
+						<option value="女">女</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>年龄：</td>
+				<td>
+					<input type="number" class="age" /> </td>
+			</tr>
+		</table>
+	</script>
+</body>
+<script>
+	(function() {
+		var DB_NAME = 'html5_storage_form_test', //数据库和表名
+			item_tpl = $('#J_item').html(), //列表单个元素模板
+			substitute = function(str, sub) { //字符串格式化函数
+				return str.replace(/\{(.+?)\}/g, function($0, $1) {
+					return $1 in sub ? sub[$1] : $0;
+				});
+			},
+			tbody = $('table.data tbody'), //列表容器
+			//打开WebSQL数据库
+			storageDriver = window.openDatabase(DB_NAME, '1.0', 'html5 storage table', 1048576);
+
+		function add_item(data, toDB) { // 添加列表项、数据库
+			if(toDB) {
+				storageDriver.transaction(function(t) { // 往数据库插入一条数据
+					t.executeSql("INSERT INTO " + DB_NAME + " (name,sex,age) VALUES (?,?,?);", [data.name, data.sex, data.age], // 传入保存数据
+						function(transaction, resultSet) {
+							data.id = resultSet.insertId; // 获取数据库返回的自增ID
+							tbody.append(substitute(item_tpl, data)); // 添加到列表
+						},
+						function() {
+							alert("添加失败"); //错误回调函数
+						});
+				});
+			} else {
+				tbody.append(substitute(item_tpl, data));
+			}
+		};
+
+		function del_item(target) { // 删除一条数据
+			storageDriver.transaction(function(t) { // 执行删除SQL
+				t.executeSql("delete from " + DB_NAME + " where id=" + target.attr('data-id'), [], function() {
+					target.closest('tr').fadeOut(); //隐藏元素
+				})
+			})
+		};
+		$('span.add').on('click', function(e) { // 添加操作按钮事件
+			var wraper = $($('#J_form').html()); // 新建添加弹层
+			$(document.body).append(wraper); // 注意页面结构
+			wraper.dialog({
+				position: 'center',
+				title: '添加',
+				modal: true,
+				buttons: [{
+					text: "确认",
+					click: function() {
+						var name = wraper.find('input.name').val(), // 姓名值
+							sex = wraper.find('select.sex').val(), // 性别值
+							age = wraper.find('input.age').val(); // 年龄值
+						if(name.length && sex.length && age.length) {
+							add_item({
+								name: name,
+								sex: sex,
+								age: age
+							}, true);
+							$(this).dialog("close"); // 关闭弹出
+						} else {
+							alert('请正确填写所有内容');
+						}
+					}
+				}, {
+					text: "取消",
+					click: function() {
+						$(this).dialog("close"); // 关闭按钮事件
+					}
+				}]
+			});
+			wraper.dialog('open');
+		});
+		tbody.on('click', function(e) { // 监听列表单击事件
+			var target = $(e.target);
+			if(target.hasClass('del')) { // 目标元素为删除按钮
+				e.preventDefault(); // 阻止a元素默认事件
+				del_item(target); // 删除元素和数据库内容
+			}
+		});
+		storageDriver.transaction(function(t) { // 启动一个事务生成列表
+			t.executeSql("CREATE TABLE IF NOT EXISTS " + DB_NAME + // 创建数据表
+				"id INTEGER PRIMARY KEY AUTOINCREMENT, " + // 自增字段
+				"name TEXT NOT NULL, " + // 姓名字段
+				"sex TEXT NOT NULL, " + // 性别字段
+				"age INTEGER DEFAULT 0" // 年龄字段
+			);
+			t.executeSql("SELECT * FROM " + DB_NAME, [], function(t, results) { // 读物数据表
+				for(var i = 0; i < results.rows.length; i++) {
+					add_item(results.rows.item(i), false); // 生成列表
+				}
+			})
+			//t.executeSql("DROP TABLE " + DB_NAME);
+		})
+	})()
+</script>
+</html>

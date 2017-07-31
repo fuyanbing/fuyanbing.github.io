@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>拖放文件</title>
+	<style type="text/css">
+		section {
+			/* 商品列表框样式 */
+			font-size: 25px;
+			width: 320px;
+			border: 2px solid black;
+			padding: 5px;
+			border-radius: 10px;
+			background-color: #f1f1f1;
+		}
+		img {
+			width: 70px;
+			height: 70px;
+			margin: 0 5px;
+		}
+		div {
+			/* 单个商品样式 */
+			border-bottom: 2px solid black;
+			cursor: move;
+			padding-top: 5px;
+			-webkit-transition: -webkit-transform 0.2s ease-out;
+			-moz-transition: -moz-transform 0.2s ease-out;
+			-o-transition: -o-transform 0.2s ease-out;
+			-ms-transition: -ms-transform 0.2s ease-out;
+			transition: transform 0.2s ease-out;
+		}
+		.over {
+			background-color: #FFFFD5;
+		}
+		.moving {
+			/* 被拖动元素样式 */
+			opacity: 0.25;
+			-webkit-transform: scale(0.97);
+			-moz-transform: scale(0.97);
+			-o-transform: scale(0.97);
+			transform: scale(0.97);
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<h2>拖放文件</h2>
+	</header>
+	<section>
+		<div draggable="true">
+			<img src="../images/shop/黑色护腕.png" draggable="false" />黑色护腕</div>
+	</section>
+</body>
+<script>
+(function () {
+	var slice = Array.prototype.slice,
+		list = slice.call(document.getElementsByTagName('div'),0),
+		section = document.querySelector('section'),
+		move_item,
+		reader,
+		events = {
+			'dragstart' : function (e) {
+				//console.log(e.target);
+				//console.log(e.target.innerHTML);
+				e.dataTransfer.effectAllowed = 'move';
+				e.dataTransfer.setData('html',e.target.innerHTML);
+				this.style.opacity ='0.4';
+				this.classList.add('moving');
+				move_item = this;
+			},
+			'dragenter':function (e) { // 拖入元素边界内触发
+				var files = e.dataTransfer.files;
+				if (files&&!files.length) {// 判断为非拖入文件情况
+					e.target.classList.add('over');
+				}
+			},
+			'dragover': function(e) { // 元素在目标元素上移动
+				var files = e.dataTransfer.files;
+				e.preventDefault(); // 阻止元素默认时间，保证drop被触发
+				if(files && !files.length) { // 判断为非拖入文件情况
+					e.target.classList.add('over');
+				};
+			},
+			'dragleave': function(e) { // 元素离开目标元素触发
+				e.target.classList.remove('over');
+			},
+			'drop':function (e) {//拖拽元素放在目标元素内
+				var target = e.target;
+				if (move_item && move_item != target) {// 拖动元素与放置元不同
+					move_item.innerHTML = this.innerHTML;// 将被拖放元素结构填充为放置元素
+					this.innerHTML = e.dataTransfer.getData('html'); // 设置拖放元素结构为被拖放元素
+				}
+			},
+			'dragend': function(e) { // 拖拽完毕后触发
+				this.style.opacity = '1';
+				list.forEach(function(item) {
+					console.info('1');
+					item.classList.remove('moving'); // 移除拖动样式
+					item.classList.remove('over'); // 移除悬浮样式
+				});
+			}
+		};
+	list.forEach(function (item) {//循环数组，监听元素
+		for (var key in events) {
+			item.addEventListener(key,events[key],false);
+		}
+	});
+	section.addEventListener('drop',function (e) {// 监听列表容器的drop事件
+		e.preventDefault();
+		var files = e.dataTransfer.files;// 获取从系统拖入的文件对象列表
+		if (!files || !files.length) {// 没有文件对象拖入情况
+			return;
+		};
+		files = slice.call(files,0);
+		files.forEach(function (file) {
+			if (file.type.toLowerCase().match(/image.*/)) {
+				reader = new FileReader();//实例化FileReader对象用于读取文件数据
+				reader.addEventListener('load',function (e) {
+					//监听FileReader实例的load事件
+					var item = document.createElement('div');
+					item.setAttribute('draggable',true);//设置元素允许拖动
+					item.innerHTML = '<img src="' + e.target.result +' " draggable = "false"  />' + file.name.split('.')[0];
+					for (var key in events) {// 循环绑定新建元素事件
+						item.addEventListener(key,events[key],false);
+					};
+					section.appendChild(item);//将商品元素添加到列表中
+				});
+				reader.readAsDataURL(file);// 读取文件为DataURL
+			}
+		})
+	});
+	section.addEventListener('dragleave',function (e) {// 鼠标拖拽离开该元素时触发
+		e.preventDefault();
+	},false)
+})();
+</script>
+</html>

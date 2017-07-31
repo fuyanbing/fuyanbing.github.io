@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<!-- 开源脚本压缩工具 -->
+	<script src="../js/base2-load.js"></script>
+	<script src="../js/Packer.js"></script>
+	<script src="../js/Words.js"></script>
+	<style>
+		textarea {
+			/* 文本框样式 */
+			font-family: 宋体;
+			width: 320px;
+			height: 220px;
+			border: 2px solid black;
+			color: #777;
+			box-shadow: 0 0 5px #ddd inset;
+			margin: 0px auto;
+			border-radius: 2px;
+			background-color: #F9F9F9;
+			font-size: 12px;
+		}
+	</style>
+	<title>拖动脚本文件压缩</title>
+</head>
+<body>
+	<header>
+		<h2>拖动脚本文件压缩</h2>
+	</header>
+	<!-- 文本区域 -->
+	<textarea> // // JavaScript在线压缩工具 // 请将代码文件拖拽到此处 // </textarea>
+</body>
+<script>
+	(function() {
+		var textarea = document.querySelector('textarea');
+		textarea.addEventListener('dragover', function(e) { //鼠标拖拽在该元素上移动的触发
+			e.preventDefault(); //阻止元素默认事件，确保drop正常触发
+		}, false);
+		textarea.addEventListener('drop', function(e) { //鼠标拖拽在该元素上释放时触发
+			e.preventDefault();
+			var files = e.dataTransfer.files; //获取文件列表
+			for(var i = 0; i < files.length; i++) {
+				var reader = new FileReader(); //实例化FileReader对象，读取文件数据
+				reader.addEventListener('load', function(e) { //监听FileReader实例的load事件
+					//压缩脚本文件代码
+					textarea.value = new Packer().pack(e.target.result, false, false);
+				}, false);
+				reader.readAsText(files[i]); //将文件读取为文本
+				break;
+			};
+		},false);
+	})();
+</script>
+</html>

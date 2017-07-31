@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>处理定位错误</title>
+	<style>
+		body {
+			margin: 50px auto;
+			width: 634px;
+			padding: 20px;
+			border: 1px solid #c88e8e;
+			border-radius: 15px;
+			height: 100%;
+			/* 设置高度自适应 */
+		}
+		#map {
+			height: 400px;
+			width: 630px;
+			text-align: center;
+		}
+		/* 设置地图宽高 */
+	</style>
+</head>
+<body>
+	<p>处理定位错误
+		<span id="info"></span>
+	</p>
+	<p id="timestep"></p>
+	<!-- 超时显示控件 -->
+	<div id="map">加载中...</div>
+	<!-- 地图显示控件 -->
+</body>
+<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script>
+	var gmap = document.getElementById("map"), // 获取地图DOM
+		ginfo = document.getElementById("info"), // 获取显示经纬度DOM
+		timestep = document.getElementById("timestep"), // 获取超时显示DOM
+		showMap = function(position) {
+			var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude), // 经纬度
+				options = {
+					zoom: 14,
+					center: pos,
+					mapTypeId: google.maps.MapTypeId.ROADMAP
+				}, // 地图参数
+				map = new google.maps.Map(gmap, options), // 地图
+				marker = new google.maps.Marker({
+					position: pos,
+					map: map,
+					title: "用户位置"
+				}); // 地图浮动提示
+			ginfo.innerHTML = "（纬度：" + position.coords.latitude + "，经度：" + position.coords.longitude + "）"; // 显示定位结果
+		},
+		getPosition = function() {
+			var timeoutMax = 1000, // 定位的超时上限
+				currentTimeout = 0, // 当前定位超时时间，默认1s
+				errorHandler = function(error) { // 定位出错处理函数
+					switch(error.code) {
+						case error.PERMISSION_DENIED: // 定位失败，没有权限
+							gmap.innerHTML = "定位被阻止，请检查您的授权或者网络协议（" + error.message + ")";
+							break;
+						case error.POSITION_UNAVAILABLE: // 定位失败，不可达
+							gmap.innerHTML = "定位暂时无法使用，请检查您的网络(" + error.message + ")";
+							break;
+						case error.TIMEOUT: // 定位失败，超时
+							gmap.innerHTML = "您的网络较慢，请耐心等待...";
+							if(currentTimeout <= timeoutMax) { // 判断是否可以继续定位
+								currentTimeout = currentTimeout + 20; // 定位超时递增
+								var timestepHtml = timestep.innerHTML; // 超时调用显示
+								timestep.innerHTML = timestepHtml + '<br>' + currentTimeout;
+								getPosition(); // 重新定位
+							} else {
+								gmap.innerHTML = "对不起，定位超时"; // 超时了
+							}
+							break;
+					}
+				},
+				getCurrentPosition = function() { // 定位函数
+					navigator.geolocation.getCurrentPosition(showMap, errorHandler, {
+						timeout: currentTimeout
+					});
+				};
+			return getCurrentPosition; // 返回定位函数供外部调用
+		}();
+	if(navigator.geolocation) {
+		gmap.innerHTML = "定位中...";
+		getPosition(); // 定位开始
+	} else {
+		gmap.innerHTML = '您的浏览器不支持地理位置 ~O(∩_∩)O~'; // 定位失败，浏览器不支持
+	}
+</script>
+</html>

@@ -1,0 +1,159 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>实现网页元素的拖放</title>
+	<style type="text/css">
+		.garbage {
+			/* 垃圾桶样式类 */
+			width: 120px;
+			height: 135px;
+			position: relative;
+		}
+		/* 垃圾桶样式类 */
+		
+		.garbage i {
+			/* 垃圾桶纸团计数 */
+			position: absolute;
+			top: 61px;
+			left: 46px;
+			font-weight: bold;
+			color: red;
+		}
+		.empty {
+			/* 空垃圾桶 */
+			background: url(../images/garbage-e.png) no-repeat;
+		}
+		.full {
+			/* 满垃圾桶 */
+			background: url(../images/garbage-f.png) no-repeat;
+		}
+		.paper {
+			/* 纸团样式类 */
+			background: url(../images/paper.png) no-repeat;
+			float: left;
+			width: 64px;
+			height: 57px;
+			cursor: move;
+			position: relative;
+		}
+		.paper i {
+			/* 纸团编号 */
+			position: absolute;
+			top: 18px;
+			left: 23px;
+			font-weight: bold;
+			color: red;
+		}
+		.line_3d {
+			/* 垃圾桶摇摆样式类 */
+			-webkit-animation-name: shake;
+			-webkit-animation-duration: 1s;
+		}
+		@-webkit-keyframes shake {
+			/* 定义投放垃圾动画名 */
+			from {
+				-webkit-transform: rotate(0deg);
+			}
+			20% {
+				-webkit-transform: rotate(20deg);
+			}
+			60% {
+				-webkit-transform: rotate(-20deg);
+			}
+			to {
+				-webkit-transform: rotate(0deg);
+			}
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<h2>实现网页元素的拖放</h2>
+	</header>
+	<section>
+		<!-- 垃圾桶 -->
+		<div class="garbage empty">
+			<i>0</i>
+		</div>
+		<!-- 垃圾丢放音频 -->
+		<audio src="../res/garbage.mp3">您的浏览器不支持audio标签</audio>
+	</section>
+	<section>
+		<!-- 3个纸团 -->
+		<div class="paper" draggable="true">
+			<i>1</i>
+		</div>
+		<div class="paper" draggable="true">
+			<i>2</i>
+		</div>
+		<div class="paper" draggable="true">
+			<i>3</i>
+		</div>
+	</section>
+</body>
+<script type="text/javascript">
+	(function() {
+		var slice = Array.prototype.slice,
+			//垃圾投放音频
+			audio = document.querySelector('audio'),
+			//将3个纸团对应的元素转为数组
+			papers = slice.call(document.querySelectorAll('div.paper'), 0),
+			// 空垃圾箱
+			garbage = document.querySelector('div.empty'),
+			// 垃圾箱计数
+			num = garbage.querySelector('i'),
+			current_paper;
+		papers.forEach(function(paper) {
+			//监听纸团拖动开始事件
+			paper.addEventListener('dragstart', function(e) {
+				//设置被拖动的纸团于闭包变量中
+				current_paper = paper;
+			}, false);
+		});
+		//鼠标拖拽在该元素上移动时触发
+		garbage.addEventListener('dragover', function(e) {
+			//阻止浏览器元素默认事件
+			e.preventDefault();
+		}, false);
+		//监听垃圾桶投放事件
+		garbage.addEventListener('drop', function(e) {
+			//播放垃圾投放音频
+			audio.play();
+			//添加CSS3摇摆动画
+			garbage.className += ' line_3d';
+			//过1秒自动移出动画样式
+			setTimeout(function() {
+				garbage.className = garbage.className.replace(/ line_3d/g, '');
+			}, 1000);
+			//判断是否有垃圾状态
+			if(!/full/g.test(garbage.className)) {
+				//将垃圾桶值为填满状态
+				garbage.className += ' full';
+			};
+			//将垃圾桶桶计数+1
+			num.innerHTML = parseInt(num.innerHTML) + 1;
+			//移出当前拖动的纸团
+			current_paper.remove();
+		}, false);
+	})();
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</script>
+</html>

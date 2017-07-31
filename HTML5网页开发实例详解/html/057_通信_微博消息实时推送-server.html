@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+	<script type="text/javascript">
+		;
+		(function() {
+			//模拟的数据，真是环境中，数据可以从服务器获取
+			var virtualData = ['aaaaaaaaaaaaaaaaaaaaaaaaa', 'bbbbbbbbbbbbbbbbbbbbbbbbb', 'cccccccccccccccccccccccccc', 'dddddddddddddddddddddddddd', 'eeeeeeeeeeeeeeeeeeeeeeeeee', 'fffffffffffffffffffffffffff', 'ggggggggggggggggggggggggggggg'];
+			/**
+			 * 这里是获取是否有新的微博信息产生的逻辑
+			 * 如果有，则返回微博信息
+			 * 如果没有，则返回 null
+			 */
+			// 从服务器获取数据。此函数为模拟环境，真实环境请从服务器读取
+			var getData = function() {
+				var index = Math.floor(Math.random() * 10); // 获取模拟数据
+				return virtualData[index] || null; // 如果数据不存在，返回null
+			}
+			var aniloop = function() {
+				var randTime = Math.floor(Math.random() * 10000);
+				setTimeout(function() {
+					var data = getData(); // 获取是否有新微博消息
+					if(data !== null) {
+						window.parent.postMessage(data, 'http://localhost'); // 发消息，通知父页面有新消息到了
+					}
+					aniloop();
+				}, randTime)
+			}
+			aniloop();
+		}(window));
+	</script>
+</body>
+</html>

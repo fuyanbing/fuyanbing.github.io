@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html manifest="appcache.manifest">
+<head>
+	<meta charset="UTF-8"/>
+	<link rel="stylesheet" type="text/css" href="../css/jquery-ui-1.9.2.custom.css" />
+	<link rel="stylesheet" type="text/css" href="../css/grid.css" /> </head>
+<body>
+	<header>
+		<h2>设计离线事件处理程序</h2>
+	</header>
+	<div class="grid">
+		<div class="window_search">
+			<div class="window_tools">
+				<div class="tDiv2">
+					<div class="fbutton">
+						<div>
+							<span class="add">添加</span>
+						</div>
+					</div>
+					<div class="btnseparator"></div>
+				</div>
+			</div>
+		</div>
+		<div class="window_grid">
+			<table class="data tablesorter">
+				<thead>
+					<tr class="tablesorter-header">
+						<th class="tablesorter-header">
+							<div class="tablesorter-header-inner">姓名</div>
+						</th>
+						<th class="tablesorter-header">
+							<div class="tablesorter-header-inner">性别</div>
+						</th>
+						<th class="tablesorter-header">
+							<div class="tablesorter-header-inner">年龄</div>
+						</th>
+						<th class="tablesorter-header">
+							<div class="tablesorter-header-inner">操作</div>
+						</th>
+					</tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+		</div>
+	</div>
+	<script id="J_item" type="text/x-html5-tmpl">
+		<tr class="zebra">
+			<td>{name}</td>
+			<td>{sex}</td>
+			<td>{age}</td>
+			<td>
+				<a href="#" class="del" data-id="{id}">删除</a>
+				<a href="#" class="modify" data-id="{id}">修改</a>
+			</td>
+		</tr>
+	</script>
+	<script id="J_form" type="text/x-html5-tmpl">
+		<table>
+			<tr>
+				<td>姓名：</td>
+				<td>
+					<input class="name" />
+				</td>
+			</tr>
+			<tr>
+				<td>性别：</td>
+				<td>
+					<select class="sex">
+						<option value="未知">未知</option>
+						<option value="男">男</option>
+						<option value="女">女</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>年龄：</td>
+				<td>
+					<input type="number" class="age" />
+				</td>
+			</tr>
+		</table>
+	</script>
+</body>
+<script src="../js/jquery-1.8.3.js"></script>
+<script src="../js/jquery-ui-1.9.2.custom.js"></script>
+<script src="008.WebSQL.js"></script>
+<script type="text/javascript">
+	window.addEventListener('load',function (e) {
+		window.applicationCache.addEventListener('updateready',function (e) {
+			if (window.applicationCache.status == window.applicationCache.UPDATEREADY) {
+				window.applicationCache.swapCache();
+				var wraper = $('<p>是否更新缓存文件？</p>');
+				$(document.body).append(wraper);//注意页面结构
+				wraper.dialog({
+					position:'center',
+					title:'提示',
+					modal:true,
+					buttons:[{
+						text:"确认",
+						click:function () {
+							window.location.reload();
+						}
+					},{
+						text:"取消",
+						click:function () {
+							$(this).dialog("close");
+						}//关闭按钮事件
+					}]
+				});
+				wraper.dialog('open');
+			}
+		},false);
+	},false);
+</script>
+</html>

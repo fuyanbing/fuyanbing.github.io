@@ -1,0 +1,106 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>实现网页元素的拖放</title>
+	<style type="text/css">
+		.garbage {
+			/* 垃圾桶样式类 */
+			width: 120px;
+			height: 135px;
+			position: relative;
+		}
+		.garbage i {
+			/* 垃圾桶纸团计数 */
+			position: absolute;
+			top: 61px;
+			left: 46px;
+			font-weight: bold;
+			color: red;
+		}
+		.empty {
+			/* 空垃圾桶 */
+			background: url(../images/garbage-e.png) no-repeat;
+		}
+		.full {
+			/* 满垃圾桶 */
+			background: url(../images/garbage-f.png) no-repeat;
+		}
+		.paper {
+			/* 纸团样式类 */
+			background: url(../images/paper.png) no-repeat;
+			float: left;
+			width: 64px;
+			height: 57px;
+			cursor: move;
+			position: relative;
+		}
+		.paper i {
+			/* 纸团编号 */
+			position: absolute;
+			top: 18px;
+			left: 23px;
+			font-weight: bold;
+			color: red;
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<h2>实现网页元素的拖放</h2>
+	</header>
+	<section>
+		<!-- 垃圾桶 -->
+		<div class="garbage empty">
+			<i>0</i>
+		</div>
+		<!-- 垃圾丢放音频 -->
+		<audio src="../res/garbage.mp3">您的浏览器不支持audio标签</audio>
+	</section>
+	<section>
+		<!-- 3个纸团 -->
+		<div class="paper" draggable="true">
+			<i>1</i>
+		</div>
+		<div class="paper" draggable="true">
+			<i>2</i>
+		</div>
+		<div class="paper" draggable="true">
+			<i>3</i>
+		</div>
+	</section>
+</body>
+<script type="text/javascript">
+	(function() {
+		var slice = Array.prototype.slice,
+			audio = document.querySelector('audio'), //垃圾投放音频
+			papers = slice.call(document.querySelectorAll('div.paper'), 0), //将3个纸团对应的元素转为数组
+			garbage = document.querySelector('div.empty'), // 空垃圾箱
+			num = garbage.querySelector('i'), // 垃圾箱计数
+			current_paper;
+		papers.forEach(function(paper) {
+			paper.addEventListener('dragstart', function(e) { //监听纸团拖动开始事件
+				current_paper = paper; //设置被拖动的纸团于闭包变量中
+				e.dataTransfer.effectAllowed = 'move'; //允许拖动操作类型
+				e.dataTransfer.setDragImage(current_paper, 10, 0); //设置拖放效果
+				paper.style.opacity = '0.4';
+			}, false);
+			paper.addEventListener('dragend', function(e) { // 监听纸团拖放结束事件
+				paper.style.opacity = '1'; // 恢复纸团的透明度
+			}, false);
+		});
+		garbage.addEventListener('dragover', function(e) { //鼠标拖拽在该元素上移动时触发
+			e.preventDefault(); //阻止浏览器元素默认事件
+			e.dataTransfer.dropEffect = 'move'; //拖放移动中的效果
+		}, false);
+		garbage.addEventListener('drop', function(e) { //监听垃圾桶投放事件
+			//判断是否有垃圾状态
+			if(!/full/g.test(garbage.className)) {
+				garbage.className += ' full'; //将垃圾桶值为填满状态
+			};
+			num.innerHTML = parseInt(num.innerHTML) + 1; //将垃圾桶桶计数+1
+			current_paper.remove(); //移出当前拖动的纸团
+		}, false);
+	})();
+</script>
+</html>

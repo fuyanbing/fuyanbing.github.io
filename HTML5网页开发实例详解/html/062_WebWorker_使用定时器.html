@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style>
+		div.wraper_i
+		/* 计时器背景底色 */
+		
+		{
+			border: 1px solid #cccc99;
+			border-radius: 10px;
+			/* 圆角效果 */
+			-moz-border-radius: 10px;
+			-webkit-border-radius: 10px;
+			background-color: green;
+			width: 333px;
+			padding: 10px;
+		}
+		div.wraper_ii
+		/* 计时器显示板底色 */
+		
+		{
+			border: 1px solid #cccc99;
+			border-radius: 10px;
+			/* 圆角效果 */
+			-moz-border-radius: 10px;
+			-webkit-border-radius: 10px;
+			background-color: #cccc99;
+			padding: 5px;
+		}
+		div.buttons
+		/* 按钮外框容器样式 */
+		
+		{
+			height: 30px;
+			margin: 0 auto;
+			padding: 8px 0 5px 30px;
+		}
+		ul.viewport
+		/* 计数显示屏样式 */
+		
+		{
+			border: 1px solid #cccc99;
+			border-radius: 10px;
+			-moz-border-radius: 10px;
+			-webkit-border-radius: 10px;
+			background-color: green;
+			height: 55px;
+			padding: 5px 0 0 5px;
+			margin: 0;
+		}
+		a.button
+		/* 按钮通用样式 */
+		
+		{
+			display: block;
+			float: left;
+			position: relative;
+			/* 相对定位 */
+			height: 25px;
+			width: 80px;
+			margin: 0 10px 18px 0;
+			text-decoration: none;
+			/* 去除相关文本修饰 */
+			font: 12px Arial;
+			font-weight: bold;
+			line-height: 25px;
+			text-align: center;
+			-webkit-border-radius: 3px;
+			/* 圆角效果 */
+			-moz-border-radius: 3px;
+			border-radius: 3px;
+		}
+		a.button:before, a.button:after
+		/* 在按钮元素之前和之后添加样式 */
+		
+		{
+			content: '';
+			/* 在元素上添加内容 */
+			position: absolute;
+			/* 绝对定位 */
+			left: -1px;
+			height: 25px;
+			width: 80px;
+			bottom: -1px;
+			-webkit-border-radius: 3px;
+			/* 圆角效果 */
+			-moz-border-radius: 3px;
+			border-radius: 3px;
+		}
+		a.button:before
+		/* 在按钮元素之后添加 */
+		
+		{
+			height: 23px;
+			bottom: -4px;
+			border-top: 0;
+			border-radius: 0 0 3px 3px;
+			/* 圆角效果 */
+			-webkit-border-radius: 0 0 3px 3px;
+			-moz-border-radius: 0 0 3px 3px;
+			box-shadow: 0 1px 1px 0px #bfbfbf;
+			/* 图层阴影效果 */
+			-webkit-box-shadow: 0 1px 1px 0px #bfbfbf;
+			-moz-box-shadow: 0 1px 1px 0px #bfbfbf;
+		}
+		a.button:active
+		/* 元素激活，鼠标点击与释放之间样式 */
+		
+		{
+			border: none;
+			bottom: -4px;
+			margin-bottom: 22px;
+			-webkit-box-shadow: 0 1px 1px #fff;
+			-moz-box-shadow: 0 1px 1px #fff;
+			/* 添加内阴影，让按钮感觉是被按下 */
+			box-shadow: 1px 1px 0 #fff, inset 0 1px 1px rgba(0, 0, 0, 0.3);
+		}
+		a.button:active:before, a.button:active:after
+		/* 元素激活之前和之后添加样式 */
+		
+		{
+			border: none;
+			-webkit-box-shadow: none;
+			/* 去除图层阴影效果 */
+			-moz-box-shadow: none;
+			box-shadow: none;
+		}
+		a.green, a.green:hover, a.green:visited
+		/* 绿色按钮、悬停、或已被访问的链接 */
+		
+		{
+			color: #5d7731;
+			border-bottom: 4px solid #799545;
+			text-shadow: 0px 1px 0px #d5e8aa;
+			background: #cae285;
+			/* 线性渐变 */
+			background: -webkit-gradient(linear, left top, left bottom, from(#cae285), to(#a3cd5a));
+			background: -moz-linear-gradient(top, #cae285, #a3cd5a);
+			/* 内阴影 */
+			box-shadow: inset 1px 1px 0 #cce3a1;
+		}
+		.green:before, .green:after
+		/* 在绿色按钮元素之前和之后添加样式 */
+		
+		{
+			border: 1px solid #98b85b;
+			border-bottom: 1px solid #6d883b;
+		}
+		a.green:hover {
+			background: #a3cd5a;
+			/* 在绿色按钮悬停添加样式 */
+			/* 线性渐变 */
+			background: -webkit-gradient(linear, left top, left bottom, from(#a3cd5a), to(#cae285));
+			background: -moz-linear-gradient(top, #a3cd5a, #cae285);
+		}
+	</style>
+	<meta charset="utf-8"> </head>
+<body>
+	<header>
+		<h2>使用定时器</h2>
+	</header>
+	<section>
+		<div class="wraper_i">
+			<div class="wraper_ii">
+				<ul class="viewport">
+					<!-- 计时屏 -->
+					<canvas width="315" height="50"></canvas>
+				</ul>
+				<div class="buttons">
+					<a href="#" class="button green" data-type='start'>开始</a>
+					<a href="#" class="button green" data-type='stop'>暂停</a>
+					<a href="#" class="button green" data-type='reset'>复位</a>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+<script type="text/javascript">
+	var slice = Array.prototype.slice,
+		canvas = document.querySelector('canvas'), // 获取Canvas画布元素
+		context = canvas.getContext("2d"), // 获取Canvas元素上
+		buttons = slice.call(document.querySelectorAll('div.buttons a'), 0);
+
+	function draw(text) { // 绘制计时器数字
+		context.clearRect(0, 0, parseInt(canvas.width), parseInt(canvas.height)); // 清空画布指定矩形区域内容
+		context.fillStyle = 'black'; // 画布计时器文字颜色为黑色
+		context.font = 'italic 50px sans-serif'; // 设置文字字体和大小
+		context.textBaseline = 'top'; // 设置文本基线
+		context.fillText(text || '00:00:00:000', 0, 0); // /填充文字到画布指定区域
+	};
+	buttons.forEach(function(item) {
+		var type = item.getAttribute('data-type'); // 获取元素属性上的操作
+		item.addEventListener('click', function(e) { // 监听按钮点击事件
+			e.preventDefault();
+			work.postMessage({
+				'type': type
+			}) // 给Web Worker对象传送数据
+		}, false);
+	});
+	var work = new Worker('001.Worker.js'); // 创建一个Web Worker
+	work.onmessage = function(e) { // 监听Web Worker消息事件
+		draw(e.data.date); // 接收时间数据绘制计时器
+	};
+	draw(); // 初始化计时器绘制
+</script>
+</html>

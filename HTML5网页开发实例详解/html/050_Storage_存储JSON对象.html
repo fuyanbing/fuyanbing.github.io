@@ -1,0 +1,499 @@
+﻿<!doctype html>
+<html>
+<head>
+	<style>
+		body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, form, fieldset, legend, button, input, textarea, th, td {
+			margin: 0;
+			padding: 0;
+		}
+		a:link, a:hover, a:active, a:visited {
+			text-decoration: none;
+		}
+		body {
+			font: 12px/1.5 'Lucida Grande', tahoma, arial, \5b8b\4f53;
+			padding: 10px;
+		}
+		ul, li {
+			list-style: none;
+		}
+		/* 购物车样式区 */
+		
+		.g-handle {
+			position: fixed;
+			bottom: 0;
+			right: 0;
+		}
+		.g-body {
+			background-image: url("data:image/png;
+ base64, iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAMAAAC6sdbXAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAAlQTFRF7u7u5ubm6urqYPTI0gAAAB9JREFUeNoUiLERAAAMRLD/0Pk0HGSChSOLP/HqBBgAAfcAItOjOxwAAAAASUVORK5CYII=");
+ border:1px solid #d6d6d6;
+			background-color: #f2f2f2;
+			position: absolute;
+			width: 275px;
+			padding-top: 8px;
+			padding-bottom: 20px;
+			color: #000;
+			text-align: left;
+			margin: 0 auto -4px auto;
+			-webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+			-moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+			box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+			top: -201px;
+			left: 3px;
+		}
+		.g-con {
+			height: 170px;
+			overflow-x: hidden;
+			overflow-y: scroll;
+			margin: 0 auto 0 9px;
+			padding-bottom: 4px;
+		}
+		 ::-webkit-scrollbar-track-piece {
+			background-color: rgba(0, 0, 0, 0);
+			-webkit-border-radius: 0
+		}
+		 ::-webkit-scrollbar {
+			width: 6px;
+			height: 8px
+		}
+		 ::-webkit-scrollbar-thumb {
+			height: 50px;
+			background-color: rgba(0, 0, 0, 0.4);
+			-webkit-border-radius: 4px
+		}
+		 ::-webkit-scrollbar-thumb:hover {
+			height: 50px;
+			background-color: rgba(0, 0, 0, 0.5);
+			-webkit-border-radius: 4px
+		}
+		.g-group {
+			width: 255px;
+			overflow: hidden;
+			border: 1px solid #E3E3E3;
+			border-bottom: none;
+			background: #fff;
+			cursor: default;
+			margin: 2px 0 5px 0;
+		}
+		.g-item {
+			width: 100%;
+			height: 56px;
+			margin: 0 auto;
+			overflow: hidden;
+			border-bottom: 1px solid #E3E3E3;
+			position: relative;
+		}
+		.g-item img {
+			margin: 3px 0 auto 3px;
+			display: table-cell;
+			vertical-align: middle;
+			text-align: center;
+			width: 50px;
+			height: 50px;
+			float: left;
+		}
+		.g-itemdiswaper {
+			float: left;
+			width: 108px;
+			height: 40px;
+			margin-left: 8px;
+			padding-top: 10px;
+		}
+		.g-itemdiswaper span {
+			display: block;
+			width: 100%;
+			color: #999;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+		}
+		.g-itemprice {
+			margin: 20px 0 0 0;
+			color: #666;
+			width: 72px;
+			text-align: right;
+			word-wrap: break-word;
+			word-break: break-all;
+			float: left;
+		}
+		.g-itemdel {
+			cursor: pointer;
+			display: block;
+			width: 14px;
+			height: 14px;
+			position: absolute;
+			right: 11px;
+			top: 4px;
+			float: left;
+			background: url(../images/shop-list.png) no-repeat -251px -32px;
+		}
+		.g-itemdel:hover {
+			background-position: -237px -32px;
+		}
+		.g-bottom {
+			position: relative;
+			width: 284px;
+			height: 31px;
+			overflow: hidden;
+			cursor: pointer;
+			background: url(../images/shop-list.png) no-repeat 0 -64px;
+		}
+		.g-link {
+			margin-top: 1px;
+			float: left;
+			color: #000;
+			height: 31px;
+			line-height: 33px;
+			cursor: pointer;
+		}
+		.g-num {
+			padding-left: 34px;
+		}
+		/* 商品列表样式区 */
+		
+		.product-list {
+			white-space: normal;
+			overflow: hidden;
+			width: 570px;
+			-webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+			box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+			padding: 0 0 10px 10px;
+			background-color: #f2f2f2;
+		}
+		.product-list .product {
+			float: left;
+			width: 180px;
+			margin: 10px 10px 0 0;
+			color: #999;
+			overflow: hidden;
+			-webkit-transition: -webkit-transform 0.2s ease-out;
+			-moz-transition: -moz-transform 0.2s ease-out;
+			-o-transition: -o-transform 0.2s ease-out;
+			-ms-transition: -ms-transform 0.2s ease-out;
+			transition: transform 0.2s ease-out;
+		}
+		.product-hover .info {
+			background: #f7faff;
+			border-radius: 5px;
+			/* 圆角 */
+			-moz-border-radius: 5px;
+			-webkit-border-radius: 5px;
+			cursor: pointer;
+		}
+		.product-list .info {
+			height: 245px;
+			padding: 10px 10px 0;
+		}
+		.product-list img {
+			height: 160px;
+			width: 160px;
+			margin: 0 auto 5px;
+			cursor: pointer;
+			border-radius: 5px;
+			/* 圆角 */
+			-moz-border-radius: 5px;
+			-webkit-border-radius: 5px;
+		}
+		.product-price {
+			position: relative;
+			height: 20px;
+			line-height: 20px;
+			overflow: hidden;
+		}
+		.ui-price {
+			font-weight: bold;
+			font-size: 14px;
+			color: #c00;
+			font-family: 'arial', 'verdana', sans-serif;
+		}
+		.product-title {
+			padding: 4px 0 0;
+			overflow: hidden;
+			word-break: break-all;
+			line-height: 18px;
+		}
+		.product-title a {
+			font-size: 12px;
+			font-weight: 400;
+			color: #666;
+		}
+		.product-sum {
+			margin: 5px 0;
+			height: 17px;
+			overflow: hidden;
+		}
+		.product-sum strong {
+			color: #CEAA00;
+		}
+		.moving {
+			/* 被拖动元素样式 */
+			opacity: 0.25;
+			-webkit-transform: scale(0.97);
+			-moz-transform: scale(0.97);
+			-ms-transform: scale(0.97);
+			-o-transform: scale(0.97);
+			transform: scale(0.97);
+		}
+	</style>
+	<script src="../js/jquery-1.8.3.js"></script>
+	<script src="../js/localstorage.js"></script>
+</head>
+<body>
+	<header>
+		<h2>将商品拖入购物车</h2>
+	</header>
+	<ul class="product-list">
+		<li class="product" draggable="true">
+			<div class="info">
+				<div class="img">
+					<img src="../images/product/枸杞.jpg" />
+				</div>
+				<p class="product-price">
+					<span class="ui-price">
+						<span class="price-icon">¥</span>
+						<strong>98.00</strong>
+					</span>
+				</p>
+				<h3 class="product-title">
+					<a href="#">宁夏特级枸杞子</a>
+				</h3>
+				<p class="product-sum"> 月销量:
+					<strong>1235</strong>
+					<span class="small">
+						<a title="评论列表" href="#">(1958人评论)</a>
+					</span>
+				</p>
+			</div>
+		</li>
+		<li class="product" draggable="true">
+			<div class="info">
+				<div class="img">
+					<img src="../images/product/罗汉果.jpg" />
+				</div>
+				<p class="product-price">
+					<span class="ui-price">
+						<span class="price-icon">¥</span>
+						<strong>74.50</strong>
+					</span>
+				</p>
+				<h3 class="product-title">
+					<a href="#">广西特大罗汉果</a>
+				</h3>
+				<p class="product-sum"> 月销量:
+					<strong>33082</strong>
+					<span class="small">
+						<a title="评论列表" href="#">(5576人评论)</a>
+					</span>
+				</p>
+			</div>
+		</li>
+		<li class="product" draggable="true">
+			<div class="info">
+				<div class="img">
+					<img src="../images/product/百合.jpg" />
+				</div>
+				<p class="product-price">
+					<span class="ui-price">
+						<span class="price-icon">¥</span>
+						<strong>70.00</strong>
+					</span>
+				</p>
+				<h3 class="product-title">
+					<a href="#">特级无硫百合干片</a>
+				</h3>
+				<p class="product-sum"> 月销量:
+					<strong>984</strong>
+					<span class="small">
+						<a title="评论列表" href="#">(58人评论)</a>
+					</span>
+				</p>
+			</div>
+		</li>
+		<li class="product" draggable="true">
+			<div class="info">
+				<div class="img">
+					<img src="../images/product/三七花.jpg" />
+				</div>
+				<p class="product-price">
+					<span class="ui-price">
+						<span class="price-icon">¥</span>
+						<strong>180.00</strong>
+					</span>
+				</p>
+				<h3 class="product-title">
+					<a href="#">云南特产三七花</a>
+				</h3>
+				<p class="product-sum"> 月销量:
+					<strong>7994</strong>
+					<span class="small">
+						<a title="评论列表" href="#">(3204人评论)</a>
+					</span>
+				</p>
+			</div>
+		</li>
+		<li class="product" draggable="true">
+			<div class="info">
+				<div class="img">
+					<img src="../images/product/桂圆干.jpg" />
+				</div>
+				<p class="product-price">
+					<span class="ui-price">
+						<span class="price-icon">¥</span>
+						<strong>78.00</strong>
+					</span>
+				</p>
+				<h3 class="product-title">
+					<a href="#">莆田特级3A桂圆干</a>
+				</h3>
+				<p class="product-sum"> 月销量:
+					<strong>212</strong>
+					<span class="small">
+						<a title="评论列表" href="#">(84人评论)</a>
+					</span>
+				</p>
+			</div>
+		</li>
+		<li class="product" draggable="true">
+			<div class="info">
+				<div class="img">
+					<img src="../images/product/雪菊.jpg" />
+				</div>
+				<p class="product-price">
+					<span class="ui-price">
+						<span class="price-icon">¥</span>
+						<strong>280.00</strong>
+					</span>
+				</p>
+				<h3 class="product-title">
+					<a href="#">正品天山野生特级菊花茶</a>
+				</h3>
+				<p class="product-sum"> 月销量:
+					<strong>4300</strong>
+					<span class="small">
+						<a title="评论列表" href="#">(2784人评论)</a>
+					</span>
+				</p>
+			</div>
+		</li>
+	</ul>
+	<div class="g-handle">
+		<div class="g-body">
+			<div class="g-con">
+				<div class="g-group"></div>
+			</div>
+		</div>
+		<div class="g-bottom">
+			<a class="g-link" title="查看购物车" href="#">
+				<span class="g-num">购物车</span>
+			</a>
+		</div>
+	</div>
+	<script id="J_tpl" type="text/x-html5-tmpl">
+		<div class="g-item">
+			<img src="{path}">
+			<div class="g-itemdiswaper">
+				<span title="{title}">{title}</span>
+				<span title="（不改地址）">（不改地址）</span>
+			</div>
+			<span class="g-itemprice">{price}</span>
+			<a class="g-itemdel" title="关闭" data-index="{index}"></a>
+		</div>
+	</script>
+</body>
+<script>
+	var gbody = $('div.g-body'),
+		gbottom = $('div.g-bottom'),
+		ggroup = $('div.g-group'),
+		ghandle = $('div.g-handle'),
+		list_items = $('li.product'), // 商品列表
+		tpl = $('#J_tpl').html(), // 购物车元素模板
+		current_item, // 被拖拽元素
+		substitute = function(str, sub) { // 字符串格式化函数
+			return str.replace(/\{(.+?)\}/g, function($0, $1) {
+				return $1 in sub ? sub[$1] : $0;
+			});
+		},
+		storage_key = 'storage_buy',
+		storage_data = Storage.getItem(storage_key, true) || {};
+	gbottom.bind('click', function(e) { // 购物车底部点击收缩展开
+		var isHide = gbody.attr("data-hide");
+		gbody.attr("data-hide", !isHide ? 1 : null);
+		gbody.animate({
+			top: !isHide ? -3 : -201
+		}, 1000); // 动画展开和收起
+	});
+	gbody.bind('click', function(e) { // 购物车事件委托
+		e.preventDefault(); // 阻止元素默认事件
+		var target = $(e.target);
+		if(target.attr('class') == 'g-itemdel') { // 判断触发元素是否为关闭按钮
+			// 购物车元素渐隐并移除
+			target.closest('div.g-item').animate({
+				opacity: 0
+			}, 500, function() {
+				$(this).remove();
+			});
+			// 恢复对应的商品列表元素渐显出现
+			target.closest('.g-item').data('product').show().animate({
+				opacity: 1
+			}, 500);
+			delete storage_data[target.attr('data-index')]
+			Storage.setItem(storage_key, storage_data, true);
+		};
+	});
+	list_items.bind({ // 绑定商品列表若干事件
+		'mouseenter': function() {
+			$(this).addClass('product-hover');
+		}, // 鼠标移入效果增强
+		'mouseleave': function() {
+			$(this).removeClass('product-hover');
+		}, // 移出效果消失
+		'dragstart': function(e) {
+			var self = $(this);
+			e.originalEvent.dataTransfer.effectAllowed = 'move'; // 设置拖动允许的事件行为
+			self.css('opacity', 0.4).addClass('moving'); // 修改元素样式并添加动画
+			current_item = self; // 记录当前的拖拽元素
+		},
+		'dragleave': function(e) {
+			e.preventDefault();
+		}, // 阻止默认事件触发
+		'dragend': function(e) {
+			$(this).css('opacity', 1).removeClass('moving')
+		} // 拖拽结束元素样式恢复
+	});
+	ghandle.bind({ // 绑定购物车若干事件
+		'dragover': function(e) {
+			e.preventDefault(); // 阻止浏览器元素默认时间
+			e.originalEvent.dataTransfer.dropEffect = 'move'; // 设置拖放移动中的效果
+		},
+		'drop': function(e) { // 商品元素放置购物车
+			var data = { // 获取商品元素信息
+				index: list_items.index(current_item), // 商品列表索引序号
+				path: current_item.find('img').attr('src'), // 图片地址
+				title: current_item.find('h3.product-title a').text(), // 商品描述
+				price: current_item.find('span.ui-price strong').text() // 商品价格
+			};
+			addToCart(data);
+			storage_data[data.index] = data;
+			Storage.setItem(storage_key, storage_data, true);
+		}
+	});
+
+	function addToCart(data) {
+		var item = $(substitute(tpl, data)),
+			shop_item = list_items.eq(data.index);
+		item.data('product', shop_item).css('opacity', 0); // 缓存商品并设置透明
+		shop_item.animate({
+			opacity: 0
+		}, 500, function() {
+			$(this).hide()
+		}); // 商品元素渐隐消失
+		ggroup.prepend(item); // 添加商品到购物车
+		item.animate({
+			opacity: 1
+		}, 500); // 购物车商品渐显
+	};
+	for(var index in storage_data) {
+		addToCart(storage_data[index]);
+	};
+</script>
+</html>

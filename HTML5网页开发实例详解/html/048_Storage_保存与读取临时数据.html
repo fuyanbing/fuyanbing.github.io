@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<style>
+		.phone {
+			/* 模拟平板外宽 */
+			background: url(../images/phone.jpg) no-repeat;
+			background-position: -287px -84px;
+			position: relative;
+			width: 450px;
+			height: 550px;
+			-moz-border-radius: 10px;
+			/* 屏幕圆角效果 */
+			-webkit-border-radius: 10px;
+			border-radius: 10px;
+		}
+		img {
+			width: 59px;
+			height: 60px;
+			cursor: pointer;
+			position: absolute;
+		}
+		.facebook {
+			top: 48px;
+			left: 45px;
+		}
+		/* facebook图标位置 */
+		
+		.contacts {
+			top: 48px;
+			left: 145px;
+		}
+		/* 通讯录图标位置 */
+		
+		.calculator {
+			top: 48px;
+			left: 245px;
+		}
+		/* 计算器图标位置 */
+		
+		.camera {
+			top: 48px;
+			left: 345px;
+		}
+		/* 照相机图标位置 */
+		
+		.pro {
+			top: 165px;
+			left: 45px;
+		}
+		/* 游戏图标位置 */
+		
+		.flashlight {
+			top: 165px;
+			left: 145px;
+		}
+		/* 手电图标位置 */
+		
+		.copiercin {
+			top: 165px;
+			left: 245px;
+		}
+		/* 文章图标位置 */
+		
+		.bossprefs {
+			top: 165px;
+			left: 345px;
+		}
+		/* 开关图标位置 */
+	</style>
+	<title>保存与读取临时数据</title>
+</head>
+<body>
+	<header>
+		<h2>保存与读取临时数据</h2>
+	</header>
+	<section>
+		<div class="phone">
+			<!-- 图标按钮列表 开始 -->
+			<img class="facebook" src="../images/icon/facebook.png" />
+			<img class="contacts" src="../images/icon/contacts.png" />
+			<img class="calculator" src="../images/icon/calculator.png" />
+			<img class="camera" src="../images/icon/camera.png" />
+			<img class="pro" src="../images/icon/pro.png" />
+			<img class="flashlight" src="../images/icon/flashlight.png" />
+			<img class="copiercin" src="../images/icon/copiercin.png" />
+			<img class="bossprefs" src="../images/icon/bossprefs.png" />
+			<!-- 图标按钮列表 结束 -->
+		</div>
+	</section>
+</body>
+<script type="text/javascript">
+	(function () {
+		var slice = Array.prototype.slice,
+			phone = document.querySelector('div.phone'),
+			icons = slice.call(document.querySelectorAll('img'),0),
+			storage_key = 'html5_loal',
+			storage = sessionStorage.getItem(storage_key);
+			console.log(storage);
+			console.log(JSON.parse(storage));
+		storage = storage ? JSON.parse(storage):{};
+		icons.forEach(function (icon) {//循环图标数组
+			var move_start = {};//开始移动的临时存储变量
+			icon.addEventListener('dragstart',function (e) { // 监听图标开始拖动事
+				move_start = {
+					x:e.pageX, // 鼠标当前x轴位置
+					y:e.pageY,// 鼠标当前y轴位置
+					left:icon.offsetLeft,// 相对父元素横轴位置
+					top:icon.offsetTop// 相对父元素纵轴位置
+				};
+			},false);
+			icon.addEventListener('drag',function (e) {// 监听拖动中事件
+				var left = move_start.left + e.pageX -move_start.x,// 计算最终x轴相对位置
+					top = move_start.top + e.pageY -move_start.y,// 计算最终y轴相对位置
+					maxTop = phone.offsetHeight - icon.offsetHeight,
+					maxLeft = phone.offsetWidth - icon.offsetWidth;
+				left = left>maxLeft?maxLeft:(left<0?0:left);
+				top = top>maxTop?maxTop:(top<0?0:top);
+				if(e.pageX && e.pageY){
+					icon.style.left = left+'px';
+					icon.style.top = top + 'px';
+					storage[icon.className] = {left:left,top:top};
+					/*console.log(storage);
+					console.log(JSON.stringify(storage));*/
+					
+					sessionStorage.setItem(storage_key,JSON.stringify(storage));
+					
+				};
+			},false)
+		});
+		for (var key in storage) {
+			var icon = document.querySelector('img.' + key);
+				icon.style.left = storage[key].left + 'px';
+				icon.style.top = storage[key].top + 'px';
+		}
+	})();
+</script>
+</html>

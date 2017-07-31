@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+	<meta charset="UTF-8"/>
+<title>{{title}}</title>
+<head>
+    <link href="stylesheets/impress-demo.css" rel="stylesheet" />
+</head>
+<body class="impress-not-supported">
+<div class="fallback-message">
+    <p>您的浏览器 <b>不支持</b>impress.js所需的功能, 所以提供您简化版本的演示文稿。</p>
+    <p>为了获得最佳体验，请使用最新的 <b>Chrome</b>, <b>Safari</b> or <b>Firefox</b> 浏览器.</p>
+</div>
+<div id="impress">
+    <div id="bored" class="step slide" data-x="-1000" data-y="-1500">
+        <q><b>余姚</b>位于东经 120 至 121 度 , 北纬 29 度至 30 度。地处美丽富庶的长江三角洲南翼 , 东与宁波市江北区、鄞州区相邻 , 南枕四明山, 与奉化、嵊州接壤 , 西连上虞市 , 北毗慈溪市 , 西北于钱塘江、杭州湾中心线与海盐县交界。</q>
+    </div>
+    <div class="step slide" data-x="0" data-y="-1500">
+        <q>距宁波国际机场和大型港口宁波北仑港仅半小时和 <strong>40分钟</strong>车程 , 至杭州萧山国际机场只有 <strong>1小时</strong>车程 , 经沪杭甬高速公路去上海也只需 2 个半小时，经杭州湾跨海大桥到上海仅需1小时，余姚已纳入上海“二小时交通圈”。</q>
+    </div>
+
+    <div class="step slide" data-x="1000" data-y="-1500">
+        <q>主要河流姚江，源于境内四明山夏家岭，自西向东流经中部 ，汇入宁波市甬江出海，全长109 公里，境内流长 <strong>54 公里</strong>，支流<strong> 30 余条</strong>，纵横交错，织成水网，并有众多湖塘水库。牟山区溪流众多，水力资源较为丰富。</q>
+    </div>
+    <div id="title" class="step" data-x="0" data-y="0" data-scale="4">
+        <span class="try">余姚历史悠久</span>
+        <h1>早在7000<sup></sup></h1>
+        <span class="footnote"><sup>年前就有</sup> 人类定居</span>
+    </div>
+    <div id="its" class="step" data-x="850" data-y="3000" data-rotate="90" data-scale="5">
+        <p>余姚市位于<strong>中国宁绍平原</strong>，<br/>东与宁波江北区相邻，与嵊州市接壤，西连上虞市，北毗慈溪市，西北于钱塘江、杭州湾中心线与海盐县交界。</p>
+    </div>
+    <div id="big" class="step" data-x="3500" data-y="2100" data-rotate="180" data-scale="6">
+        <p><b>余姚</b>市辖6个街道、14个镇、1个乡，总人口约<span class="thoughts">120万</span></p>
+    </div>
+    <div id="tiny" class="step" data-x="2825" data-y="2325" data-z="-3000" data-rotate="300" data-scale="1">
+        <p>余姚经济发达，环境优美，既是全国十强县之一，又是最具<b>幸福感</b> 城市。</p>
+    </div>
+    <div id="ing" class="step" data-x="3500" data-y="-850" data-rotate="270" data-scale="6">
+        <p>2011年<b class="positioning">第六届</b>全球人居环境表彰活动在<b class="rotating">联合国总部</b>举行，余姚市与全球其他三座城市一起，喜摘<b class="scaling">“全球绿色城市”</b>桂冠。</p>
+    </div>
+    <div id="imagination" class="step" data-x="6700" data-y="-300" data-scale="6">
+        <p>联合国助理秘书长<b>阿瓦尼·贝楠</b>博士为<b class="imagination">余姚市</b>颁奖。</p>
+    </div>
+    <div id="source" class="step" data-x="6300" data-y="2000" data-rotate="20" data-scale="4">
+        <p>受第23号强台风“菲特”影响，浙江余姚暴雨肆虐，降雨量打破1962年有气象记录以来极值。</p>
+    </div>
+    <div id="one-more-thing" class="step" data-x="6000" data-y="4000" data-scale="2">
+        <p>适逢天文大潮，姚江水位超新中国成立以来最高记录。</p>
+    </div>
+    <div id="its-in-3d" class="step" data-x="6200" data-y="4300" data-z="-100" data-rotate-x="-40" data-rotate-y="10" data-scale="2">
+        <p><span class="have">城区交通</span> <span class="you">全面瘫痪</span> <span class="noticed">70%以上地区</span> <span class="its">受淹</span> <span class="in">乡镇</span> <b>断<sup>电</sup></b>缺</p>
+        <span class="footnote">粮.</span>
+    </div>
+    <div id="overview" class="step" data-x="3000" data-y="1500" data-scale="10">
+    </div>
+
+</div>
+<div class="hint">
+    <p>使用空格键或箭头键导航</p>
+</div>
+<script>
+if ("ontouchstart" in document.documentElement) { 
+    document.querySelector(".hint").innerHTML = "<p>点击向左或向右浏览</p>";
+}
+</script>
+<script src="javascripts/impress.js"></script>
+<script>
+    var app = impress();
+    app.init();
+</script>
+
+<script src="socket.io/socket.io.js"></script>
+<script>
+    var socket = io.connect(location.origin);
+    socket.on('direction', function (data) {
+        var method = app[data.method];
+        method && method();
+    });
+</script>
+</body>
+</html>

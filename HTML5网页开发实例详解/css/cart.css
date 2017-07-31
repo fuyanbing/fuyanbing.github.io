@@ -1,0 +1,82 @@
+﻿body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, form, fieldset, legend, button, input, textarea, th, td {
+    margin: 0;
+    padding: 0;
+}
+a:link, a:hover, a:active, a:visited { text-decoration: none; }
+body {
+    font: 12px/1.5 'Lucida Grande',tahoma,arial,\5b8b\4f53;
+    padding:10px;
+}
+ul,li{ list-style: none;}
+/* 商品列表样式区 */
+.product-list{
+    white-space: normal;
+    overflow: hidden;
+    width: 240px;
+    -webkit-box-shadow: 0 0 3px rgba(0,0,0,0.2);
+    box-shadow: 0 0 3px rgba(0,0,0,0.2);
+    padding:0;
+    background-color: #f2f2f2;
+}
+.product-list .product{
+    float: left;
+    width: 120px;
+    color: #999;
+    overflow: hidden;
+        -webkit-transition: -webkit-transform 0.2s ease-out;
+    -moz-transition: -moz-transform 0.2s ease-out;
+    -o-transition: -o-transform 0.2s ease-out;
+    -ms-transition: -ms-transform 0.2s ease-out;
+    transition: transform 0.2s ease-out;
+}
+.product-hover .info {
+    background:  #4285F4;
+    border-radius: 5px;                        /* 圆角 */
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    cursor:pointer;
+}
+.product-list .info{
+    height: 155px;
+    padding: 10px 10px 0;
+}
+.product-list img{
+    height: 100px;
+    width: 100px;
+    margin: 0 auto 5px;
+    cursor: pointer;
+    border-radius: 5px;                        /* 圆角 */
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+.product-price{
+    position: relative;
+    height: 20px;
+    line-height: 20px;
+    overflow: hidden;
+}
+.ui-price{
+    font-weight: bold;
+    font-size: 14px;
+    color: #c00;
+    font-family: 'arial','verdana',sans-serif;
+}
+.product-title{
+    padding: 4px 0 0;
+    overflow: hidden;
+    word-break: break-all;
+    line-height: 18px;
+}
+.product-title a {
+    font-size: 12px;
+    font-weight: 400;
+    color: #666;
+}
+.product-sum {
+    margin: 5px 0;
+    height: 17px;
+    overflow: hidden;
+}
+.product-sum strong {
+    color: #CEAA00;
+}

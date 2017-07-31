@@ -1,0 +1,170 @@
+﻿<!doctype html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="../css/jquery-ui-1.9.2.custom.css" />
+	<link rel="stylesheet" type="text/css" href="../css/grid.css" />
+	<script src="../js/jquery-1.8.3.js"></script>
+	<script src="../js/jquery-ui-1.9.2.custom.js"></script>
+	<script src="../js/localstorage.js"></script>
+	<script src="../js/localstorage-expire.js"></script>
+	<style>
+		input[type="range"] {
+			width: 100px;
+		}
+	</style>
+<meta charset="utf-8">
+</head>
+<body>
+	<header>
+		<h2>删除本地缓存</h2>
+	</header>
+	<div class="grid">
+		<div class="window_search">
+			<div class="window_tools">
+				<div class="tDiv2">
+					<div class="fbutton">
+						<div>
+							<span class="add">添加</span>
+						</div>
+					</div>
+					<div class="btnseparator"></div>
+					<div class="fbutton">
+						<div>
+							<span class="refresh">刷新</span>
+						</div>
+					</div>
+					<div class="btnseparator"></div>
+				</div>
+			</div>
+		</div>
+		<div class="window_grid">
+			<table class="data tablesorter">
+				<thead>
+					<tr class="tablesorter-header">
+						<th class="tablesorter-header">
+							<div class="tablesorter-header-inner">键</div>
+						</th>
+						<th class="tablesorter-header">
+							<div class="tablesorter-header-inner">值</div>
+						</th>
+						<th class="tablesorter-header">
+							<div class="tablesorter-header-inner">过期时间</div>
+						</th>
+						<th class="tablesorter-header">
+							<div class="tablesorter-header-inner">操作</div>
+						</th>
+					</tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+		</div>
+	</div>
+	<script id="J_item" type="text/x-html5-tmpl">
+		<tr class="zebra">
+			<td>{key}</td>
+			<td>{value}</td>
+			<td>{expire}</td>
+			<td>
+				<a href="#" class="del" data-key="{key}">删除</a>
+			</td>
+		</tr>
+	</script>
+	<script id="J_form" type="text/x-html5-tmpl">
+		<table>
+			<tr>
+				<td>键：</td>
+				<td>
+					<input class="key" />
+				</td>
+			</tr>
+			<tr>
+				<td>值：</td>
+				<td>
+					<input class="value" />
+				</td>
+			</tr>
+			<tr>
+				<td>时间：</td>
+				<td>
+					<input type="range" class="expire" min="1" max="10" value="1" />
+					<span class="expire">1</span>秒后过期</td>
+			</tr>
+		</table>
+	</script>
+</body>
+<script>
+	var DB_EXPIRE_NAME = 'html5-storage-local-expire',
+		item_tpl = $('#J_item').html(), // 列表单个元素模板
+		substitute = function(str, sub) { // 字符串格式化函数
+			return str.replace(/\{(.+?)\}/g, function($0, $1) {
+				return $1 in sub ? sub[$1] : $0;
+			});
+		},
+		tbody = $('table.data tbody'),
+		refresh = $('span.refresh');
+	$('span.add').on('click', function(e) { // 添加操作按钮事件
+		var wraper = $($('#J_form').html()); // 新建添加弹层
+		$(document.body).append(wraper); // 注意页面结构
+		wraper.dialog({
+			position: 'center',
+			title: '添加',
+			modal: true,
+			buttons: [{
+				text: "确认",
+				click: function() {
+					var key = wraper.find('input.key').val(), // 姓名值
+						value = wraper.find('input.value').val(), // 性别值
+						expire = wraper.find('input.expire').val(); // 年龄值
+					if(key.length && value.length && expire.length) {
+						var t = new Date();
+						t.setSeconds(t.getSeconds() + parseInt(expire));
+						Storage.setItem(key, value, false, t.getFullYear() + '/' + (t.getMonth() + 1) + '/' + t.getDate() + ' ' + t.getHours() + ':' + t.getMinutes() + ':' + t.getSeconds());
+						refresh.trigger('click');
+						$(this).dialog("close"); // 关闭弹出
+					} else {
+						alert('请正确填写所有填写内容');
+					};
+				}
+			}, {
+				text: "取消",
+				click: function() {
+					$(this).dialog("close");
+				} // 关闭按钮事件
+			}]
+		});
+		wraper.dialog('open'); // 打开弹出框
+		wraper.find('input.expire').bind('change', function() {
+			wraper.find('span.expire').html(this.value);
+		});
+	});
+	refresh.on('click', function(e) {
+		var length = localStorage.length,
+			htmls = [],
+			expire_data = Storage.getItem(DB_EXPIRE_NAME, true);
+		for(var i = 0; i < length; i++) {
+			var key = localStorage.key(i),
+				value;
+			if(key != DB_EXPIRE_NAME) {
+				value = Storage.getItem(key);
+				if(typeof value != 'undefined' && value !== null) {
+					htmls.push(substitute(item_tpl, {
+						key: key,
+						value: value,
+						expire: expire_data[key] || ''
+					}));
+				};
+			};
+		};
+		tbody.html(htmls.join(''));
+	});
+	tbody.on('click', function(e) { // 监听列表单击事件
+		var target = $(e.target);
+		if(target.hasClass('del')) { // 目标元素为删除按钮
+			e.preventDefault(); // 阻止a元素默认事件
+			Storage.removeItem(target.attr('data-key'));
+			refresh.trigger('click');
+		};
+	});
+	refresh.trigger('click');
+</script>
+</html>

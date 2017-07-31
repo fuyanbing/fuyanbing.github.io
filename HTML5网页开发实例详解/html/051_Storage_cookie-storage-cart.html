@@ -1,0 +1,92 @@
+﻿<!doctype html>
+<html>
+<head>
+<style>
+header h2{ float:left;} header button{ float:right; }
+</style>
+<link rel="stylesheet" href="../css/cart.css" type="text/css" />
+<script src="../js/jquery-1.8.3.js"></script>
+</head>
+<body>
+    <header><h2>购物车</h2><button>购买</button></header>
+     <ul class="product-list">
+        <li class="product">
+            <div class="info">
+                <div class="img"><img src="../images/product/枸杞.jpg" /></div>
+                <p class="product-price">
+                    <span class="ui-price">
+                        <span class="price-icon">¥</span><strong>98</strong>
+                    </span>
+                </p>
+                <h3 class="product-title"><a href="#">宁夏特级枸杞子</a></h3>
+            </div>
+        </li>
+        <li class="product">
+            <div class="info">
+                <div class="img"><img src="../images/product/罗汉果.jpg" /></div>
+                <p class="product-price">
+                    <span class="ui-price">
+                        <span class="price-icon">¥</span><strong>74</strong>
+                    </span>
+                </p>
+                <h3 class="product-title"><a href="#">广西特大罗汉果</a></h3>
+            </div>
+        </li>
+    </ul>
+</body>
+<script>
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]); return null;
+    };
+    function getCookie(sName) {
+         var sRE= "(?:;.)?" + sName + "=([^;]*);?";
+         var oRE= new RegExp(sRE);
+         if (oRE.test(document.cookie)) {
+               return decodeURIComponent(RegExp["$1"]);
+        } else {
+               return null;
+        }
+    };
+    function setCookie(name, value) {
+        document.cookie = name + "=" + encodeURIComponent(value) +  "; path=/";
+    };
+    var type = getQueryString('type'),
+        list_items = $('li.product'),
+        btn_buy = $('button'),
+        cache_key = 'select_index';
+    list_items.bind({                                                               // 绑定商品列表若干事件
+        'mouseenter': function () { $(this).addClass('product-hover'); },           // 鼠标移入效果增强
+        'mouseleave': function () {
+            var self = $(this), checked = self.attr('checked');
+            if (!checked) self.removeClass('product-hover');
+        },        // 移出效果消失
+        'click': function () {
+            list_items.removeClass('product-hover').removeAttr('checked');
+            $(this).addClass('product-hover').attr('checked', true);
+            var index = list_items.index(this);
+            if (type == 'cookie') setCookie(cache_key, index);
+            else if (type == 'storage') sessionStorage.setItem(cache_key, index);
+        }
+    });
+    btn_buy.bind('click', function (e) {
+        e.preventDefault();
+        var current_select_index,
+            select_item;
+        if (type == 'cookie') {
+            current_select_index = getCookie(cache_key);
+        } else if (type == 'storage') {
+            current_select_index = sessionStorage.getItem(cache_key);
+        };
+        if (current_select_index != null) {
+            select_item = list_items.eq(current_select_index);
+            select_item.trigger('click');
+            if (!e.isTrigger) {
+                alert(select_item.find('a').html() + ',' + select_item.find('strong').html());
+            };
+        };
+    });
+    btn_buy.trigger('click');
+</script>
+</html>

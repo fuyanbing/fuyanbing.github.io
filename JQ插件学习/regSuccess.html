@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<script src="js/jquery-1.9.1.js" type="text/javascript" charset="utf-8"></script>
+	<title>注册成功</title>
+	<script type="text/javascript">
+		$(function () {
+			$('.qq').click(function () {
+				$(this).toggleClass('click02')
+			})
+		})
+	</script>
+	<style type="text/css">
+		* {
+			padding: 0;
+			margin: 0;
+			font-family: "微软雅黑";
+		}
+		a {
+			color: #3b3b3b;
+			text-decoration: none;
+		}
+		a:hover {
+			color: #19AFE9 !important;
+			text-decoration: underline !important;
+		}
+		.bg {
+			background-color: #f0f0f0;
+		}
+		.header {
+			height: 79px;
+			width: 70%;
+			margin: 0 auto;
+			overflow: hidden;
+			font-size: 18px;
+			line-height: 88px;
+		}
+		.header img {
+			vertical-align: middle;
+			float: left;
+			margin-right: 20px;
+		}
+		.registerHead {
+			font-size: 14px;
+			float: right;
+			color: #6c6c6c;
+		}
+		.registerHead a {
+			font-size: 16px;
+		}
+		.s_box{
+			background-color: #edfed0;
+			border: 1px solid #ebe9de;
+			margin: 28px auto;
+			width: 65%;
+			overflow: hidden;
+			padding:10px 15px;
+		}
+		.cuccess{
+			margin-right: 10px;
+			float: left;
+		}
+		.img02 a{
+			color: #3274C1;
+		}
+		.qq span{
+			display: inline-block;
+			position: relative;
+			top: 3px;
+			width: 18px;
+			height: 18px;
+		}
+		.click01{
+			background-repeat: no-repeat;
+			background-position: center;
+			background-image: url(img/qq0.png);
+		}
+		.click02{
+			background-repeat: no-repeat;
+			background-position: center;
+			background-image: url(img/qq1.png);
+		}
+	</style>
+</head>
+<body>
+	<div class="bg">
+		<header class="header">
+			<a href="index.html">
+				<img src="img/headLogo.png" /> </a> 欢迎注册
+			<div class="registerHead"> 已有账号？
+				<a href="index.html">请登录</a>
+			</div>
+		</header>
+	</div>
+	<div class="s_box">
+		<div class="cuccess img01">
+			<img src="img/success.png" />
+		</div>
+		<div class="cuccess img02">
+			注册成功，请点击&nbsp;<a class="qq click01" href="#"><span></span></a>&nbsp;进行激活，无需加好友，即可聊天。
+			<br />
+			<a href="index.html">点击登录</a>
+		</div>
+		<div style="clear: both;"></div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>做一个自己的在线音频播放器</title>
+	<style type="text/css">
+		body {
+			text-align: center;
+			margin: 0 auto;
+			max-width: 370px;
+			padding: 0 10px;
+			box-sizing: border-box;
+		}
+		.box {
+			border: 1px solid #464646;
+			border-radius: 3px;
+			padding: 20px;
+			background: -moz-linear-gradient(top, rgb(53, 111, 143), #f6f6f8);
+			background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgb(53, 111, 143)), to(#f6f6f8));
+		}
+		.list {
+			height: 150px;
+			font-size: 15px;
+			border: 1px solid #464646;
+			border-radius: 3px;
+			background-color: #F5F6F9;
+			margin-bottom: 10px;
+		}
+		ul, li {
+			list-style: none;
+		}
+		ul {
+			padding: 5px;
+		}
+		li {
+			cursor: pointer;
+			margin-bottom: 5px;
+			padding: 2px 7px 2px 25px;
+			line-height: 20px;
+			border-radius: 3px;
+		}
+		li:hover {
+			background-color: #e3e3e3;
+		}
+		
+		.run {
+			background-color: #4BA9E6 !important;
+			background: url(../images/running.gif) no-repeat;
+			background-position: 4px 3px;
+		}
+		
+	</style>
+</head>
+<body>
+	<header>
+		<h2>做一个自己的在线音频播放器</h2>
+	</header>
+	<div class="box">
+		<div class="list">
+			<!-- 播放列表 -->
+			<ul>
+				<li class="run">Kalimba.mp3</li>
+				<li>MaidWithTheFlaxenHair.mp3</li>
+				<li>LightMusic.mp3</li>
+			</ul>
+		</div>
+		<div>
+			<!-- 播放器 -->
+			<audio src="../res/Kalimba.mp3" controls> 非常抱歉，您的浏览器不支持audio标签。 </audio>
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+	var slice = Array.prototype.slice,
+		audio = document.querySelector('audio'),//获取音频播放元素
+		//将音频播放元素列表转化为数组
+		items = slice.call(document.querySelectorAll('.list li'),0),
+		run;
+	items.forEach(function (item) {
+		item.addEventListener('click',function () {
+			run = document.querySelector('li.run');
+			run.className='';
+			item.className='run';
+			// 替换audio的地址为当前点击音频地址
+            audio.src = audio.src.replace(run.innerHTML, item.innerHTML);
+		})
+	})
+</script>
+</html>

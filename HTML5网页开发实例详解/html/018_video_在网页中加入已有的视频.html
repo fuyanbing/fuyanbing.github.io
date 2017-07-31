@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>在网页中加入已有的视频</title>
+	<style type="text/css">
+		body{
+			text-align: center;
+			margin: 0 auto;
+			max-width: 370px;
+			padding: 0 10px;
+			box-sizing: border-box;
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<h2>在网页中加入已有的视频</h2>
+	</header>
+	<video width="100%" height="240" controls="controls" preload="metadata" poster="../res/BigBuck.png">
+		<!--//	preload="metadata"指示当页面加载后仅加载音频/视频的元数据。-->
+		<source src="../res/BigBuck.m4v"></source>
+		<source src="../res/BigBuck.ogv" type="video/ogg"></source>
+		<source src="../res/BigBuck.webm" type="video/webm"></source>
+		当前浏览器不支持 video直接播放，点击这里下载视频：
+	</video>
+</body>
+</html>
