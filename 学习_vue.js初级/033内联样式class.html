@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+	<title>接下来我们看看使用了计算属性的实例：</title>
+</head>
+<style type="text/css">
+</style>
+<body>
+	<div id="app">
+		<div v-bind:style="{color:activeColor,fontSize:fontSize + 'px'}">菜鸟教程</div>
+	</div>
+	<script>
+		var vm = new Vue({
+			el: '#app',
+			data: {
+				activeColor: 'green',
+				fontSize: 30
+			}
+		})
+	</script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Vue深入学习</title>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+	<div id="box">
+		{{json | json}} <!--json过滤器  [Object] -> {} -->
+		<br />
+		{{b}}
+	</div>
+	<script>
+		var vm = new Vue({
+			data: {
+				json:{name:'aaa',age:16},
+				b:2
+			}
+		}).$mount('#box');
+		
+		vm.$watch('json',function () {
+			alert('发生变化了');
+		},{
+			deep:true /*深度监听 针对JSON*/
+		});
+		document.onclick = function () {
+			vm.json.name = 'bbb';
+		}
+	</script>
+</body>
+</html>

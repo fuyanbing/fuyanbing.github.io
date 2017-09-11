@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+	<title>接下来我们看看使用了计算属性的实例：</title>
+</head>
+<style type="text/css">
+
+</style>
+<body>
+	<div id="app">
+		<h3>prop 是父组件用来传递数据的一个自定义属性。<br />
+父组件的数据需要通过 props 把数据传给子组件，子组件需要显式地用 props 选项声明 "prop"：</h3>
+		<child message="hello!"></child>
+		<child message="hello!"></child>
+	</div>
+	<script>
+		//注册
+		Vue.component('child',{
+			//声明 prop
+			props:['message'],
+			//同样也可以在vm实例中像“this.message”这样使用
+			template:'<span>{{message}}</span>'
+		})
+		//创建根实例
+		new Vue({
+			el:'#app'
+		})
+	</script>
+</body>
+</html>

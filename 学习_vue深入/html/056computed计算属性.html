@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Vue深入学习</title>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+	<div id="box">
+		a => {{a}}
+		<br />
+		b => {{b}}
+	</div>
+	<script>
+		var vm = new Vue({
+			el:"#box",
+			data:{
+				a:1
+			},
+			computed:{
+				b:{
+					get:function () {
+						return this.a + 3;
+					},
+					set:function (val) {
+						this.a=val;
+					}
+				}
+			}
+		});
+		document.onclick=function () {
+			vm.a=100;
+		}
+		document.ondblclick=function () {
+			vm.b=10;
+		}
+	</script>
+</body>
+</html>

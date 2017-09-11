@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<title>Vue 测试实例 - 菜鸟教程</title>
+</head>
+<body>
+	<div id="app">
+		<div v-html="message"></div>
+	</div>
+	<script>
+		new Vue({
+			el: '#app',
+			data: {
+				message: '<h1>菜鸟教程</h1>'
+			}
+		})
+	</script>
+</body>
+</html>

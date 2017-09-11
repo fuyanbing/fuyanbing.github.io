@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<title></title>
+	<style type="text/css">
+
+	</style>
+	<script>
+		window.onload = function() {
+			new Vue({
+				el: '#box',
+				data: {},
+				methods: {
+					show: function(ev) {
+						alert(ev.keyCode);
+					}
+				}
+			})
+		}
+	</script>
+</head>
+<body>
+	<div id="box">
+		<input type="button" value="按钮" @keyup="show($event)" />
+	</div>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+	<title>接下来我们看看使用了计算属性的实例：</title>
+</head>
+<style type="text/css">
+	.active {
+		width: 100px;
+		height: 100px;
+		background: green;
+	}
+	.text-danger {
+		background: red;
+	}
+</style>
+<body>
+	<div id="app">
+		<div v-bind:class="[activeClass,errorClass]"></div>
+	</div>
+	<script>
+		var vm = new Vue({
+			el: '#app',
+			data: {
+				activeClass : 'active',
+				errorClass:'text-danger'
+			}
+		})
+	</script>
+</body>
+</html>

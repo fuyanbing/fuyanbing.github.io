@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+	<title>接下来我们看看使用了计算属性的实例：</title>
+</head>
+<style type="text/css">
+
+</style>
+<body>
+	<div id="app">
+		<h3>类似于用 v-bind 绑定 HTML 特性到一个表达式，也可以用 v-bind 动态绑定 props 的值到父组件的数据中。每当父组件的数据变化时，该变化也会传导给子组件：</h3>
+		<ol>
+			<todo-item v-for='item in sites' v-bind:todo="item"></todo-item>
+		</ol>
+	</div>
+	<script>
+		Vue.component('todo-item',{
+			props:['todo'],
+			template:'<li>{{ todo.text }}</li>'
+		})
+		new Vue({
+			el:'#app',
+			data:{
+				sites:[
+					{text:"Runoob"},
+					{text:"Google"},
+					{text:"Taobao"}
+				]
+			}
+		})
+	</script>
+	<div style="color: red;">注意: prop 是单向绑定的：当父组件的属性变化时，将传导给子组件，但是不会反过来。</div>
+</body>
+</html>

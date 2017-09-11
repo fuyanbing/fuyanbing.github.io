@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+	<title>接下来我们看看使用了计算属性的实例：</title>
+</head>
+<style type="text/css">
+
+</style>
+<body>
+	<div id="app">
+		<button v-on:click="say('hi')">Say hi</button>
+		<button v-on:click="say('what')">Say what</button>
+	</div>
+	<script>
+		var app = new Vue({
+			el: '#app',
+			methods:{
+				say:function (message) {
+					alert(message)
+				}
+			}
+		})
+	</script>
+</body>
+</html>

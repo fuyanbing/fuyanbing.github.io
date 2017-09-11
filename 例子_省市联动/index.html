@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>模态框 Modal</title>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="css/animate.min.css"/>
+	<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/index.js" type="text/javascript" charset="utf-8"></script>
+	<link rel="stylesheet" type="text/css" href="css/motai.css" /> </head>
+<body>
+	<!-- 按钮触发模态框 -->
+	<button class="btn btn-primary btn-lg ceshi" data-toggle="modal" data-target="#myModal" id="resultText">测试模态框 </button>
+	<!-- 模态框（Modal） -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title cTitle" id="myModalLabel">请选择</h4>
+					<h4 class="modal-title" id="myModalLabel"></h4>
+					<h4 class="modal-title" id="myModalLabel"></h4>
+					<h4 class="modal-title" id="myModalLabel"></h4>
+				</div>
+				<!--prov省份  city市  dist区  village乡村-->
+				<div class="modal-body">
+					<ul class="list-group prov" flag="-1" grade="1">
+						<li class="list-group-item" flag="广东" grade="2">广东</li>
+						<li class="list-group-item" flag="河南" grade="2">河南</li>
+						<li class="list-group-item" flag="北京" grade="-1">北京</li>
+						<li class="list-group-item" flag="上海" grade="-1">上海</li>
+						<li class="list-group-item" flag="天津" grade="-1">天津</li>
+						<li class="list-group-item" flag="重庆" grade="-1">重庆</li>
+					</ul>
+					<ul class="list-group city" flag="广东" grade="2">
+						<li class="list-group-item" flag="广州市" grade="3">广州市</li>
+						<li class="list-group-item" flag="深圳市" grade="3">深圳市</li>
+						<li class="list-group-item" flag="珠海市" grade="3">珠海市</li>
+						<li class="list-group-item" flag="汕头市" grade="3">汕头市</li>
+						<li class="list-group-item" flag="韶关市" grade="3">韶关市</li>
+						<li class="list-group-item" flag="河源市" grade="3">河源市</li>
+						<li class="list-group-item" flag="梅州市" grade="3">梅州市</li>
+						<li class="list-group-item" flag="惠州市" grade="3">惠州市</li>
+						<li class="list-group-item" flag="汕尾市" grade="3">汕尾市</li>
+						<li class="list-group-item" flag="东莞市" grade="3">东莞市</li>
+					</ul>
+					<ul class="list-group city" flag="河南" grade="2">
+						<li class="list-group-item" flag="郑州市" grade="3">郑州市</li>
+						<li class="list-group-item" flag="商丘市" grade="3">商丘市</li>
+						<li class="list-group-item" flag="周口市" grade="3">周口市</li>
+						<li class="list-group-item" flag="驻马店市" grade="3">驻马店市</li>
+						<li class="list-group-item" flag="信阳市" grade="3">信阳市</li>
+						<li class="list-group-item" flag="开封市" grade="3">开封市</li>
+						<li class="list-group-item" flag="洛阳市" grade="3">洛阳市</li>
+						<li class="list-group-item" flag="平顶山市" grade="3">平顶山市</li>
+						<li class="list-group-item" flag="焦作市" grade="3">焦作市</li>
+						<li class="list-group-item" flag="鹤壁市" grade="3">鹤壁市</li>
+					</ul>
+					<ul class="list-group dist" flag="广州市" grade="3">
+						<li class="list-group-item" flag="天河区" grade="4">天河区</li>
+						<li class="list-group-item" flag="海珠区" grade="4">海珠区</li>
+						<li class="list-group-item" flag="荔湾区" grade="4">荔湾区</li>
+						<li class="list-group-item" flag="越秀区" grade="4">越秀区</li>
+						<li class="list-group-item" flag="番禺区" grade="4">番禺区</li>
+						<li class="list-group-item" flag="花都区" grade="4">花都区</li>
+						<li class="list-group-item" flag="白云区" grade="4">白云区</li>
+						<li class="list-group-item" flag="南沙区" grade="4">南沙区</li>
+						<li class="list-group-item" flag="黄埔区" grade="4">黄埔区</li>
+						<li class="list-group-item" flag="增城区" grade="4">增城区</li>
+						<li class="list-group-item" flag="从化区" grade="4">从化区</li>
+					</ul>
+					<ul class="list-group dist" flag="郑州市" grade="3">
+						<li class="list-group-item" flag="二七区" grade="4">二七区</li>
+						<li class="list-group-item" flag="中原区" grade="4">中原区</li>
+						<li class="list-group-item" flag="郑东新区" grade="4">郑东新区</li>
+						<li class="list-group-item" flag="管城区" grade="4">管城区</li>
+						<li class="list-group-item" flag="金水区" grade="4">金水区</li>
+						<li class="list-group-item" flag="经济开发区" grade="4">经济开发区</li>
+						<li class="list-group-item" flag="高新技术开发区" grade="4">高新技术开发区</li>
+						<li class="list-group-item" flag="新郑市" grade="4">新郑市</li>
+					</ul>
+					<ul class="list-group village" flag="天河区" grade="4">
+						<li class="list-group-item" flag="天河县01" grade="-1">天河县01</li>
+						<li class="list-group-item" flag="天河县02" grade="-1">天河县02</li>
+						<li class="list-group-item" flag="天河县03" grade="-1">天河县03</li>
+						<li class="list-group-item" flag="天河县04" grade="-1">天河县04</li>
+						<li class="list-group-item" flag="天河县05" grade="-1">天河县05</li>
+						<li class="list-group-item" flag="天河县06" grade="-1">天河县06</li>
+						<li class="list-group-item" flag="天河县07" grade="-1">天河县07</li>
+						<li class="list-group-item" flag="天河县08" grade="-1">天河县08</li>
+						<li class="list-group-item" flag="天河县09" grade="-1">天河县09</li>
+						<li class="list-group-item" flag="天河县10" grade="-1">天河县10</li>
+						<li class="list-group-item" flag="天河县11" grade="-1">天河县11</li>
+						<li class="list-group-item" flag="天河县12" grade="-1">天河县12</li>
+						<li class="list-group-item" flag="天河县13" grade="-1">天河县13</li>
+						<li class="list-group-item" flag="天河县14" grade="-1">天河县14</li>
+						<li class="list-group-item" flag="天河县15" grade="-1">天河县15</li>
+					</ul>
+					<ul class="list-group village" flag="二七区" grade="4">
+						<li class="list-group-item" flag="城区" grade="-1">城区</li>
+						<li class="list-group-item" flag="马寨镇" grade="-1">马寨镇</li>
+						<li class="list-group-item" flag="侯寨乡" grade="-1">侯寨乡</li>
+					</ul>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+</body>
+</html>

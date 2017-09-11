@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+	<title>v-for 可以通过一个对象的属性来迭代数据：</title>
+</head>
+<style type="text/css">
+
+</style>
+<body>
+	<div id="app">
+		<ol>
+			<li v-for="n in 10">
+				{{n}}
+			</li>
+		</ol>
+	</div>
+	<script>
+		new Vue({
+			el: '#app'
+		})
+	</script>
+</body>
+</html>

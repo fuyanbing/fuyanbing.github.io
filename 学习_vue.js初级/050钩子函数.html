@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+	<title>接下来我们看看使用了计算属性的实例：</title>
+</head>
+<style type="text/css">
+</style>
+<body>
+	<div id="app" v-runoob:hello.a.b="message"></div>
+	<script>
+		Vue.directive('runoob',{
+			bind:function (el,binding,vnode) {
+				var s=JSON.stringify
+				el.innerHTML = 
+					'name:' + s(binding.name) + '<br>' +
+					'value:' + s(binding.value) + '<br>' +
+					'expression:' + s(binding.expression) + '<br>' +
+					'argument:' + s(binding.arg) + '<br>' +
+					'modifiers:' + s(binding.modifiers) + '<br>' +
+					'vnode keys:' + Object.keys(vnode).join(',')
+			}
+		})
+		new Vue({
+			el:'#app',
+			data:{
+				message:'菜鸟教程！'
+			}
+		})
+	</script>
+</body>
+</html>

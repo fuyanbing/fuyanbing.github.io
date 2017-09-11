@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+	<title>接下来我们看看使用了计算属性的实例：</title>
+</head>
+<style type="text/css">
+
+</style>
+<body>
+	<div id="app">
+		<p>原始字符串：{{message}}</p>
+		<p>计算后反转字符串:{{reverseMessage}}</p>
+	</div>
+	<script>
+		new Vue({
+			el: '#app',
+			data:{
+				message:'Runoob!'
+			},
+			computed:{
+				//计算属性的getter
+				reverseMessage:function () {
+					return this.message.split('').reverse().join('')
+				}
+			}
+		})
+	</script>
+</body>
+</html>

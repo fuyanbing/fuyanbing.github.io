@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+	<title>Vue 测试实例 - 菜鸟教程</title>
+</head>
+<style type="text/css">
+	.class1{
+		background: #444444;
+		color: #EEEEEE;
+	}
+</style>
+<body>
+	<div id="app">
+		<label for="r1">修改颜色</label><input type="checkbox"  v-model="class1" id="r1" />
+		<br />
+		<br />
+		<div v-bind:class="{'class1':class1}">
+			directiva v-bind:class
+		</div>
+	</div>
+	<script>
+		new Vue({
+			el: '#app',
+			data: {
+				class1:false
+			}
+		})
+	</script>
+</body>
+</html>

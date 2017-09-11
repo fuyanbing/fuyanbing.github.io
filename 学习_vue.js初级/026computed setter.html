@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+	<title>接下来我们看看使用了计算属性的实例：</title>
+</head>
+<style type="text/css">
+
+</style>
+<body>
+	<div id="app">
+		<h1>computed getter</h1>
+		<h3>computed 属性默认只有 getter ，不过在需要时你也可以提供一个 setter ：</h3>
+		<p>{{site}}</p>
+	</div>
+	<script>
+		var vm = new Vue({
+			el: '#app',
+			data: {
+				name:'Google',
+				url:'http://www.google.com'
+			},
+			computed:{
+				site:{
+					//getter
+					get:function () {
+						return this.name + ' ' + this.url
+					},
+					//setter
+					set:function (newValue) {
+						//console.info(newValue);
+						var names = newValue.split(' ')
+						this.name = names[0]
+						this.url = names[names.length - 1]
+						//console.info(names);
+					}
+				}
+			}
+		})
+		//调用setter vm.name 和vm.url 也会被对应更新
+		vm.site = '菜鸟教程 http://www.runoob.com';
+		document.write('name: ' + vm.name);
+		document.write('<br>');
+		document.write('url: ' + vm.url);
+	</script>
+	
+	<h3>从实例运行结果看在运行 vm.site = '菜鸟教程 http://www.runoob.com'; 时，setter 会被调用， vm.name 和 vm.url 也会被对应更新。</h3>
+</body>
+</html>

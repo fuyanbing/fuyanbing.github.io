@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+	<title>可以用 v-else 指令给 v-if 添加一个 "else" 块：随机生成一个数字，判断是否大于0.5，然后输出对应信息：</title>
+</head>
+<style type="text/css">
+</style>
+<body>
+	<div id="app">
+		<div v-if="Math.random() > 0.5">
+			Sorry
+		</div>
+		<div v-else>
+			Not sorry
+		</div>
+	</div>
+	<script>
+		new Vue({
+			el: '#app'
+		})
+	</script>
+</body>
+</html>

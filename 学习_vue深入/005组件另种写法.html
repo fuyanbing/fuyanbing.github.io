@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Vue深入学习</title>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<style type="text/css">
+	</style>
+</head>
+<body>
+	<div id="box">
+		<my-abc></my-abc>
+	</div>
+	<script>
+		Vue.component('my-abc',{
+			template:'<strong>好</strong>'
+		});
+		var vm=new Vue({
+			el:'#box'
+		})
+	</script>
+</body>
+</html>

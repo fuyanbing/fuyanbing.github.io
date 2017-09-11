@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Hello React!</title>
+	<script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
+	<script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
+	<script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+	<script src="https://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body> 
+<div id="example"></div>
+<script type="text/babel">
+	var UserGist = React.createClass({
+		getInitialState:function () {/*getInitialState 方法用于定义初始状态，也就是一个对象，这个对象可以通过 this.state 属性读取。当用户点击组件，导致状态变化，this.setState 方法就修改状态值，每次修改以后，自动调用 this.render 方法，再次渲染组件。*/
+			return{
+				username:'',
+				lastGistUrl:''
+			}
+		},
+		componentDidMount:function () {/** 在第一次渲染后调用，只在客户端*/
+			this.serverRequest = $.get(this.props.soure,function (result) {
+				var lastGist = result[0];
+				this.setState({
+					username:lastGist.owner.login,
+					lastGistUrl:lastGist.html_url
+				})
+			}.bind(this));
+		},
+		componentWillUnmount:function () {
+			this.serverRequest.abort();
+		},
+		render:function () {
+			return(
+				<div>
+				{this.state.username}用户最新的Gist共享地址:
+				<a href={this.state.lastGistUrl}>{this.state.lastGistUrl}</a>
+				</div>
+			)
+		}
+	})
+	ReactDOM.render(
+		<UserGist source = "https://api.github.com/users/octocat/gists" />,
+		document.getElementById('example')
+	)
+</script>
+
+</body>
+</html>

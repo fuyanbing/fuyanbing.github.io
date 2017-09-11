@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/vue-resource.js" type="text/javascript" charset="utf-8"></script>
+	<title></title>
+	<style type="text/css">
+	</style>
+<script>
+window.onload = function() {
+	new Vue({
+		el: 'body',
+		data: {
+		},
+		methods: {
+			get:function () {/*百度*/
+				this.$http.jsonp('http://tip.soku.com/search_tip_1',				{
+					query:'a'
+				},{
+					jsonp:'jsoncallback'
+				}).then(function (res) {
+					a = res.data.r;
+					var arr=[];
+					for (var n in a) {
+						arr[n]=a[n].w;
+					}
+					console.info(arr.join(","))
+				},function (res) {
+					alert(res.status);
+				})
+			}
+		}
+	})
+}
+</script>
+</head>
+<body>
+<div id="box">
+	<input type="button" value="按钮" @click="get()" />
+</div>
+</body>
+</html>

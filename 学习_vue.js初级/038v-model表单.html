@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+	<title>接下来我们看看使用了计算属性的实例：</title>
+</head>
+<style type="text/css">
+
+</style>
+<body>
+	<div id="app">
+		<h1>v-model 会根据控件类型自动选取正确的方法来更新元素。</h1>
+		<h3>input 和 textarea 元素中使用 v-model 实现双向数据绑定：</h3>
+		<p>input 元素：</p>
+		<input v-model="message" placeholder="编辑我...." />
+		<p>消息是：{{message}}</p>
+		<br />
+		<br />
+		<p>textarea 元素：</p>
+		<p style="white-space: pre;">{{message2}}</p>
+		<textarea v-model="message2" placeholder="多行文本输入......"></textarea>
+	</div>
+	<script>
+		var app = new Vue({
+			el: '#app',
+			data:{
+				message:'Runoob!',
+				message2:'菜鸟教程\r\nhttp://www.runoob.com'
+			}
+		})
+	</script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Vue深入学习</title>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+    <div id="box">
+        <input type="button" value="添加" @click="add">
+        <ul>
+            <li v-for="val in arr" track-by="$index"><!--会有重复数据？	track-by='索引'	提高循环性能-->
+                {{val}}
+            </li>
+        </ul>
+    </div>
+    <script>
+
+        var vm=new Vue({
+            data:{
+                arr:['apple','pear','orange']
+            },
+            methods:{
+                add:function(){
+                    this.arr.push('tomato');
+                }
+            }
+        }).$mount('#box');
+
+    </script>
+</body>
+</html>

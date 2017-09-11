@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Vue深入学习</title>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+	<div id="box">
+		{{a}}<br />
+		{{a | date}}
+         <!--
+         	作者：1204689638@qq.com
+         	时间：2017-09-01
+         	描述：时间一位变成两位
+         -->
+	</div>
+	<script>
+		Vue.filter('date',function (input) {
+			var oDate=new Date(input);
+			return oDate.getFullYear() + '-' 
+			+ ((oDate.getMonth()+1)<10?'0' + (oDate.getMonth()+1):(oDate.getMonth()+1)) + '-' 
+			+ (oDate.getDate()<10?'0'+oDate.getDate():oDate.getDate()) + ' '
+			+ (oDate.getHours()<10?'0'+oDate.getHours():oDate.getHours()) + ':' 
+			+ (oDate.getMinutes()<10?'0'+oDate.getMinutes():oDate.getMinutes())+':'
+			+ (oDate.getSeconds()<10?'0'+oDate.getSeconds():oDate.getSeconds());
+		})
+		var vm = new Vue({
+			data: {
+				a:Date.now()
+			},
+			methods: {}
+		}).$mount('#box');
+	</script>
+</body>
+</html>

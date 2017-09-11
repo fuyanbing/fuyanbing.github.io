@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Vue深入学习</title>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+	<div id="box">
+		{{a}}<br />
+		{{a | toDou 1 2}}
+         <!--
+         	作者：1204689638@qq.com
+         	时间：2017-09-01
+         	描述：时间一位变成两位
+         -->
+	</div>
+	<script>
+		Vue.filter('toDou',function (input,a,b) {
+			alert(a+','+b);
+			return input<10 ? '0'+input : input;
+		})
+		var vm = new Vue({
+			data: {
+				a:5
+			},
+			methods: {}
+		}).$mount('#box');
+	</script>
+</body>
+</html>

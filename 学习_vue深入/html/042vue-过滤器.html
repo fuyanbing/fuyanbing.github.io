@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<title></title>
+	<style type="text/css">
+		.red{
+			color: red;
+		}
+		.blue{
+			background: blue;
+		}
+	</style>
+	<script>
+		window.onload = function() {
+			new Vue({
+				el: '#box',
+				data: {
+				},
+				methods: {
+				}
+			})
+		}
+	</script>
+</head>
+<body>
+<div id="box">
+	{{'welcome'|uppercase}}<!--转化大写-->
+	<br />
+	{{'WELCOME'|lowercase}}<!--转化小写-->
+	<br />
+	{{'welcome'|capitalize}}<!--首字母转化大写-->
+	<br />
+	{{'WELCOME'|lowercase|capitalize}}<!--先转化小写，然后首字母转化大写-->
+	<br />
+	{{12|currency}}<!--货币单位 美元$-->
+	<br />
+	{{12|currency '￥'}}<!--货币单位  传参-->
+</div>
+</body>
+</html>

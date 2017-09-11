@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Vue深入学习</title>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<style type="text/css">
+
+	</style>
+</head>
+<body>
+	<div id="box">
+		<my-abc></my-abc>
+	</div>
+	<script type="x-template" id="abc">
+		<h2 @click="change">标题2 -> {{msg}} </h2>
+		<ul>
+			<li>111111</li>
+			<li>222222</li>
+			<li>333333</li>
+		</ul>
+	</script>
+	<script>
+		var vm = new Vue({
+			el: '#box',
+			components:{
+				'my-abc':{
+					data(){
+						return{
+							msg:'welcome vue'
+						}
+					},
+					methods:{
+						change(){
+							this.msg="changed"
+						}
+					},
+					template:"#abc"
+				}
+			}
+		})
+	</script>
+</body>
+</html>

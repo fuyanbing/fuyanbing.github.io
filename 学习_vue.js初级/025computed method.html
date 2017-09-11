@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+	<title>接下来我们看看使用了计算属性的实例：</title>
+</head>
+<style type="text/css">
+
+</style>
+<body>
+	<div id="app">
+		<h1>computed vs methods</h1>
+		<h3>我们可以使用 methods 来替代 computed，效果上两个都是一样的，但是 computed 是基于它的依赖缓存，只有相关依赖发生改变时才会重新取值。而使用 methods ，在重新渲染的时候，函数总会重新调用执行。<br/>可以说使用 computed 性能会更好，但是如果你不希望缓存，你可以使用 methods 属性。</h3>
+		<p>原始字符串：{{message}}</p>
+		<p>计算后反转字符串:{{reverseMessage}}</p>
+		<p>使用方法后反转字符串:{{reverseMessage2()}}</p>
+	</div>
+	<script>
+		new Vue({
+			el: '#app',
+			data:{
+				message:'Runoob!'
+			},
+			computed:{
+				//计算属性的getter
+				reverseMessage:function () {
+					return this.message.split('').reverse().join('')
+				}
+			},
+			methods:{
+				reverseMessage2:function () {
+					return this.message.split('').reverse().join('')
+				}
+			}
+		})
+	</script>
+</body>
+</html>

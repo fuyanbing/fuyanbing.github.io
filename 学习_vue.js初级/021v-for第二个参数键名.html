@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+	<title>v-for 可以通过一个对象的属性来迭代数据：</title>
+</head>
+<style type="text/css">
+
+</style>
+<body>
+	<div id="app">
+		<ul>
+			<li v-for="(value,key,index) in object">
+				{{index}} . {{key}} : {{value}}
+			</li>
+		</ul>
+	</div>
+	<script>
+		new Vue({
+			el: '#app',
+			data: {
+				object: {
+					name:'菜鸟教程',
+					url:'http://www.runoob.com',
+					slogan:'学的不仅是技术，更是梦想'
+				}
+			}
+		})
+	</script>
+</body>
+</html>

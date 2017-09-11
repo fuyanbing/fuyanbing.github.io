@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Vue深入学习</title>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<style type="text/css">
+		span {
+			display: block;
+			width: 100px;
+			height: 100px;
+			text-align: center;
+			line-height: 100px;
+			font-size: 26px;
+			position: absolute;
+			background-color: yellowgreen;
+			top: 0;
+		}
+		span:last-child{
+			right: 0;
+		}
+	</style>
+</head>
+<body>
+	<div id="box">
+		<span v-drag>1</span>
+		<span v-drag>2</span>
+	</div>
+	<script>
+		Vue.directive('drag',function () {
+			var oDiv = this.el;
+			oDiv.onmousedown = function (ev) {
+				var disX = ev.clientX - oDiv.offsetLeft;
+				var disY = ev.clientY - oDiv.offsetTop;
+				
+				document.onmousemove = function (ev) {
+					var l=ev.clientX - disX;	
+					var t=ev.clientY - disY;
+					oDiv.style.left=l+'px';
+					oDiv.style.top=t+'px';
+				};
+				
+				document.onmouseup=function () {
+					document.onmousemove=null;
+					document.onmouseup=null;
+				}
+			}
+		})
+		var vm = new Vue({
+			data: {
+			}
+		}).$mount('#box');
+	</script>
+</body>
+</html>

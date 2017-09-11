@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+	<title>Vue 测试实例 - 菜鸟教程</title>
+</head>
+<style type="text/css">
+</style>
+<body>
+	<div id="app">
+		{{5+5}}<br />
+		{{ok ? 'YES' : 'NO'}}<br />
+		{{message.split('').reverse().join('')}}<!-- split将字符串分割成字符串数组，reverse倒序排列，join把数组元素放入一个字符串-->
+		<div v-bind:id="'list-' + id">菜鸟教程</div>
+		
+	</div>
+	<script>
+		new Vue({
+			el: '#app',
+			data: {
+				ok:true,
+				message:'RUNOOB',
+				id:1
+			}
+		})
+	</script>
+</body>
+</html>

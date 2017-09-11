@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+	<title>以下实例对输入的字符串第一个字母转为大写</title>
+</head>
+<style type="text/css">
+</style>
+<body>
+	<div id="app">
+		{{ message | capitalize }}
+	</div>
+	<script>
+		new Vue({
+			el: '#app',
+			data: {
+				message:'runoob!'
+			},
+			filters:{
+				capitalize:function (value) {
+					if (!value) return ''
+					value = value.toString()
+					return value.charAt(0).toUpperCase() + value.slice(1)//返回值取第一个字符转化成大写，返回除第一个以外的字符与第一个拼接 返回
+				}
+			}
+		})
+	</script>
+</body>
+</html>

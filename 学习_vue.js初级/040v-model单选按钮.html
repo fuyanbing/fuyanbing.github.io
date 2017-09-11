@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+	<title>接下来我们看看使用了计算属性的实例：</title>
+</head>
+<style type="text/css">
+
+</style>
+<body>
+	<div id="app">
+		<h1>v-model 会根据控件类型自动选取正确的方法来更新元素。</h1>
+		<h3>以下实例中演示了单选按钮的双向数据绑定：</h3>
+		<br />
+		<p>单选按钮</p>
+		<input type="radio" value="Runoob" name="radio" id="runoob" v-model="checkedNames" />
+		<label for="runoob">Runoob</label>
+		<input type="radio" value="Googel" name="radio" id="google" v-model="checkedNames"  />
+		<label for="google">Google</label>
+		<br />
+		<span>选中值为： {{checkedNames}}</span>
+	</div>
+	<script>
+		var app = new Vue({
+			el: '#app',
+			data:{
+				checkedNames:'Runoob'
+			}
+		})
+	</script>
+</body>
+</html>

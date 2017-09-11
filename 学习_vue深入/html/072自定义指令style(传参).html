@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Vue深入学习</title>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+	<div id="box">
+		<span v-red="a">
+			aaaaaaaaaaaaaaa
+		</span>
+	</div>
+	<script>
+		Vue.directive('red',function (color) {
+			this.el.style.background=color
+		})
+		var vm = new Vue({
+			data: {
+				a:'#999'
+			},
+			methods: {}
+		}).$mount('#box');
+	</script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+	<title>v-else 、v-else-if 必须跟在 v-if 或者 v-else-if之后。</title>
+</head>
+<style type="text/css">
+</style>
+<body>
+	<div id="app">
+		<div v-if="type === 'A'">
+			A
+		</div>
+		<div v-else-if="type === 'B'">
+			B
+		</div>
+		<div v-else-if="type === 'C'">
+			C
+		</div>
+		<div v-else>
+			Not A/B/C
+		</div>
+	</div>
+	<script>
+		new Vue({
+			el: '#app',
+			data:{
+				type:'A'
+//				type:''
+			}
+		})
+	</script>
+</body>
+</html>

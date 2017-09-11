@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+	<title>接下来我们看看使用了计算属性的实例：</title>
+</head>
+<style type="text/css">
+</style>
+<body>
+	<div id="app">
+		<div v-runoob="{color:'green',text:'菜鸟教程！'}"></div>
+	</div>
+	<script>
+		Vue.directive('runoob',function (el,binding) {
+			//简写方式设置文本及背景颜色
+			el.innerHTML = binding.value.text
+			el.style.backgroundColor = binding.value.color
+		})
+		new Vue({
+			el:'#app'
+		})
+	</script>
+</body>
+</html>

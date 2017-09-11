@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+	<title>接下来我们看看使用了计算属性的实例：</title>
+</head>
+<style type="text/css">
+	button {
+		padding: 5px 20px;
+	}
+</style>
+<body>
+	<div id="app">
+		<h3>我们也可以在实例使用 directives 选项来注册局部指令，这样指令只能在这个实例中使用：</h3>
+		<p>页面载入时，input元素自动获取焦点：</p>
+		<input v-focus/> </div>
+	<script>
+		new Vue({
+			el: '#app',
+			directives: {
+				focus: {
+					inserted: function(el) {
+						el.focus()
+					}
+				}
+			}
+		})
+	</script>
+</body>
+</html>
