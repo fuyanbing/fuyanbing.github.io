@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<script src="../js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/vue-resource.js" type="text/javascript" charset="utf-8"></script>
+	<title></title>
+	<style type="text/css">
+	</style>
+	<script>
+		window.onload = function() {
+			new Vue({
+				el: '#box',
+				data: {
+				},
+				methods: {
+					get:function () {
+						this.$http.get('lib/aa.txt').then(function (res) {
+							alert(res.data);
+						},function (res) {
+							alert(res.status);
+						})
+					}
+				}
+			})
+		}
+	</script>
+</head>
+<body>
+<div id="box">
+	<input type="button" value="按钮" @click="get()" />
+</div>
+</body>
+</html>

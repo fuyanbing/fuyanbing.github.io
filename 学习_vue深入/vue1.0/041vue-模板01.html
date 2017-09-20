@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<script src="../js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<title></title>
+	<style type="text/css">
+		.red{
+			color: red;
+		}
+		.blue{
+			background: blue;
+		}
+	</style>
+	<script>
+		window.onload = function() {
+			new Vue({
+				el: '#box',
+				data: {
+					msg:'abc'
+				},
+				methods: {
+				}
+			})
+		}
+	</script>
+</head>
+<body>
+<div id="box">
+	<input type="text" v-model="msg" />
+	<br />
+	{{msg}}
+	<br />
+	{{*msg}}<!--/**只更新一次*///-->
+	<br />
+	{{{msg}}}<!--将css代码转化正常状态-->
+</div>
+</body>
+</html>

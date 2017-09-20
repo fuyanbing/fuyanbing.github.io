@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Vue深入学习</title>
+	<script src="../js/vue.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+    <div id="box">
+    	<ul>
+    		<li v-for="val in arr | limitBy 2 arr.length-2">
+    			{{val}}
+    		</li>
+    	</ul>
+    </div>
+    <script>
+
+        var vm=new Vue({
+            data:{
+            	arr:[1,2,3,4,5]
+            },
+            methods:{
+            }
+        }).$mount('#box');
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Vue深入学习</title>
+	<script src="../js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<style type="text/css">
+	</style>
+</head>
+<body>
+	<div id="box">
+		<aaa></aaa>
+	</div>
+	<script>
+		var Aaa=Vue.extend({
+			data(){
+				return{
+					msg:'我是自定义元素aaa ^_^'
+				}
+			},
+			methods:{
+				change(){
+					this.msg='changed'
+				}
+			},
+			template:"<h3 @click='change'>{{msg}}</h3>"
+		});
+		
+		Vue.component('aaa',Aaa);
+		
+		var vm=new Vue({
+			el:'#box',
+			data:{
+			}
+		})
+	</script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Vue深入学习</title>
+	<script src="../js/vue.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+	<div id="box">
+		<span v-text="a"></span>
+	</div>
+	<script>
+		var vm = new Vue({
+			data:{
+				a:1,
+				b:2
+			}
+		}).$mount('#box');/*手动挂在vue程序*/
+		console.log(vm.$log());/*查看现在数据的状态*/
+	</script>
+</body>
+</html>

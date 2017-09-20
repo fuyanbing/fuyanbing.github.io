@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Vue深入学习</title>
+	<script src="../js/vue.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+	<div id="box">
+		{{a}}
+	</div>
+	<script>
+		var vm = new Vue({
+			el:"#box",
+			data:{
+				a:1
+			}
+		});
+		console.log(vm.$el);/*就是元素*/
+		vm.$el.style.background='red';
+	</script>
+</body>
+</html>

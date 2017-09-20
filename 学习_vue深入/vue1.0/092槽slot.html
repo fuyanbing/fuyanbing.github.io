@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Vue深入学习</title>
+	<script src="../js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<style type="text/css">
+
+	</style>
+</head>
+<body>
+	<div id="box">
+		<aaa>
+			<ul slot="a-slot">
+				<li>1</li>
+				<li>2</li>
+				<li>3</li>
+				<li>4</li>
+			</ul>
+			<ul slot="b-slot">
+				<li>5</li>
+				<li>6</li>
+				<li>7</li>
+				<li>8</li>
+			</ul>
+		</aaa>
+	</div>
+	<template id="aaa">
+		<h1>xxxxxxxxxxxx</h1>
+		<slot name="a-slot">这默认情况</slot>
+		<p>Welcome Vue</p>
+		<slot name="b-slot">这默认情况</slot>
+	</template>
+	<script>
+		var vm = new Vue({
+			el: '#box',
+			data: {
+				a: 'aaa'
+			},
+			components:{
+				'aaa':{
+					template:'#aaa'
+				}
+			}
+		})
+	</script>
+</body>
+</html>

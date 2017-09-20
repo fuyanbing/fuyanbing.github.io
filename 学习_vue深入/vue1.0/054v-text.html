@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Vue深入学习</title>
+	<script src="../js/vue.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+	<div id="box">
+		<span> {{msg}} </span><br /><br />
+		<span v-text="msg"></span>
+	</div>
+	<script>
+		var vm = new Vue({
+			el:"#box",
+			data:{
+				msg:'v-text(推荐)=v-cloak={{msg}}防止闪烁, 比较大段落'
+			}
+		});
+	</script>
+</body>
+</html>
