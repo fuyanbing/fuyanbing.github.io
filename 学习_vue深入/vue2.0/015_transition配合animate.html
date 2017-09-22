@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>动画transition</title>
+	<link rel="stylesheet" type="text/css" href="../css/animate.css"/>
+	<script src="../js/vue2.4.js" charset="utf-8"></script>
+	<style type="text/css">
+		p{
+			width: 100px;
+			height: 100px;
+			margin: 0 auto;
+			background: red;
+		}
+	</style>
+	<script>
+		window.onload=function () {
+			new Vue({
+					el:"#box",
+					data:{
+						show:false
+					}
+				})
+		}
+	</script>
+</head>
+<body> 
+	<div id="box">
+		<input type="button" value="点击显示隐藏" @click="show=!show" />
+		
+		<transition enter-active-class="bounceInLeft" leave-active-class="bounceOutRight">
+			<p v-show="show" class="animated"></p>
+		</transition>
+	</div>
+</body>
+</html>

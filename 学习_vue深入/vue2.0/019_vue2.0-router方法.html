@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Vue2.0</title>
+	<link rel="stylesheet" type="text/css" href="../css/animate.css"/>
+	<script src="../js/vue2.4.js" charset="utf-8"></script>
+	<script src="../js/vue-router2.7.js" charset="utf-8"></script>
+</head>
+<body> 
+	<div id="box">
+		<input type="button" value="添加一个路由" @click="push">
+        <input type="button" value="替换一个路由" @click="replace"><br />
+        <span style="color: red;font-size: 12px;">注意: 观察浏览器前进后退，push是向浏览器添加一个历史记录，replace是无刷新替换当前</span>
+		<div>
+			<router-link to="/home">主页</router-link>
+			<router-link to="/user">用户</router-link>
+		</div>
+		<div>
+			<router-view></router-view>
+		</div>
+	</div>
+	<script>
+		//组件
+		var Home={
+			template:'<h3>我是主页</h3>'
+		};
+		var User={
+			template:`
+				<div>
+					<h3>我是用户信息</h3>
+					<ul>
+						<li><router-link to="/user/strive/age/10">Strive</router-link></li>
+						<li><router-link to="/user/blue/age/30">Blue</router-link></li>
+						<li><router-link to="/user/eric/age/43">Eric</router-link></li>
+					</ul>
+					<div>
+						<router-view></router-view>
+					</div>
+				</div>
+			`
+		};
+		var UserDetail={
+			template:'<div>{{$route.params}}</div>'
+		}
+		
+		//配置路由
+		const routes=[
+			{path:'/home',component:Home},
+			{
+				path:'/user',
+				component:User,
+				children:[
+					{path:':username/age/:age',component:UserDetail}
+				]
+			},
+			{path:'*',redirect:'/home'}
+		]
+		
+		//生成路由实例
+		const router=new VueRouter({routes});
+		
+		//挂载到vue上
+		new Vue({
+			router,
+			methods:{
+				push(){
+					router.push({path:'home'})
+				},
+				replace(){
+					router.replace({path:'user'})
+				}
+			}
+		}).$mount('#box');
+	</script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<script src="../js/vue2.4.js" type="text/javascript" charset="utf-8"></script>
+	<script>
+		var Home={//这是2.0组件
+			template:'#aaa'
+		};//Vue.extend()
+		
+		//Vue.component('my-aaa',Home);
+		
+		window.onload=function () {
+			new Vue({
+				el:"#box",
+				data:{
+					msg:"哈哈 Vue2.0"
+				},
+				components:{
+					'my-aaa':Home
+				}
+			})
+		}
+	</script>
+	<title>VUE2.0</title>
+</head>
+<body> 
+	<template id="aaa">
+		<div>
+			<h3>我是组件</h3>
+			<strong>我是加粗标签</strong>
+		</div>
+	</template>
+	<h2 id="box">
+		{{msg}}
+		<my-aaa></my-aaa>
+	</h2>
+</body>
+</html>

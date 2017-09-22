@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<script src="../js/vue2.4.js" type="text/javascript" charset="utf-8"></script>
+	<script>
+		window.onload=function () {
+			Vue.filter("toDou",function (n,a,b) {
+				//alert(n)
+				//alert(a+','+b);
+				return n<10?'0'+n:''+n;
+			})
+			new Vue({
+				el:"#box",
+				data:{
+					msg:3
+				}
+			})
+		}
+	</script>
+	<title>VUE2.0</title>
+</head>
+<body> 
+	<div id="box">
+		{{msg | toDou('12',5)}}
+	</div>
+</body>
+</html>

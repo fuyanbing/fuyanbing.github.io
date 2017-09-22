@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<script src="../js/vue2.4.js" type="text/javascript" charset="utf-8"></script>
+	<script>
+		/*document.onkeydown=function (ev) {
+			console.log(ev.keyCode);
+		}*/
+		window.onload=function () {
+			//Vue.directive('on').keyCodes.ctrl=17;内置按键符号
+			Vue.config.keyCodes.a=65;
+			
+			new Vue({
+				el:"#box",
+				data:{
+				},
+				methods:{
+					change(){
+						alert('改变了');
+					}
+				}
+			})
+		}
+	</script>
+	<title>VUE2.0</title>
+</head>
+<body> 
+	<div id="box">
+		<input type="text" @keyup.a="change" />
+	</div>
+</body>
+</html>
