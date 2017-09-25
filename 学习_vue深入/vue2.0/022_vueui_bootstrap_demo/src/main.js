@@ -6,7 +6,6 @@ import './bower_components/bootstrap/dist/css/bootstrap.min.css'
 import './custom.css'
 
 //引入bootstrap依赖js
-/*import './bower_components/jquery/dist/jquery.min.js'*/
 import './bower_components/bootstrap/dist/js/bootstrap.min.js'
 
 require('./jqGreen.js');
