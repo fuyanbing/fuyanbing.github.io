@@ -1,4 +1,4 @@
-# custom-global-component
+# vue_mydemo
 
 > A Vue.js project
 
