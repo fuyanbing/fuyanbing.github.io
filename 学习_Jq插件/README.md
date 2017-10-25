@@ -7,6 +7,5 @@
 
 ### github访问地址 [demo](http://htmlpreview.github.io/?https://github.com/fuyanbing/fuyanbing.github.io/blob/master/%E5%AD%A6%E4%B9%A0_Jq%E6%8F%92%E4%BB%B6/index.html)
 
-
 <h2>帅的一塌糊涂的小相册^_^</h2>
-### 七牛访问地址 [demo](http://ogd8du8tr.bkt.clouddn.com/laopo/index.html#)
+### 七牛访问地址 [demo](http://ogd8du8tr.bkt.clouddn.com/laopo/index02.html)
