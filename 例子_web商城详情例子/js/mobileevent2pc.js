@@ -79,9 +79,16 @@
                 var changedTouches = [];
 
                 var _event = document.createEvent('MouseEvents');
-                _event.initMouseEvent(reversalEvent[e.type] || e.type, bubbles, cancelable, view, 1,
+                /*_event.initMouseEvent(reversalEvent[e.type] || e.type, bubbles, cancelable, view, 1,
                     0, 0, clientX, clientY, ctrlKey, altKey, shiftKey, metaKey,
-                    touches, targetTouches, changedTouches, scale, rotation, relatedTarget);
+                    touches, targetTouches, changedTouches, scale, rotation, relatedTarget);/*/
+				//修改调试付延兵
+				/*_event.initMouseEvent(reversalEvent[e.type] || e.type, bubbles, cancelable, view, 1,
+                    0, 0, clientX, clientY, ctrlKey, altKey, shiftKey, metaKey,
+                    touches, targetTouches, changedTouches, scale, rotation, relatedTarget);*/
+					
+				/*_event.initMouseEvent("click", true, true, window, 0, 0, 0, 80, 20, false, false, false, false, 0, null);*/
+				_event.initMouseEvent(reversalEvent[e.type] || e.type, true, true, window, 0, 0, 0, 80, 20, false, false, false, false, 0, null);
                 _event.touches = [e];
 
                 switch( e.type ){
