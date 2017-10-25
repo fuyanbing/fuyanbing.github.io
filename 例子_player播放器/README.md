@@ -8,4 +8,6 @@
 
 #github访问地址 [demo](http://htmlpreview.github.io/?https://github.com/fuyanbing/fuyanbing.github.io/blob/master/%E4%BE%8B%E5%AD%90_player%E6%92%AD%E6%94%BE%E5%99%A8/player.html)
 
+<span style="color:red;">注：本例中可支持播放完自动播放下一曲或点击播放下一曲，但由于国外服务器可能访问比较卡等因素无法查看此效果，请移步第二个地址\<span>
+
 For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
