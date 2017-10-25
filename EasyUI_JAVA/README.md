@@ -1,1 +1,1 @@
-#这是一个EasyUI——JAVA项目
+这是一个EasyUI——JAVA项目
