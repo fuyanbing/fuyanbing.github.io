@@ -3,7 +3,7 @@
 >这是一款自己写的音乐播放器
 
 <h2>运行截图</h2>
-<p style="width:20%;"><img src="https://github.com/fuyanbing/fuyanbing.github.io/blob/master/%E4%BE%8B%E5%AD%90_player%E6%92%AD%E6%94%BE%E5%99%A8/music01.png" alt="首页" style="width:80% !important;"></p>
+<div style="width:40%;"><img src="https://github.com/fuyanbing/fuyanbing.github.io/blob/master/%E4%BE%8B%E5%AD%90_player%E6%92%AD%E6%94%BE%E5%99%A8/music01.png" alt="首页" style="width:80% !important;"></div>
 <h2>线上访问</h2>
 
 ## github访问地址 [demo](http://htmlpreview.github.io/?https://github.com/fuyanbing/fuyanbing.github.io/blob/master/%E4%BE%8B%E5%AD%90_player%E6%92%AD%E6%94%BE%E5%99%A8/player.html)
