@@ -1,6 +1,6 @@
 # vue_mydemo
 
-> A Vue.js project
+>这是一款自己写的音乐播放器
 
 ## Build Setup
 
