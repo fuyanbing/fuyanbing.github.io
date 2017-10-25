@@ -1,0 +1,16 @@
+.panel{
+	margin:0 auto;
+}
+.combobox-item-hover{
+	background:blue;
+	color:#ffffff;
+}
+#lay{
+	margin:0 auto !important;
+}
+#mysearch{
+	padding:20px;
+}
+#myform{
+	padding:15px
+}

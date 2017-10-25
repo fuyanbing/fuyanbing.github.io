@@ -1,14 +1,13 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<title>Animate.css</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="initial-scale=1, minimal-ui" />
-	<link rel="dns-prefetch" href="//fonts.googleapis.com" />
-	<link rel="dns-prefetch" href="//code.jquery.com" />
-	<link href='//fonts.googleapis.com/css?family=Roboto:400,100,400italic,700italic,700' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" href="css/animate.min.css" />
-	<link rel="stylesheet" href="css/style.css" /> </head>
+	
+	<link rel="stylesheet" href="animate.min.css" />
+	<link rel="stylesheet" href="style.css" /> </head>
 <body>
 	<header class="site__header island">
 		<div class="wrap">
@@ -144,8 +143,15 @@
 			</form>
 		</div>
 	</main>
+	<section>
+		<code>1,在head引入animate.min.css和jquery.min.js</code><br/>
+		<code>2,使用
+		$("#myDiv").click(function () {
+			$(this).addClass('animated bounceOutLeft');
+		})</code>
+	</section>	
 	<!-- /.site__content -->
-	<script src="js/jquery-1.10.2.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="jquery-1.10.2.min.js" type="text/javascript" charset="utf-8"></script>
 	<script>
 		function testAnim(x) {
 			$('#animationSandbox').removeClass().addClass(x + ' animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
