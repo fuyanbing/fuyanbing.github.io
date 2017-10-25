@@ -10,4 +10,4 @@
 
 *注：本例中可支持播放完自动播放下一曲或点击播放下一曲，但由于国外服务器可能访问比较卡等因素无法查看此效果，请移步第二个地址
 
-## 七牛访问地址 [demo](http://ogd8du8tr.bkt.clouddn.com/player/player3.html)
+## 七牛访问地址 [demo](http://ogd8du8tr.bkt.clouddn.com/player/player.html)
