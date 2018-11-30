@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="./iconfont.css">
+		<title></title>
+		<style type="text/css">
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			body {
+				width: 100%;
+				height: 100%;
+				box-sizing: border-box;
+				overflow: hidden;
+			}
+			canvas {
+				display: block;
+				background: #f2f2f2;
+				position: relative;
+			}
+			.topDiv {
+				height: 50px;
+				width: 100%;
+				background-color: #e5e5e5;
+				box-sizing: border-box;
+				padding-top: 10px;
+			}
+			ul, li {
+				list-style: none;
+			}
+			.icon_lists {
+				display: flex;
+			}
+			.icon_lists li {
+				flex: 1;
+				text-align: center;
+				position: relative;
+				width: 0;
+			}
+			.myColor input {
+				position: absolute;
+				display: block;
+				top: 0;
+				height: 100%;
+				width: 100%;
+				opacity: 0;
+			}
+			.rangeChoose {
+				flex: 2 !important;
+			}
+			.rangeChoose input {
+				width: 60%;
+				margin-right: 5%;
+				position: relative;
+				top: 5px;
+			}
+			.active i {
+				border: 1px solid #dcdcdc;
+				border-radius: 5px;
+				background-color: #f9f9f9;
+				box-shadow: inset 0px 0px 0px -50px #ffffff;
+			}
+		</style>
+	</head>
+
+	<body style="overflow:hidden">
+		<div class="topDiv">
+			<ul class="icon_lists clear">
+				<li class="myColor active">
+					<i class="icon iconfont icon-shiwu-huabi"></i>
+					<input id="color" type="color" />
+				</li>
+				<li class="rangeChoose">
+					<input type="range" id="range" min="1" max="21" value="1" step="5" /><span id="text">1</span>
+				</li>
+				<li id="xiangpica">
+					<i class="icon iconfont icon-iconfont_xiangpica"></i>
+				</li>
+				<li id="zhongzhi">
+					<i class="icon iconfont icon-zhongzhi"></i>
+				</li>
+			</ul>
+		</div>
+		<canvas id="canvas" width="100" height="400"></canvas>
+		<script type="text/javascript">
+			window.onload = window.onresize = function() {
+				//获取画板
+				var canvas = document.getElementById("canvas");
+				var color = document.getElementById("color");
+				var colorClass = document.getElementsByClassName("myColor")[0];
+				var huabi = document.getElementsByClassName("icon-shiwu-huabi")[0]
+				var iconJia = document.getElementById("iconJia");
+				var iconJian = document.getElementById("iconJian");
+				var range = document.getElementById("range");
+				var text = document.getElementById("text");
+				var xiangpica = document.getElementById("xiangpica");
+				var zhongzhi = document.getElementById("zhongzhi");
+
+				var gX = document.documentElement.clientWidth;
+				var gY = document.documentElement.clientHeight - 50;
+				canvas.setAttribute("width", gX)
+				canvas.setAttribute("height", gY)
+				//获取绘画环境
+				var cv = canvas.getContext('2d');
+				cv.lineJoin = "round"
+				cv.strokeStyle = "#000000"
+				cv.lineWidth = 1;
+				canvas.addEventListener('mousedown', function(event) { //触摸点按下事件
+					event.preventDefault();
+					var ev = window.event || event;
+					//获取鼠标的位置
+					var mouseX = ev.layerX || ev.offsetX;
+					var mouseY = ev.layerY || ev.offsetY;
+					cv.beginPath()
+					cv.moveTo(mouseX, mouseY);
+					canvas.addEventListener('mousemove',mousemoveFn, false)
+				}, false)
+				canvas.addEventListener('mouseup', function(event) { //手机拖动触摸点事件
+					event.preventDefault();
+					canvas.removeEventListener("mousemove", mousemoveFn,false);
+					cv.closePath()
+				}, false)
+				function mousemoveFn(event) {
+					event.preventDefault();
+					var eM = window.event || event;
+					var newX = eM.layerX || eM.offsetX;
+					var newY = eM.layerY || eM.offsetY;
+					cv.lineTo(newX, newY);
+					cv.stroke();
+				}
+				canvas.addEventListener('touchstart', function(event) { //触摸点按下事件
+					event.preventDefault();
+					if(event.targetTouches.length == 1) {
+						var touch = event.targetTouches[0];
+						cv.beginPath();
+						cv.moveTo(touch.clientX - canvas.offsetLeft, touch.clientY - canvas.offsetTop);
+						canvas.addEventListener('touchmove', function(event) { //手机拖动触摸点事件
+							event.preventDefault();
+							var touche = event.targetTouches[0];
+							cv.lineTo(touche.clientX - canvas.offsetLeft, touche.clientY - canvas.offsetTop);
+							cv.stroke();
+						}, false)
+						canvas.addEventListener('touchend', function(event) { //手机离开屏幕的事件
+							event.preventDefault();
+							cv.closePath();
+						}, false)
+					}
+				}, false)
+				color.onchange = function() {
+					cv.strokeStyle = this.value;
+					huabi.style.color = this.value;
+					colorClass.classList.add("active");
+					xiangpica.classList.remove("active")
+				}
+				range.onchange = function() {
+					cv.lineWidth = this.value;
+					text.innerHTML = this.value;
+				}
+				xiangpica.onclick = function() {
+					this.classList.add("active");
+					colorClass.classList.remove("active")
+					cv.strokeStyle = '#f2f2f2';
+				}
+				zhongzhi.onclick = function() {
+					cv.clearRect(0, 0, gX, gY);
+				}
+			}
+		</script>
+	</body>
+
+</html>
